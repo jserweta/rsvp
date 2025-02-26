@@ -3,6 +3,7 @@ import {
   fetchGroupNeedAccommodation,
   fetchMenuKinds,
 } from "@/lib/data";
+import { Button, HStack } from "@chakra-ui/react";
 
 type SearchParams = {
   groupId?: string;
@@ -33,7 +34,7 @@ export default async function Page({
 
   return (
     <main>
-      <h1>Group Members: </h1>
+      <h1 className="text-5xl">Group Members: </h1>
       {groupMembers.status === "fulfilled" && groupMembers.value.length > 0 ? (
         <ul>
           {groupMembers.value.map((item, index) => (
@@ -57,6 +58,11 @@ export default async function Page({
       )}
 
       {needAccommodation && <p>Potrzebne zakwaterowanie!</p>}
+
+      <HStack>
+        <Button size="xs">Click me</Button>
+        <Button>Click me</Button>
+      </HStack>
     </main>
   );
 }
