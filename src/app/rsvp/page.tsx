@@ -10,7 +10,7 @@ type SearchParams = {
 export default async function Page({
   searchParams,
 }: {
-  searchParams: SearchParams;
+  searchParams: Promise<SearchParams>;
 }) {
   const { groupId } = await searchParams;
 
