@@ -1,29 +1,34 @@
 "use server";
 
 import { connectNeonDB } from "@/db/neon";
+import { Group } from "@/types/group";
+import { Person } from "@/types/person";
 
 const sql = await connectNeonDB();
 
-export const fetchGroupMembers = async (
-  groupId: string
-): Promise<string[] | any> => {
-  const groupMembers =
-    await sql`select person.name, person.surname from public.person where group_id = ${groupId}`;
+export const fetchGroupMembers = async (groupId: string): Promise<Person[]> => {
+  const result =
+    await sql`select person.name, person.surname from public.person where person.group_id = ${groupId}`;
 
-  return groupMembers;
+  return result.map((row) => ({
+    name: row.name as string,
+    surname: row.surname as string,
+  }));
 };
 
-export const fetchGroupNeedAccommodation = async (
-  groupId: string
-): Promise<boolean | any> => {
-  const needAccommodation =
-    await sql`select group.need_accommodation from public.group where group_id = ${groupId}`;
+export const fetchGroupInfo = async (groupId: string): Promise<Group> => {
+  const result =
+    await sql`select need_accommodation, form_filled from public.group where group_id = ${groupId}`;
 
-  return needAccommodation;
+  return {
+    formFilled: result[0]?.form_filled,
+    needAccommodation: result[0]?.need_accommodation,
+  };
 };
 
-export const fetchMenuKinds = async (): Promise<string[] | any> => {
+export const fetchMenuKinds = async (): Promise<string[]> => {
   const result = await sql`SELECT enum_range(null::menu_kind)`;
+  const { enum_range: menuKinds } = result[0];
 
-  return result[0]?.enum_range.replace(/[{}]/g, "").split(",") || [];
+  return menuKinds.replace(/[{}]/g, "").split(",") || [];
 };

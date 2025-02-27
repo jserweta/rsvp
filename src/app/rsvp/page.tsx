@@ -1,15 +1,11 @@
-import {
-  fetchGroupMembers,
-  fetchGroupNeedAccommodation,
-  fetchMenuKinds,
-} from "@/lib/data";
-import { Button, HStack } from "@chakra-ui/react";
+import { Stepper } from "@/components/Stepper/Stepper";
+import { fetchGroupMembers, fetchGroupInfo, fetchMenuKinds } from "@/lib/data";
+import { Group } from "@/types/group";
+import { Person } from "@/types/person";
 
 type SearchParams = {
   groupId?: string;
 };
-
-type Person = { name: string; surname: string };
 
 export default async function Page({
   searchParams,
@@ -22,47 +18,35 @@ export default async function Page({
     return <p>Please provide a valid groupId in search parameters.</p>;
   }
 
-  const [groupMembers, needAccommodation, menuKinds]: [
-    PromiseSettledResult<Person[]>,
-    PromiseSettledResult<boolean>,
-    PromiseSettledResult<string[]>
-  ] = await Promise.allSettled([
-    fetchGroupMembers(groupId),
-    fetchGroupNeedAccommodation(groupId),
-    fetchMenuKinds(),
-  ]);
+  const [groupMembers, groupInfo, menuKinds]: [Person[], Group, string[]] =
+    await Promise.all([
+      fetchGroupMembers(groupId),
+      fetchGroupInfo(groupId),
+      fetchMenuKinds(),
+    ]).catch((error) => {
+      console.error(`Failed to fetch data for group ${groupId}: `, error);
+      throw new Error(error);
+    });
+
+  if (groupMembers.length === 0) {
+    return (
+      <main className="flex flex-wrap items-center justify-center w-100 h-dvh">
+        <p>Invalid groupId!</p>
+      </main>
+    );
+  }
 
   return (
-    <main>
-      <h1 className="text-5xl">Group Members: </h1>
-      {groupMembers.status === "fulfilled" && groupMembers.value.length > 0 ? (
-        <ul>
-          {groupMembers.value.map((item, index) => (
-            <li key={index}>
-              {item.name} {item.surname}
-            </li>
-          ))}
-        </ul>
+    <main className="flex flex-wrap items-center justify-center w-100 h-dvh">
+      {!groupInfo.formFilled ? (
+        <Stepper
+          groupMembers={groupMembers}
+          needAccommodation={groupInfo.needAccommodation}
+          menuKinds={menuKinds}
+        />
       ) : (
-        <p>No members found.</p>
+        <p>Formularz już został wypełniony!</p>
       )}
-
-      {menuKinds.status === "fulfilled" && menuKinds.value.length > 0 ? (
-        <ul>
-          {menuKinds.value.map((item, index) => (
-            <li key={index}>{item}</li>
-          ))}
-        </ul>
-      ) : (
-        <p>No menu Kinds found.</p>
-      )}
-
-      {needAccommodation && <p>Potrzebne zakwaterowanie!</p>}
-
-      <HStack>
-        <Button size="xs">Click me</Button>
-        <Button>Click me</Button>
-      </HStack>
     </main>
   );
 }
