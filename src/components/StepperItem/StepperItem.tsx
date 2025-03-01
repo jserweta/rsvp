@@ -1,5 +1,3 @@
-import { useState } from "react";
-import { Checkbox } from "../ui/checkbox";
 import {
   Select,
   SelectContent,
@@ -8,6 +6,15 @@ import {
   SelectValue,
 } from "../ui/select";
 import { Step } from "@stepperize/react";
+import { useFormContext } from "react-hook-form";
+import { z } from "zod";
+import {
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "../ui/form";
 
 export const StepperItem = ({
   needAccommodation,
@@ -18,54 +25,113 @@ export const StepperItem = ({
   menuKinds: string[];
   step: Step;
 }) => {
-  const [attendance, setAttendance] = useState<boolean>(false);
+  type AttendanceFormValues = z.infer<typeof step.schema>;
+
+  const { control, watch } = useFormContext<AttendanceFormValues>();
 
   return (
     <div className="grid gap-4">
-      <div className="flex gap-2 items-center">
-        <Checkbox
-          id={"attendance_" + step.id}
-          onCheckedChange={(checked) => setAttendance(Boolean(checked))}
-        />
-        <label
-          htmlFor={"attendance_" + step.id}
-          className="text-sm font-medium text-start"
-        >
-          Obecność
-        </label>
-      </div>
+      <FormField
+        control={control}
+        name={step.id + "_attendance"}
+        render={({ field }) => (
+          <FormItem className="flex flex-col">
+            <div className="flex gap-2 items-center">
+              <FormLabel className="text-sm font-medium text-start text-primary">
+                Wezmę udział w uroczystości
+              </FormLabel>
+              <FormControl>
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
+                  <SelectTrigger className="w-[110px]">
+                    <SelectValue placeholder="Wybierz" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem key="no-0" value={"no"}>
+                      Nie
+                    </SelectItem>
+                    <SelectItem key="yes-1" value={"yes"}>
+                      Tak
+                    </SelectItem>
+                  </SelectContent>
+                </Select>
+              </FormControl>
+            </div>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
 
-      <div className="grid gap-2">
-        <label
-          htmlFor={"menuKind_" + step.id}
-          className="text-sm font-medium text-start"
-        >
-          Rodzaj menu
-        </label>
-        <Select disabled={!attendance}>
-          <SelectTrigger className="w-[200px]">
-            <SelectValue placeholder="Wybierz rodzaj menu" />
-          </SelectTrigger>
-          <SelectContent>
-            {menuKinds &&
-              menuKinds.map((item, index) => (
-                <SelectItem key={index} value={item}>
-                  {item}
-                </SelectItem>
-              ))}
-          </SelectContent>
-        </Select>
-      </div>
+      <FormField
+        control={control}
+        name={step.id + "_menuKind"}
+        render={({ field }) => (
+          <FormItem className="flex flex-col">
+            <div className="flex gap-2 items-center">
+              <FormLabel className="text-sm font-medium text-start text-primary">
+                Wybierz rodzaj menu
+              </FormLabel>
+              <FormControl>
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                  disabled={watch(step.id + "_attendance") !== "yes"}
+                >
+                  <SelectTrigger className="w-[200px]">
+                    <SelectValue placeholder="Wybierz rodzaj menu" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {menuKinds &&
+                      menuKinds.map((item, index) => (
+                        <SelectItem key={index} value={item}>
+                          {item}
+                        </SelectItem>
+                      ))}
+                  </SelectContent>
+                </Select>
+              </FormControl>
+            </div>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+
       {needAccommodation && (
-        <div className="flex gap-2 items-center">
-          <Checkbox id={"accommodation_" + step.id} disabled={!attendance} />
-          <label
-            htmlFor={"accommodation_" + step.id}
-            className="text-sm font-medium text-start"
-          >
-            Nocleg
-          </label>
-        </div>
+        <FormField
+          control={control}
+          name={step.id + "_accommodation"}
+          render={({ field }) => (
+            <FormItem className="flex flex-col">
+              <div className="flex gap-2 items-center">
+                <FormLabel className="text-sm font-medium text-start text-primary">
+                  Będę potrzebować noclegu
+                </FormLabel>
+                <FormControl>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                    disabled={watch(step.id + "_attendance") !== "yes"}
+                  >
+                    <SelectTrigger className="w-[110px]">
+                      <SelectValue placeholder="Wybierz" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem key="no-0" value={"no"}>
+                        Nie
+                      </SelectItem>
+                      <SelectItem key="yes-1" value={"yes"}>
+                        Tak
+                      </SelectItem>
+                    </SelectContent>
+                  </Select>
+                </FormControl>
+              </div>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
       )}
     </div>
   );

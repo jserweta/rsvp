@@ -1,1 +1,1 @@
-export type Person = { name: string; surname: string };
+export type Person = { personId: string; name: string; surname: string };
