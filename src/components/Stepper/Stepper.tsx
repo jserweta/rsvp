@@ -156,15 +156,6 @@ export const Stepper = ({
           />
 
           <div className="flex justify-end gap-4">
-            {stepper.isLast && (
-              <Button
-                className="me-auto"
-                variant="secondary"
-                onClick={stepper.reset}
-              >
-                Zresetuj
-              </Button>
-            )}
             <Button
               variant="secondary"
               onClick={stepper.prev}
