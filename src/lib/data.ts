@@ -11,9 +11,9 @@ export const fetchGroupMembers = async (groupId: string): Promise<Person[]> => {
     await sql`select person.person_id, person.name, person.surname from public.person where person.group_id = ${groupId}`;
 
   return result.map((row) => ({
-    personId: row.person_id as string,
-    name: row.name as string,
-    surname: row.surname as string,
+    personId: row.person_id.trim() as string,
+    name: row.name.trim() as string,
+    surname: row.surname.trim() as string,
   }));
 };
 

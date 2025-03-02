@@ -4,7 +4,7 @@ import { defineStepper, Step } from "@stepperize/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Button } from "../ui/button";
-import React from "react";
+import React, { useEffect } from "react";
 import { Separator } from "../ui/separator";
 import { StepperItem } from "../StepperItem/StepperItem";
 import { Person } from "@/types/person";
@@ -20,7 +20,7 @@ export const Stepper = ({
   needAccommodation: boolean;
   menuKinds: string[];
 }) => {
-  const generateSchemaForMember = (personId: string) => {
+  const generateSchemaForMember = (personId: string, isCompanion: boolean) => {
     return z
       .object({
         [`${personId}_attendance`]: z.enum(["yes", "no"], {
@@ -29,6 +29,10 @@ export const Stepper = ({
         }),
         [`${personId}_menuKind`]: z.string().optional(),
         [`${personId}_accommodation`]: z.string().optional(),
+        ...(isCompanion && {
+          [`${personId}_name`]: z.string().optional(),
+          [`${personId}_surname`]: z.string().optional(),
+        }),
       })
       .refine(
         (data) => {
@@ -66,12 +70,16 @@ export const Stepper = ({
   const formSteps: Step[] = groupMembers.map((item) => ({
     id: item.personId,
     title: `${item.name} ${item.surname}`,
-    schema: generateSchemaForMember(item.personId),
+    schema: generateSchemaForMember(
+      item.personId,
+      item.name.includes("towarzysząca")
+    ),
   }));
 
   const { useStepper, steps, utils } = defineStepper(...formSteps);
 
   const stepper = useStepper();
+
   const form = useForm({
     mode: "onTouched",
     resolver: zodResolver(stepper.current.schema),
@@ -158,7 +166,11 @@ export const Stepper = ({
           <div className="flex justify-end gap-4">
             <Button
               variant="secondary"
-              onClick={stepper.prev}
+              onClick={async () => {
+                const valid = await form.trigger();
+                if (!valid) return;
+                stepper.prev;
+              }}
               disabled={stepper.isFirst}
             >
               Wróć

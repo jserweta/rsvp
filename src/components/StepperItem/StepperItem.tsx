@@ -15,6 +15,8 @@ import {
   FormLabel,
   FormMessage,
 } from "../ui/form";
+import { Label } from "../ui/label";
+import { Input } from "../ui/input";
 
 export const StepperItem = ({
   needAccommodation,
@@ -132,6 +134,54 @@ export const StepperItem = ({
             </FormItem>
           )}
         />
+      )}
+
+      {step.title.includes("towarzysząca") && (
+        <div
+          className={watch(step.id + "_attendance") !== "yes" ? "hidden" : ""}
+        >
+          <Label className="mt-[20px]">
+            Jeśli wiesz kto będzie twoją osobą towarzysząca podaj jej Imię i
+            nazwisko:
+          </Label>
+
+          <div className="flex flex-row flex-wrap gap-2">
+            <FormField
+              control={control}
+              name={step.id + "_name"}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Imię</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="Imię"
+                      {...field}
+                      value={field.value ?? ""}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={control}
+              name={step.id + "_surname"}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Nazwisko</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="Nazwisko"
+                      {...field}
+                      value={field.value ?? ""}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+        </div>
       )}
     </div>
   );
