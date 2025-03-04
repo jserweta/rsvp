@@ -2,11 +2,13 @@
 
 import { connectNeonDB } from "@/db/neon";
 import { Group } from "@/types/group";
-import { Person } from "@/types/person";
+import { Person, PersonIdentity } from "@/types/person";
 
 const sql = await connectNeonDB();
 
-export const fetchGroupMembers = async (groupId: string): Promise<Person[]> => {
+export const fetchGroupMembers = async (
+  groupId: string
+): Promise<PersonIdentity[]> => {
   const result =
     await sql`select person.person_id, person.name, person.surname from public.person where person.group_id = ${groupId}`;
 
@@ -32,4 +34,30 @@ export const fetchMenuKinds = async (): Promise<string[]> => {
   const { enum_range: menuKinds } = result[0];
 
   return menuKinds.replace(/[{}]/g, "").split(",") || [];
+};
+
+export const submitFormDataToDb = async (
+  formValues: Record<string, string>
+) => {
+  const groupedData = Object.entries(formValues).reduce((acc, [key, value]) => {
+    const [personId, field] = key.split("_", 2);
+    acc[personId] = acc[personId] || { personId };
+    acc[personId][field === "menuKind" ? "menu_kind" : field] = value;
+    return acc;
+  }, {} as Record<string, any>);
+
+  const queries = Object.values(groupedData).map(({ personId, ...fields }) => {
+    const updates = Object.entries(fields)
+      .map(([key, val]) => `${key} = '${val}'`)
+      .join(", ");
+
+    return sql(`UPDATE person SET ${updates} WHERE person_id = '${personId}'`);
+  });
+
+  try {
+    await sql.transaction(queries);
+    console.log("Data successfully updated in the database");
+  } catch (error) {
+    console.error("Error updating data in the database:", error);
+  }
 };

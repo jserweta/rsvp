@@ -1,7 +1,7 @@
 import { Stepper } from "@/components/Stepper/Stepper";
 import { fetchGroupMembers, fetchGroupInfo, fetchMenuKinds } from "@/lib/data";
 import { Group } from "@/types/group";
-import { Person } from "@/types/person";
+import { PersonIdentity } from "@/types/person";
 
 type SearchParams = {
   groupId?: string;
@@ -18,15 +18,18 @@ export default async function Page({
     return <p>Please provide a valid groupId in search parameters.</p>;
   }
 
-  const [groupMembers, groupInfo, menuKinds]: [Person[], Group, string[]] =
-    await Promise.all([
-      fetchGroupMembers(groupId),
-      fetchGroupInfo(groupId),
-      fetchMenuKinds(),
-    ]).catch((error) => {
-      console.error(`Failed to fetch data for group ${groupId}: `, error);
-      throw new Error(error);
-    });
+  const [groupMembers, groupInfo, menuKinds]: [
+    PersonIdentity[],
+    Group,
+    string[]
+  ] = await Promise.all([
+    fetchGroupMembers(groupId),
+    fetchGroupInfo(groupId),
+    fetchMenuKinds(),
+  ]).catch((error) => {
+    console.error(`Failed to fetch data for group ${groupId}: `, error);
+    throw new Error(error);
+  });
 
   if (groupMembers.length === 0) {
     return (

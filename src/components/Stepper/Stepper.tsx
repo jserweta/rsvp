@@ -4,91 +4,52 @@ import { defineStepper, Step } from "@stepperize/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Button } from "../ui/button";
-import React, { useEffect } from "react";
+import React from "react";
 import { Separator } from "../ui/separator";
 import { StepperItem } from "../StepperItem/StepperItem";
-import { Person } from "@/types/person";
+import { PersonIdentity } from "@/types/person";
 import { z } from "zod";
 import { Form } from "../ui/form";
+import { generateSchemaForMember } from "@/lib/schema";
+import { submitFormDataToDb } from "@/lib/data";
 
 export const Stepper = ({
   groupMembers,
   needAccommodation,
   menuKinds,
 }: {
-  groupMembers: Person[];
+  groupMembers: PersonIdentity[];
   needAccommodation: boolean;
   menuKinds: string[];
 }) => {
-  const generateSchemaForMember = (personId: string, isCompanion: boolean) => {
-    return z
-      .object({
-        [`${personId}_attendance`]: z.enum(["yes", "no"], {
-          required_error: "Będziesz obecny?",
-          invalid_type_error: "Będziesz obecny?",
-        }),
-        [`${personId}_menuKind`]: z.string().optional(),
-        [`${personId}_accommodation`]: z.string().optional(),
-        ...(isCompanion && {
-          [`${personId}_name`]: z.string().optional(),
-          [`${personId}_surname`]: z.string().optional(),
-        }),
-      })
-      .refine(
-        (data) => {
-          if (data[`${personId}_attendance`] === "yes") {
-            return (
-              data[`${personId}_menuKind`] &&
-              menuKinds.includes(data[`${personId}_menuKind`]!)
-            );
-          }
-          return true;
-        },
-        {
-          message: "Wybierz rodzaj menu.",
-          path: [`${personId}_menuKind`],
-        }
-      )
-      .refine(
-        (data) => {
-          if (data[`${personId}_attendance`] === "yes") {
-            return (
-              data[`${personId}_accommodation`] &&
-              personId &&
-              ["yes", "no"].includes(data[`${personId}_accommodation`]!)
-            );
-          }
-          return true;
-        },
-        {
-          message: "Zdecyduj, czy potrzebujesz nocleg.",
-          path: [`${personId}_accommodation`],
-        }
-      );
-  };
-
   const formSteps: Step[] = groupMembers.map((item) => ({
     id: item.personId,
     title: `${item.name} ${item.surname}`,
     schema: generateSchemaForMember(
       item.personId,
-      item.name.includes("towarzysząca")
+      item.name.includes("towarzysząca"),
+      menuKinds
     ),
   }));
 
   const { useStepper, steps, utils } = defineStepper(...formSteps);
-
   const stepper = useStepper();
 
-  const form = useForm({
+  const attendanceFormCurrentStepSchema = stepper.current.schema;
+  type AttendanceFormCurrentStepSchema = z.infer<
+    typeof attendanceFormCurrentStepSchema
+  >;
+  const form = useForm<AttendanceFormCurrentStepSchema>({
     mode: "onTouched",
-    resolver: zodResolver(stepper.current.schema),
+    resolver: zodResolver(attendanceFormCurrentStepSchema),
   });
 
-  const onSubmit = (values: z.infer<typeof stepper.current.schema>) => {
-    console.log(`Form values for step ${stepper.current.id}:`, values);
+  const onSubmit = (data: AttendanceFormCurrentStepSchema) => {
+    console.log(`Form values for step ${stepper.current.id}:`, data);
     if (stepper.isLast) {
+      submitFormDataToDb(form.getValues());
       stepper.reset();
+      form.reset();
     } else {
       stepper.next();
     }

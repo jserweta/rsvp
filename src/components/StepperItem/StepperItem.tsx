@@ -27,9 +27,9 @@ export const StepperItem = ({
   menuKinds: string[];
   step: Step;
 }) => {
-  type AttendanceFormValues = z.infer<typeof step.schema>;
+  type AttendanceFormCurrentStepSchema = z.infer<typeof step.schema>;
 
-  const { control, watch } = useFormContext<AttendanceFormValues>();
+  const { control, watch } = useFormContext<AttendanceFormCurrentStepSchema>();
 
   return (
     <div className="grid gap-4">
