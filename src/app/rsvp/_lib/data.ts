@@ -1,8 +1,8 @@
 "use server";
 
 import { connectNeonDB } from "@/db/neon";
-import { Group } from "@/app/rsvp/types/group";
-import { Person, PersonIdentity } from "@/app/rsvp/types/person";
+import { Group } from "@/app/rsvp/_types/group";
+import { Person, PersonIdentity } from "@/app/rsvp/_types/person";
 
 const sql = await connectNeonDB();
 

@@ -6,11 +6,11 @@ import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import React from "react";
 import { Separator } from "@/components/ui/separator";
-import { PersonIdentity } from "@/app/rsvp/types/person";
+import { PersonIdentity } from "@/app/rsvp/_types/person";
 import { z } from "zod";
 import { Form } from "@/components/ui/form";
-import { generateSchemaForMember } from "@/app/rsvp/lib/schema";
-import { submitFormDataToDb } from "@/app/rsvp/lib/data";
+import { generateSchemaForMember } from "@/app/rsvp/_lib/schema";
+import { submitFormDataToDb } from "@/app/rsvp/_lib/data";
 import { toast } from "sonner";
 import { StepperItem } from "./stepperItem";
 

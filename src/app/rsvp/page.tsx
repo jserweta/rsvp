@@ -3,10 +3,10 @@ import {
   fetchGroupMembers,
   fetchGroupInfo,
   fetchMenuKinds,
-} from "@/app/rsvp/lib/data";
-import { Group } from "@/app/rsvp/types/group";
-import { PersonIdentity } from "@/app/rsvp/types/person";
-import { Stepper } from "./components/stepper";
+} from "@/app/rsvp/_lib/data";
+import { Group } from "@/app/rsvp/_types/group";
+import { PersonIdentity } from "@/app/rsvp/_types/person";
+import { Stepper } from "./_components/stepper";
 
 type SearchParams = {
   groupId?: string;
