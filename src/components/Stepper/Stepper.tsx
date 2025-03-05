@@ -130,7 +130,7 @@ export const Stepper = ({
               onClick={async () => {
                 const valid = await form.trigger();
                 if (!valid) return;
-                stepper.prev;
+                stepper.prev();
               }}
               disabled={stepper.isFirst}
             >

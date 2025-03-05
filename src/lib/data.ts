@@ -42,9 +42,29 @@ export const submitFormDataToDb = async (
   const groupedData = Object.entries(formValues).reduce((acc, [key, value]) => {
     const [personId, field] = key.split("_", 2);
     acc[personId] = acc[personId] || { personId };
-    acc[personId][field === "menuKind" ? "menu_kind" : field] = value;
+
+    switch (field) {
+      case "attendance":
+        acc[personId].attendance = value;
+        break;
+      case "menuKind":
+        acc[personId].menu_kind = value;
+        break;
+      case "accommodation":
+        acc[personId].accommodation = value;
+        break;
+      case "name":
+        acc[personId].name = value;
+        break;
+      case "surname":
+        acc[personId].surname = value;
+        break;
+      default:
+        break;
+    }
+
     return acc;
-  }, {} as Record<string, any>);
+  }, {} as Record<string, Partial<Person>>);
 
   const queries = Object.values(groupedData).map(({ personId, ...fields }) => {
     const updates = Object.entries(fields)
@@ -56,8 +76,9 @@ export const submitFormDataToDb = async (
 
   try {
     await sql.transaction(queries);
-    console.log("Data successfully updated in the database");
+    console.log("Data successfully updated in the database.");
   } catch (error) {
     console.error("Error updating data in the database:", error);
+    throw new Error("Transaction failed, no updates were applied.");
   }
 };

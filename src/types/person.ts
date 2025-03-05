@@ -3,7 +3,7 @@ export type Person = {
   name?: string;
   surname?: string;
   attendance: string;
-  menuKind: string;
+  menu_kind: string;
   accommodation: string;
 };
 export type PersonIdentity = Required<
