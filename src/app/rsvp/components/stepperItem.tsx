@@ -4,7 +4,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "../ui/select";
+} from "@/components/ui/select";
 import { Step } from "@stepperize/react";
 import { useFormContext } from "react-hook-form";
 import { z } from "zod";
@@ -14,9 +14,9 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "../ui/form";
-import { Label } from "../ui/label";
-import { Input } from "../ui/input";
+} from "@/components/ui/form";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
 
 export const StepperItem = ({
   needAccommodation,

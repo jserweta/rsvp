@@ -1,8 +1,12 @@
-import { Stepper } from "@/components/Stepper/Stepper";
 import { Toaster } from "@/components/ui/sonner";
-import { fetchGroupMembers, fetchGroupInfo, fetchMenuKinds } from "@/lib/data";
-import { Group } from "@/types/group";
-import { PersonIdentity } from "@/types/person";
+import {
+  fetchGroupMembers,
+  fetchGroupInfo,
+  fetchMenuKinds,
+} from "@/app/rsvp/lib/data";
+import { Group } from "@/app/rsvp/types/group";
+import { PersonIdentity } from "@/app/rsvp/types/person";
+import { Stepper } from "./components/stepper";
 
 type SearchParams = {
   groupId?: string;
@@ -41,7 +45,7 @@ export default async function Page({
   }
 
   return (
-    <main className="flex flex-wrap items-center justify-center w-100 h-dvh">
+    <>
       {!groupInfo.formFilled ? (
         <Stepper
           groupMembers={groupMembers}
@@ -53,6 +57,6 @@ export default async function Page({
         <p>Formularz już został wypełniony!</p>
       )}
       <Toaster richColors />
-    </main>
+    </>
   );
 }

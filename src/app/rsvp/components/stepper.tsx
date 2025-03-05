@@ -3,16 +3,16 @@
 import { defineStepper, Step } from "@stepperize/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { Button } from "../ui/button";
+import { Button } from "@/components/ui/button";
 import React from "react";
-import { Separator } from "../ui/separator";
-import { StepperItem } from "../StepperItem/StepperItem";
-import { PersonIdentity } from "@/types/person";
+import { Separator } from "@/components/ui/separator";
+import { PersonIdentity } from "@/app/rsvp/types/person";
 import { z } from "zod";
-import { Form } from "../ui/form";
-import { generateSchemaForMember } from "@/lib/schema";
-import { submitFormDataToDb } from "@/lib/data";
+import { Form } from "@/components/ui/form";
+import { generateSchemaForMember } from "@/app/rsvp/lib/schema";
+import { submitFormDataToDb } from "@/app/rsvp/lib/data";
 import { toast } from "sonner";
+import { StepperItem } from "./stepperItem";
 
 export const Stepper = ({
   groupMembers,
@@ -34,9 +34,9 @@ export const Stepper = ({
       menuKinds
     ),
   }));
-
   const { useStepper, steps, utils } = defineStepper(...formSteps);
   const stepper = useStepper();
+  const currentIndex = utils.getIndex(stepper.current.id);
 
   const attendanceFormCurrentStepSchema = stepper.current.schema;
   type AttendanceFormCurrentStepSchema = z.infer<
@@ -66,8 +66,6 @@ export const Stepper = ({
       });
     }
   };
-
-  const currentIndex = utils.getIndex(stepper.current.id);
 
   return (
     <Form {...form}>
@@ -106,9 +104,7 @@ export const Stepper = ({
                     className="flex size-10 items-center justify-center rounded-full"
                     onClick={async () => {
                       const valid = await form.trigger();
-                      //must be validated
                       if (!valid) return;
-                      //can't skip steps forwards but can go back anywhere if validated
                       if (index - currentIndex > 1) return;
                       stepper.goTo(step.id);
                     }}
@@ -128,6 +124,7 @@ export const Stepper = ({
             ))}
           </ol>
         </nav>
+
         <div className="space-y-4">
           <StepperItem
             key={stepper.current.id}
