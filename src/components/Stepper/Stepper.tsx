@@ -12,15 +12,18 @@ import { z } from "zod";
 import { Form } from "../ui/form";
 import { generateSchemaForMember } from "@/lib/schema";
 import { submitFormDataToDb } from "@/lib/data";
+import { toast } from "sonner";
 
 export const Stepper = ({
   groupMembers,
   needAccommodation,
   menuKinds,
+  groupId,
 }: {
   groupMembers: PersonIdentity[];
   needAccommodation: boolean;
   menuKinds: string[];
+  groupId: string;
 }) => {
   const formSteps: Step[] = groupMembers.map((item) => ({
     id: item.personId,
@@ -44,14 +47,23 @@ export const Stepper = ({
     resolver: zodResolver(attendanceFormCurrentStepSchema),
   });
 
-  const onSubmit = (data: AttendanceFormCurrentStepSchema) => {
-    console.log(`Form values for step ${stepper.current.id}:`, data);
-    if (stepper.isLast) {
-      submitFormDataToDb(form.getValues());
-      stepper.reset();
-      form.reset();
-    } else {
-      stepper.next();
+  const onSubmit = async () => {
+    try {
+      if (stepper.isLast) {
+        await submitFormDataToDb(form.getValues(), groupId);
+        toast.success("Thank you!", {
+          description: "See you at the party ;)",
+        });
+
+        stepper.reset();
+        form.reset();
+      } else {
+        stepper.next();
+      }
+    } catch (error) {
+      toast.error("Form submission failed.", {
+        description: "Please try again later.",
+      });
     }
   };
 

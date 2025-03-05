@@ -1,4 +1,5 @@
 import { Stepper } from "@/components/Stepper/Stepper";
+import { Toaster } from "@/components/ui/sonner";
 import { fetchGroupMembers, fetchGroupInfo, fetchMenuKinds } from "@/lib/data";
 import { Group } from "@/types/group";
 import { PersonIdentity } from "@/types/person";
@@ -46,10 +47,12 @@ export default async function Page({
           groupMembers={groupMembers}
           needAccommodation={groupInfo.needAccommodation}
           menuKinds={menuKinds}
+          groupId={groupId}
         />
       ) : (
         <p>Formularz już został wypełniony!</p>
       )}
+      <Toaster richColors />
     </main>
   );
 }

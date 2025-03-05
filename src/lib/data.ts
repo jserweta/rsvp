@@ -10,7 +10,7 @@ export const fetchGroupMembers = async (
   groupId: string
 ): Promise<PersonIdentity[]> => {
   const result =
-    await sql`select person.person_id, person.name, person.surname from public.person where person.group_id = ${groupId}`;
+    await sql`SELECT person.person_id, person.name, person.surname FROM public.person WHERE person.group_id = ${groupId} ORDER BY person.name, person.surname ASC`;
 
   return result.map((row) => ({
     personId: row.person_id.trim() as string,
@@ -21,7 +21,7 @@ export const fetchGroupMembers = async (
 
 export const fetchGroupInfo = async (groupId: string): Promise<Group> => {
   const result =
-    await sql`select need_accommodation, form_filled from public.group where group_id = ${groupId}`;
+    await sql`SELECT need_accommodation, form_filled FROM public.group WHERE group_id = ${groupId}`;
 
   return {
     formFilled: result[0]?.form_filled,
@@ -37,7 +37,8 @@ export const fetchMenuKinds = async (): Promise<string[]> => {
 };
 
 export const submitFormDataToDb = async (
-  formValues: Record<string, string>
+  formValues: Record<string, string>,
+  groupId: string
 ) => {
   const groupedData = Object.entries(formValues).reduce((acc, [key, value]) => {
     const [personId, field] = key.split("_", 2);
@@ -71,8 +72,16 @@ export const submitFormDataToDb = async (
       .map(([key, val]) => `${key} = '${val}'`)
       .join(", ");
 
-    return sql(`UPDATE person SET ${updates} WHERE person_id = '${personId}'`);
+    return sql(
+      `UPDATE public.person SET ${updates} WHERE person_id = '${personId}'`
+    );
   });
+
+  queries.push(
+    sql(
+      `UPDATE public.group SET form_filled = 'TRUE' WHERE group_id = '${groupId}'`
+    )
+  );
 
   try {
     await sql.transaction(queries);
