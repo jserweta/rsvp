@@ -60,7 +60,7 @@ export const Stepper = ({
       } else {
         stepper.next();
       }
-    } catch (error) {
+    } catch {
       toast.error("Form submission failed.", {
         description: "Please try again later.",
       });
