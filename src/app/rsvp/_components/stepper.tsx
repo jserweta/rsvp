@@ -25,6 +25,11 @@ export const Stepper = ({
   menuKinds: string[];
   groupId: string;
 }) => {
+  // interface FormStep extends Step {
+  //   title: string;
+  //   schema: z.ZodSchema;
+  // }
+
   const formSteps: Step[] = groupMembers.map((item) => ({
     id: item.personId,
     title: `${item.name} ${item.surname}`,
@@ -34,6 +39,7 @@ export const Stepper = ({
       menuKinds
     ),
   }));
+
   const { useStepper, steps, utils } = defineStepper(...formSteps);
   const stepper = useStepper();
   const currentIndex = utils.getIndex(stepper.current.id);
@@ -46,7 +52,6 @@ export const Stepper = ({
     mode: "onTouched",
     resolver: zodResolver(attendanceFormCurrentStepSchema),
   });
-
   const onSubmit = async () => {
     try {
       if (stepper.isLast) {
@@ -102,7 +107,8 @@ export const Stepper = ({
                     aria-setsize={steps.length}
                     aria-selected={stepper.current.id === step.id}
                     className="flex size-10 items-center justify-center rounded-full"
-                    onClick={async () => {
+                    onClick={async (e) => {
+                      e.preventDefault();
                       const valid = await form.trigger();
                       if (!valid) return;
                       if (index - currentIndex > 1) return;
@@ -136,9 +142,9 @@ export const Stepper = ({
           <div className="flex justify-end gap-4">
             <Button
               variant="secondary"
-              onClick={async () => {
-                const valid = await form.trigger();
-                if (!valid) return;
+              type="button"
+              onClick={(e) => {
+                e.preventDefault();
                 stepper.prev();
               }}
               disabled={stepper.isFirst}
