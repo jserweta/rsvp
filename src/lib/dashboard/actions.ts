@@ -50,7 +50,7 @@ export type StateSignUp = {
 };
 
 // const CreateInvoice = FormSchema.omit({ id: true, date: true });
-const UpdateInvoice = FormSchema.omit({ id: true, date: true });
+// const UpdateInvoice = FormSchema.omit({ id: true, date: true });
 const CreateUser = FormSchemaCreateUser.omit({ id: true }).refine(
   (data) => data.password === data.passwordConfirm,
   {
