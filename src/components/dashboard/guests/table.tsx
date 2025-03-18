@@ -1,12 +1,9 @@
-import {
-  UpdateInvoice,
-  DeleteInvoice,
-} from "@/components/dashboard/guests/buttons";
+import { UpdateGuest } from "@/components/dashboard/guests/buttons";
 import GuestStatus from "./response-status";
 import { fetchFilteredGuests } from "@/lib/dashboard/data";
 import { IoBedOutline } from "react-icons/io5";
 import { MdOutlineRestaurantMenu } from "react-icons/md";
-import { HiOutlineXCircle } from "react-icons/hi2";
+// import { HiOutlineXCircle } from "react-icons/hi2";
 
 export default async function GuestsTable({
   query,
@@ -44,8 +41,8 @@ export default async function GuestsTable({
                     </p>
                   </div>
                   <div className="flex justify-end gap-2">
-                    <UpdateInvoice id={guest.guestId} />
-                    <DeleteInvoice id={guest.guestId} />
+                    <UpdateGuest id={guest.guestId} />
+                    {/* <DeleteInvoice id={guest.guestId} /> */}
                   </div>
                 </div>
               </div>
@@ -92,8 +89,8 @@ export default async function GuestsTable({
                   </td>
                   <td className="whitespace-nowrap py-3 pl-6 pr-3">
                     <div className="flex justify-end gap-3">
-                      <UpdateInvoice id={guest.guestId} />
-                      <DeleteInvoice id={guest.guestId} />
+                      <UpdateGuest id={guest.guestId} />
+                      {/* <DeleteInvoice id={guest.guestId} /> */}
                     </div>
                   </td>
                 </tr>

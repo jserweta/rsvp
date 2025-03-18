@@ -14,14 +14,14 @@ import { Button } from "@/components/ui/button";
 import { signUp } from "@/lib/dashboard/actions";
 import { useActionState, useState } from "react";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
+// import { useSearchParams } from "next/navigation";
 
 export default function RegisterForm() {
   const initialState = { message: "", errors: {} };
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordConfirm, setShowPasswordConfirm] = useState(false);
 
-  const searchParams = useSearchParams();
+  // const searchParams = useSearchParams();
   const [errorMessage, formAction, isPending] = useActionState(
     signUp,
     initialState
