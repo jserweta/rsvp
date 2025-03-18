@@ -1,6 +1,6 @@
 import { sql } from "@/lib/db";
 import { unstable_noStore as noStore } from "next/cache";
-import { GuestsTableType } from "../definitions";
+import { Guest, GuestsTableType } from "../definitions";
 
 const ITEMS_PER_PAGE = 15;
 export async function fetchFilteredGuests(query: string, currentPage: number) {
