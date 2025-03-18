@@ -6,7 +6,7 @@ import {
   LatestInvoicesSkeleton,
   RevenueChartSkeleton,
 } from "@/app/(adminPanel)/skeletons";
-import CardWrapper from "@/app/(adminPanel)/_components/cards";
+import CardWrapper from "@/components/dashboard/cards";
 import { geistSans } from "@/lib/fonts";
 
 export default async function Page() {

@@ -8,11 +8,11 @@ import React from "react";
 import { Separator } from "@/components/ui/separator";
 import { z } from "zod";
 import { Form } from "@/components/ui/form";
-import { generateSchemaForMember } from "@/app/rsvp/_lib/schema";
-import { submitFormDataToDb } from "@/app/rsvp/_lib/data";
+import { generateSchemaForMember } from "@/lib/rsvp/schema";
+import { submitFormDataToDb } from "@/lib/rsvp/actions";
 import { toast } from "sonner";
 import { StepperItem } from "./stepperItem";
-import { PersonIdentity } from "../_lib/definitions";
+import { GuestRaw } from "@/lib/definitions";
 
 export const Stepper = ({
   groupMembers,
@@ -20,7 +20,7 @@ export const Stepper = ({
   menuKinds,
   groupId,
 }: {
-  groupMembers: PersonIdentity[];
+  groupMembers: GuestRaw[];
   needAccommodation: boolean;
   menuKinds: string[];
   groupId: string;
@@ -31,10 +31,10 @@ export const Stepper = ({
   // }
 
   const formSteps: Step[] = groupMembers.map((item) => ({
-    id: item.personId,
+    id: item.guestId,
     title: `${item.name} ${item.surname}`,
     schema: generateSchemaForMember(
-      item.personId,
+      item.guestId,
       item.name.includes("towarzysząca"),
       menuKinds
     ),

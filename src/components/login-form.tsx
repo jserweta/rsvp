@@ -8,7 +8,7 @@ import {
   EyeSlashIcon,
 } from "@heroicons/react/24/outline";
 import { ArrowRightIcon } from "@heroicons/react/20/solid";
-import { authenticate } from "@/app/(adminPanel)/_lib/actions";
+import { authenticate } from "@/lib/dashboard/actions";
 import Link from "next/link";
 import { useState, useActionState } from "react";
 import { geistSans } from "@/lib/fonts";

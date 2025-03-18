@@ -3,9 +3,9 @@ import {
   fetchGroupMembers,
   fetchGroupInfo,
   fetchMenuKinds,
-} from "@/app/rsvp/_lib/data";
-import { Group, PersonIdentity } from "@/app/rsvp/_lib/definitions";
-import { Stepper } from "./_components/stepper";
+} from "@/lib/rsvp/data";
+import { Group, GuestRaw } from "@/lib/definitions";
+import { Stepper } from "../../components/rsvp/stepper";
 
 type SearchParams = {
   groupId?: string;
@@ -22,18 +22,15 @@ export default async function Page({
     return <p>Please provide a valid groupId in search parameters.</p>;
   }
 
-  const [groupMembers, groupInfo, menuKinds]: [
-    PersonIdentity[],
-    Group,
-    string[]
-  ] = await Promise.all([
-    fetchGroupMembers(groupId),
-    fetchGroupInfo(groupId),
-    fetchMenuKinds(),
-  ]).catch((error) => {
-    console.error(`Failed to fetch data for group ${groupId}: `, error);
-    throw new Error(error);
-  });
+  const [groupMembers, groupInfo, menuKinds]: [GuestRaw[], Group, string[]] =
+    await Promise.all([
+      fetchGroupMembers(groupId),
+      fetchGroupInfo(groupId),
+      fetchMenuKinds(),
+    ]).catch((error) => {
+      console.error(`Failed to fetch data for group ${groupId}: `, error);
+      throw new Error(error);
+    });
 
   if (groupMembers.length === 0) {
     return (

@@ -11,7 +11,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { ArrowRightIcon } from "@heroicons/react/20/solid";
 import { Button } from "@/components/ui/button";
-import { signUp } from "@/app/(adminPanel)/_lib/actions";
+import { signUp } from "@/lib/dashboard/actions";
 import { useActionState, useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
