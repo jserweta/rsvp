@@ -2,14 +2,14 @@
 
 import { geistSans } from "@/lib/fonts";
 import {
-  AtSymbolIcon,
-  KeyIcon,
-  ExclamationCircleIcon,
-  UserCircleIcon,
-  EyeIcon,
-  EyeSlashIcon,
-} from "@heroicons/react/24/outline";
-import { ArrowRightIcon } from "@heroicons/react/20/solid";
+  HiOutlineAtSymbol,
+  HiOutlineKey,
+  HiOutlineExclamationCircle,
+  HiOutlineUserCircle,
+  HiOutlineEye,
+  HiOutlineEyeSlash,
+  HiArrowRight,
+} from "react-icons/hi2";
 import { Button } from "@/components/ui/button";
 import { signUp } from "@/lib/dashboard/actions";
 import { useActionState, useState } from "react";
@@ -57,7 +57,7 @@ export default function RegisterForm() {
                 placeholder="Enter your name"
                 aria-describedby="name-error"
               />
-              <UserCircleIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
+              <HiOutlineUserCircle className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
             </div>
 
             <div id="name-error" aria-live="polite" aria-atomic="true">
@@ -85,7 +85,7 @@ export default function RegisterForm() {
                 placeholder="Enter your email address"
                 aria-describedby="email-error"
               />
-              <AtSymbolIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
+              <HiOutlineAtSymbol className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
             </div>
 
             <div id="email-error" aria-live="polite" aria-atomic="true">
@@ -114,7 +114,7 @@ export default function RegisterForm() {
                 aria-describedby="password-error"
               />
 
-              <KeyIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
+              <HiOutlineKey className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
 
               <button
                 type="button"
@@ -126,7 +126,7 @@ export default function RegisterForm() {
                   setShowPassword((prev) => !prev);
                 }}
               >
-                {showPassword ? <EyeSlashIcon /> : <EyeIcon />}
+                {showPassword ? <HiOutlineEyeSlash /> : <HiOutlineEye />}
               </button>
             </div>
 
@@ -156,7 +156,7 @@ export default function RegisterForm() {
                 aria-describedby="confirm-password-error"
               />
 
-              <KeyIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
+              <HiOutlineKey className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
 
               <button
                 type="button"
@@ -170,7 +170,7 @@ export default function RegisterForm() {
                   setShowPasswordConfirm((prev) => !prev);
                 }}
               >
-                {showPasswordConfirm ? <EyeSlashIcon /> : <EyeIcon />}
+                {showPasswordConfirm ? <HiOutlineEyeSlash /> : <HiOutlineEye />}
               </button>
             </div>
 
@@ -189,7 +189,7 @@ export default function RegisterForm() {
           </div>
         </div>
         <Button className="mt-4 w-full" aria-disabled={isPending}>
-          Sign up <ArrowRightIcon className="ml-auto h-5 w-5 text-gray-50" />
+          Sign up <HiArrowRight className="ml-auto h-5 w-5 text-gray-50" />
         </Button>
 
         {errorMessage.message && (
@@ -199,7 +199,7 @@ export default function RegisterForm() {
             aria-atomic="true"
           >
             <>
-              <ExclamationCircleIcon className="h-5 w-5 text-red-500" />
+              <HiOutlineExclamationCircle className="h-5 w-5 text-red-500" />
               <p className="text-sm text-red-500">{errorMessage.message}</p>
             </>
           </div>

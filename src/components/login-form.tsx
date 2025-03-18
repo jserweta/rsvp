@@ -1,13 +1,13 @@
 "use client";
 
 import {
-  AtSymbolIcon,
-  KeyIcon,
-  ExclamationCircleIcon,
-  EyeIcon,
-  EyeSlashIcon,
-} from "@heroicons/react/24/outline";
-import { ArrowRightIcon } from "@heroicons/react/20/solid";
+  HiOutlineAtSymbol,
+  HiOutlineKey,
+  HiOutlineExclamationCircle,
+  HiOutlineEye,
+  HiOutlineEyeSlash,
+  HiArrowRight,
+} from "react-icons/hi2";
 import { authenticate } from "@/lib/dashboard/actions";
 import Link from "next/link";
 import { useState, useActionState } from "react";
@@ -46,7 +46,7 @@ export default function LoginForm() {
                 name="email"
                 placeholder="Enter your email address"
               />
-              <AtSymbolIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
+              <HiOutlineAtSymbol className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
             </div>
           </div>
           <div className="mt-4">
@@ -65,7 +65,7 @@ export default function LoginForm() {
                 placeholder="Enter password"
               />
 
-              <KeyIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
+              <HiOutlineKey className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
 
               <button
                 type="button"
@@ -77,7 +77,7 @@ export default function LoginForm() {
                   setShowPassword((prev) => !prev);
                 }}
               >
-                {showPassword ? <EyeSlashIcon /> : <EyeIcon />}
+                {showPassword ? <HiOutlineEyeSlash /> : <HiOutlineEye />}
               </button>
             </div>
           </div>
@@ -85,7 +85,7 @@ export default function LoginForm() {
 
         <input type="hidden" name="redirectTo" value={callbackUrl} />
         <Button className="mt-4 w-full" aria-disabled={isPending}>
-          Log in <ArrowRightIcon className="ml-auto h-5 w-5 text-gray-50" />
+          Log in <HiArrowRight className="ml-auto h-5 w-5 text-gray-50" />
         </Button>
 
         {errorMessage && (
@@ -95,7 +95,7 @@ export default function LoginForm() {
             aria-atomic="true"
           >
             <>
-              <ExclamationCircleIcon className="h-5 w-5 text-red-500" />
+              <HiOutlineExclamationCircle className="h-5 w-5 text-red-500" />
               <p className="text-sm text-red-500">{errorMessage}</p>
             </>
           </div>

@@ -1,11 +1,11 @@
 "use client";
 
 import {
-  UserGroupIcon,
-  HomeIcon,
-  UserIcon,
-  QrCodeIcon,
-} from "@heroicons/react/24/outline";
+  HiOutlineUserGroup,
+  HiOutlineHome,
+  HiOutlineUser,
+  HiOutlineQrCode,
+} from "react-icons/hi2";
 import clsx from "clsx";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -13,14 +13,14 @@ import { usePathname } from "next/navigation";
 // Map of links to display in the side navigation.
 // Depending on the size of the application, this would be stored in a database.
 const links = [
-  { name: "Home", href: "/dashboard", icon: HomeIcon },
+  { name: "Home", href: "/dashboard", icon: HiOutlineHome },
   {
     name: "Groups",
     href: "/dashboard/groups",
-    icon: UserGroupIcon,
+    icon: HiOutlineUserGroup,
   },
-  { name: "Guests List", href: "/dashboard/guests", icon: UserIcon },
-  { name: "QR Codes", href: "/dashboard/qr-codes", icon: QrCodeIcon },
+  { name: "Guests List", href: "/dashboard/guests", icon: HiOutlineUser },
+  { name: "QR Codes", href: "/dashboard/qr-codes", icon: HiOutlineQrCode },
 ];
 
 export default function NavLinks() {

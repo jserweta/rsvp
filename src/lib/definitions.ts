@@ -15,7 +15,9 @@ export type Guest = {
   name?: string;
   surname?: string;
   attendance: string;
-  menu_kind: string;
+  menuKind: string;
   accommodation: string;
 };
 export type GuestRaw = Required<Pick<Guest, "guestId" | "name" | "surname">>;
+
+export type GuestsTableType = Guest;
