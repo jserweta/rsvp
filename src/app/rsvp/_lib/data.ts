@@ -1,10 +1,8 @@
 "use server";
 
-import { connectNeonDB } from "@/db/neon";
+import { sql } from "@/lib/db";
 import { Group } from "@/app/rsvp/_types/group";
 import { Person, PersonIdentity } from "@/app/rsvp/_types/person";
-
-const sql = await connectNeonDB();
 
 export const fetchGroupMembers = async (
   groupId: string
@@ -33,7 +31,7 @@ export const fetchMenuKinds = async (): Promise<string[]> => {
   const result = await sql`SELECT enum_range(null::menu_kind)`;
   const { enum_range: menuKinds } = result[0];
 
-  return menuKinds.replace(/[{}]/g, "").split(",") || [];
+  return menuKinds;
 };
 
 export const submitFormDataToDb = async (
@@ -65,26 +63,26 @@ export const submitFormDataToDb = async (
     }
 
     return acc;
-  }, {} as Record<string, Partial<Person>>);
-
-  const queries = Object.values(groupedData).map(({ personId, ...fields }) => {
-    const updates = Object.entries(fields)
-      .map(([key, val]) => `${key} = '${val}'`)
-      .join(", ");
-
-    return sql(
-      `UPDATE public.person SET ${updates} WHERE person_id = '${personId}'`
-    );
-  });
-
-  queries.push(
-    sql(
-      `UPDATE public.group SET form_filled = 'TRUE' WHERE group_id = '${groupId}'`
-    )
-  );
+  }, {} as Record<string, Person>);
 
   try {
-    await sql.transaction(queries);
+    const queries = Object.values(groupedData).map((person) => {
+      const keys = Object.keys(person).filter(
+        (key) => key !== "personId"
+      ) as (keyof Person)[];
+
+      return sql`UPDATE public.person SET ${sql(
+        person,
+        keys
+      )} WHERE person_id = ${person.personId}`;
+    });
+
+    queries.push(
+      sql`UPDATE public.group SET form_filled = 'TRUE' WHERE group_id = ${groupId}`
+    );
+
+    await sql.begin(() => queries);
+
     console.log("Data successfully updated in the database.");
   } catch (error) {
     console.error("Error updating data in the database:", error);
