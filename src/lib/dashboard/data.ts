@@ -1,6 +1,6 @@
 import { sql } from "@/lib/db";
 import { unstable_noStore as noStore } from "next/cache";
-import { GuestsTableType } from "../definitions";
+import { Guest, GuestsTableType } from "../definitions";
 
 const ITEMS_PER_PAGE = 15;
 export async function fetchFilteredGuests(query: string, currentPage: number) {
@@ -47,5 +47,26 @@ export async function fetchGuestsPages(query: string) {
   } catch (error) {
     console.error("Database Error:", error);
     throw new Error("Failed to fetch total number of guests.");
+  }
+}
+
+export async function fetchGuestById(id: string) {
+  try {
+    const data = await sql<Guest[]>`
+      SELECT
+        guests.guest_id,
+        guests.name,
+        guests.surname,
+        guests.accommodation,
+        guests.menu_kind,
+        guests.attendance
+      FROM public.guests
+      WHERE guests.guest_id = ${id};
+    `;
+
+    return data[0];
+  } catch (error) {
+    console.error("Database Error:", error);
+    throw new Error("Failed to fetch invoice.");
   }
 }
