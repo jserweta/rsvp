@@ -27,10 +27,7 @@ export default async function Page({
       fetchGroupMembers(groupId),
       fetchGroupInfo(groupId),
       fetchMenuKinds(),
-    ]).catch((error) => {
-      console.error(`Failed to fetch data for group ${groupId}: `, error);
-      throw new Error(error);
-    });
+    ]);
 
   if (groupMembers.length === 0) {
     return (

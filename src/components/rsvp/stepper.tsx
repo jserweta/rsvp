@@ -42,6 +42,7 @@ export const Stepper = ({
 
   const { useStepper, steps, utils } = defineStepper(...formSteps);
   const stepper = useStepper();
+
   const currentIndex = utils.getIndex(stepper.current.id);
 
   const attendanceFormCurrentStepSchema = stepper.current.schema;
@@ -52,6 +53,7 @@ export const Stepper = ({
     mode: "onTouched",
     resolver: zodResolver(attendanceFormCurrentStepSchema),
   });
+
   const onSubmit = async () => {
     try {
       if (stepper.isLast) {
