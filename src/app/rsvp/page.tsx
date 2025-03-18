@@ -4,8 +4,7 @@ import {
   fetchGroupInfo,
   fetchMenuKinds,
 } from "@/app/rsvp/_lib/data";
-import { Group } from "@/app/rsvp/_types/group";
-import { PersonIdentity } from "@/app/rsvp/_types/person";
+import { Group, PersonIdentity } from "@/app/rsvp/_lib/definitions";
 import { Stepper } from "./_components/stepper";
 
 type SearchParams = {

@@ -1,8 +1,7 @@
 "use server";
 
 import { sql } from "@/lib/db";
-import { Group } from "@/app/rsvp/_types/group";
-import { Person, PersonIdentity } from "@/app/rsvp/_types/person";
+import { Group, Person, PersonIdentity } from "@/app/rsvp/_lib/definitions";
 
 export const fetchGroupMembers = async (
   groupId: string

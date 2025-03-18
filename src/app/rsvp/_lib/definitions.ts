@@ -1,3 +1,8 @@
+export type Group = {
+  needAccommodation: boolean;
+  formFilled: boolean;
+};
+
 export type Person = {
   personId: string;
   name?: string;
