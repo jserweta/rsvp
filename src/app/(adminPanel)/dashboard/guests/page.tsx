@@ -11,16 +11,19 @@ export const metadata: Metadata = {
   title: "Guests",
 };
 
+type SearchParams = {
+  query?: string;
+  page?: string;
+};
+
 export default async function Page({
   searchParams,
 }: {
-  searchParams: {
-    query?: string;
-    page?: string;
-  };
+  searchParams: Promise<SearchParams>;
 }) {
-  const query = searchParams?.query || "";
-  const currentPage = Number(searchParams?.page) || 1;
+  const { query = "", page: currentPage = 1 } = (await searchParams) || {};
+  // query = query || "";
+  // const currentPage = Number(searchParams?.page) || 1;
 
   const totalPages = await fetchGuestsPages(query);
 
@@ -33,8 +36,11 @@ export default async function Page({
         <Search placeholder="Search guests..." />
         {/* <CreateGuest /> */}
       </div>
-      <Suspense key={query + currentPage} fallback={<GuestsTableSkeleton />}>
-        <GuestsTable query={query} currentPage={currentPage} />
+      <Suspense
+        key={query + Number(currentPage)}
+        fallback={<GuestsTableSkeleton />}
+      >
+        <GuestsTable query={query} currentPage={Number(currentPage)} />
       </Suspense>
       <div className="mt-5 flex w-full justify-center">
         <Pagination totalPages={totalPages} />
