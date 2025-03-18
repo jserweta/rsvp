@@ -14,7 +14,7 @@ export const submitFormDataToDb = async (
         acc[guestId].attendance = value;
         break;
       case "menuKind":
-        acc[guestId].menu_kind = value;
+        acc[guestId].menuKind = value;
         break;
       case "accommodation":
         acc[guestId].accommodation = value;
