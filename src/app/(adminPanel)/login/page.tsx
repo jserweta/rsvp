@@ -1,5 +1,6 @@
 import Logo from "@/components/logo";
 import LoginForm from "../../../components/login-form";
+import { Suspense } from "react";
 
 export default function LoginPage() {
   return (
@@ -10,7 +11,9 @@ export default function LoginPage() {
             <Logo />
           </div>
         </div>
-        <LoginForm />
+        <Suspense>
+          <LoginForm />
+        </Suspense>
       </div>
     </main>
   );
