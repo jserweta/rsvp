@@ -6,7 +6,6 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import bcrypt from "bcrypt";
 import { sql } from "@/lib/db";
-import { MenuKinds } from "../enum-definitions";
 import { CreateUser, UpdateGuest } from "./schema";
 import { Guest } from "../definitions";
 
@@ -65,24 +64,13 @@ export async function updateGuest(
     SET ${sql(validatedFields.data, keys)}
     WHERE guest_id = ${id}
   `;
-  } catch (error) {
+  } catch {
     return { message: "Database Error: Failed to Update Guest." };
   }
 
   revalidatePath("/dashboard/guests");
   redirect("/dashboard/guests");
 }
-
-// export async function deleteInvoice(id: string) {
-//   try {
-//     await sql`DELETE FROM invoices WHERE id = ${id}`;
-//     revalidatePath("/dashboard/invoices");
-
-//     return { message: "Deleted Invoice." };
-//   } catch (error) {
-//     return { message: "Database Error: Failed to Delete Invoice." };
-//   }
-// }
 
 export async function authenticate(
   prevState: string | undefined,
@@ -137,8 +125,7 @@ export async function signUp(prevState: StateSignUp, formData: FormData) {
     INSERT INTO users (name, email, password) 
     VALUES (${name}, ${email}, ${hashedPassword})
   `;
-  } catch (error) {
-    console.log(error);
+  } catch {
     return {
       message: "Database Error: Failed to Create User.",
     };

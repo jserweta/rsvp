@@ -13,7 +13,7 @@ import { submitFormDataToDb } from "@/lib/rsvp/actions";
 import { toast } from "sonner";
 import { StepperItem } from "./stepperItem";
 import { GuestRaw } from "@/lib/definitions";
-import { MenuKinds, menuKindsList } from "@/lib/enum-definitions";
+import { menuKindsList } from "@/lib/enum-definitions";
 
 export const Stepper = ({
   groupMembers,
