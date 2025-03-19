@@ -1,10 +1,10 @@
 import { Toaster } from "@/components/ui/sonner";
-import { fetchGroupMembers, fetchGroupInfo } from "@/lib/rsvp/data";
-import { Group, GuestRaw } from "@/lib/definitions";
+import { fetchInvitationMembers, fetchInvitationInfo } from "@/lib/rsvp/data";
+import { Invitation, GuestRaw } from "@/lib/definitions";
 import { Stepper } from "../../components/rsvp/stepper";
 
 type SearchParams = {
-  groupId?: string;
+  invitationId?: string;
 };
 
 export default async function Page({
@@ -12,32 +12,33 @@ export default async function Page({
 }: {
   searchParams: Promise<SearchParams>;
 }) {
-  const { groupId } = await searchParams;
+  const { invitationId } = await searchParams;
 
-  if (!groupId) {
-    return <p>Please provide a valid groupId in search parameters.</p>;
+  if (!invitationId) {
+    return <p>Please provide a valid invitationId in search parameters.</p>;
   }
 
-  const [groupMembers, groupInfo]: [GuestRaw[], Group] = await Promise.all([
-    fetchGroupMembers(groupId),
-    fetchGroupInfo(groupId),
-  ]);
+  const [invitationMembers, invitationInfo]: [GuestRaw[], Invitation] =
+    await Promise.all([
+      fetchInvitationMembers(invitationId),
+      fetchInvitationInfo(invitationId),
+    ]);
 
-  if (groupMembers.length === 0) {
+  if (invitationMembers.length === 0) {
     return (
       <main className="flex flex-wrap items-center justify-center w-100 h-dvh">
-        <p>Invalid groupId!</p>
+        <p>Invalid invitationId!</p>
       </main>
     );
   }
 
   return (
     <>
-      {!groupInfo.formFilled ? (
+      {!invitationInfo.formFilled ? (
         <Stepper
-          groupMembers={groupMembers}
-          needAccommodation={groupInfo.needAccommodation}
-          groupId={groupId}
+          invitationMembers={invitationMembers}
+          needAccommodation={invitationInfo.needAccommodation}
+          invitationId={invitationId}
         />
       ) : (
         <p>Formularz już został wypełniony!</p>

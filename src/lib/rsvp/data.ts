@@ -20,12 +20,12 @@ export const fetchInvitationMembers = async (invitationId: string) => {
   } catch (err) {
     console.error("Database Error:", err);
     throw new Error(
-      `Failed to fetch group members. InvitationID: ${invitationId}`
+      `Failed to fetch invitation members. InvitationID: ${invitationId}`
     );
   }
 };
 
-export const fetchGroupInfo = async (invitationId: string) => {
+export const fetchInvitationInfo = async (invitationId: string) => {
   try {
     const data = await sql<Invitation[]>`
     SELECT
@@ -33,14 +33,14 @@ export const fetchGroupInfo = async (invitationId: string) => {
       form_filled
     FROM invitations 
     WHERE
-      group_id = ${invitationId}
+      invitation_id = ${invitationId}
     `;
 
     return data[0];
   } catch (err) {
     console.error("Database Error:", err);
     throw new Error(
-      `Failed to fetch group info. InvitationID: ${invitationId}`
+      `Failed to fetch invitation info. InvitationID: ${invitationId}`
     );
   }
 };

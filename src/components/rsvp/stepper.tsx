@@ -16,20 +16,15 @@ import { GuestRaw } from "@/lib/definitions";
 import { menuKindsList } from "@/lib/enum-definitions";
 
 export const Stepper = ({
-  groupMembers,
+  invitationMembers,
   needAccommodation,
-  groupId,
+  invitationId,
 }: {
-  groupMembers: GuestRaw[];
+  invitationMembers: GuestRaw[];
   needAccommodation: boolean;
-  groupId: string;
+  invitationId: string;
 }) => {
-  // interface FormStep extends Step {
-  //   title: string;
-  //   schema: z.ZodSchema;
-  // }
-
-  const formSteps: Step[] = groupMembers.map((item) => ({
+  const formSteps: Step[] = invitationMembers.map((item) => ({
     id: item.guestId,
     title: `${item.name} ${item.surname}`,
     schema: generateSchemaForMember(
@@ -56,7 +51,7 @@ export const Stepper = ({
   const onSubmit = async () => {
     try {
       if (stepper.isLast) {
-        await submitFormDataToDb(form.getValues(), groupId);
+        await submitFormDataToDb(form.getValues(), invitationId);
         toast.success("Thank you!", {
           description: "See you at the party ;)",
         });
