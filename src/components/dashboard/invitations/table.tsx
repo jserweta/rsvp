@@ -1,47 +1,39 @@
 import { UpdateGuest } from "@/components/dashboard/guests/buttons";
-import GuestStatus from "../response-status";
-import { fetchFilteredGuests } from "@/lib/dashboard/data";
+import { fetchFilteredInvitations } from "@/lib/dashboard/data";
 import { IoBedOutline } from "react-icons/io5";
-import { MdOutlineRestaurantMenu } from "react-icons/md";
+import Status from "../response-status";
 
-export default async function GuestsTable({
+export default async function InvitationsTable({
   query,
   currentPage,
 }: {
   query: string;
   currentPage: number;
 }) {
-  const guests = await fetchFilteredGuests(query, currentPage);
+  const invitations = await fetchFilteredInvitations(query, currentPage);
 
   return (
     <div className="mt-6 flow-root">
       <div className="inline-block min-w-full align-middle">
         <div className="rounded-lg bg-gray-50 p-2 md:pt-0">
           <div className="md:hidden">
-            {guests?.map((guest) => (
+            {invitations?.map((invitation) => (
               <div
-                key={guest.guestId}
+                key={invitation.invitationId}
                 className="mb-2 w-full rounded-md bg-white p-4"
               >
-                <div className="flex items-center justify-between border-b pb-4">
-                  <p className="mb-2">
-                    {guest.name} {guest.surname}
-                  </p>
-
-                  <GuestStatus status={guest.attendance} />
-                </div>
                 <div className="flex w-full items-center justify-between pt-4">
-                  <div>
-                    {guest.accommodation ? <IoBedOutline /> : ""}
-
-                    <p className="flex flex-nowrap flex-row gap-3 items-center">
-                      <MdOutlineRestaurantMenu />
-                      {guest.menuKind ?? "-"}
-                    </p>
+                  <div className="flex flex-nowrap flex-row gap-3 items-center">
+                    {invitation.needAccommodation && <IoBedOutline />}
                   </div>
                   <div className="flex justify-end gap-2">
-                    <UpdateGuest id={guest.guestId} />
+                    <UpdateGuest id={invitation.invitationId} />
                   </div>
+                </div>
+                <div className="flex items-center justify-between border-b pb-4">
+                  <p className="mb-2">{invitation.name}</p>
+
+                  <Status status={invitation.formFilled ? "true" : "null"} />
                 </div>
               </div>
             ))}
@@ -53,13 +45,10 @@ export default async function GuestsTable({
                   Name
                 </th>
                 <th scope="col" className="px-3 py-5 font-medium">
-                  Menu type
+                  Needs accommodation
                 </th>
                 <th scope="col" className="px-3 py-5 font-medium">
-                  Accommodation
-                </th>
-                <th scope="col" className="px-3 py-5 font-medium">
-                  Attendance
+                  Response
                 </th>
                 <th scope="col" className="relative py-3 pl-6 pr-3">
                   <span className="sr-only">Edit</span>
@@ -67,27 +56,24 @@ export default async function GuestsTable({
               </tr>
             </thead>
             <tbody className="bg-white">
-              {guests?.map((guest) => (
+              {invitations?.map((invitation) => (
                 <tr
-                  key={guest.guestId}
+                  key={invitation.invitationId}
                   className="w-full border-b py-3 text-sm last-of-type:border-none [&:first-child>td:first-child]:rounded-tl-lg [&:first-child>td:last-child]:rounded-tr-lg [&:last-child>td:first-child]:rounded-bl-lg [&:last-child>td:last-child]:rounded-br-lg"
                 >
                   <td className="whitespace-nowrap py-3 pl-6 pr-3">
-                    {guest.name} {guest.surname}
+                    {invitation.name}
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
-                    {guest.menuKind ?? "-"}
-                  </td>
-                  <td className="whitespace-nowrap px-3 py-3">
-                    {guest.accommodation ? <IoBedOutline /> : "-"}
+                    {invitation.needAccommodation && <IoBedOutline />}
                   </td>
 
                   <td className="whitespace-nowrap px-3 py-3">
-                    <GuestStatus status={guest.attendance} />
+                    <Status status={invitation.formFilled ? "true" : ""} />
                   </td>
                   <td className="whitespace-nowrap py-3 pl-6 pr-3">
                     <div className="flex justify-end gap-3">
-                      <UpdateGuest id={guest.guestId} />
+                      <UpdateGuest id={invitation.invitationId} />
                     </div>
                   </td>
                 </tr>

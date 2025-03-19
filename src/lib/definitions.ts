@@ -5,7 +5,9 @@ export type User = {
   password: string;
 };
 
-export type Group = {
+export type Invitation = {
+  invitationId: string;
+  name: string;
   needAccommodation: boolean;
   formFilled: boolean;
 };
@@ -21,3 +23,5 @@ export type Guest = {
 export type GuestRaw = Required<Pick<Guest, "guestId" | "name" | "surname">>;
 
 export type GuestsTableType = Guest;
+
+export type InvitationsTableType = Invitation;

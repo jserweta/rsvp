@@ -5,7 +5,7 @@ import { sql } from "../db";
 
 export const submitFormDataToDb = async (
   formValues: Record<string, string>,
-  groupId: string
+  invitationId: string
 ) => {
   const groupedData = Object.entries(formValues).reduce((acc, [key, value]) => {
     const [guestId, field] = key.split("_", 2);
@@ -42,14 +42,14 @@ export const submitFormDataToDb = async (
         ) as (keyof Guest)[];
 
         return sql`
-        UPDATE public.guests 
+        UPDATE guests 
         SET ${sql(guest, keys)} 
         WHERE guest_id = ${guest.guestId}
         `;
       });
 
       queries.push(
-        sql`UPDATE public.group SET form_filled = 'TRUE' WHERE group_id = ${groupId}`
+        sql`UPDATE invitations SET form_filled = 'TRUE' WHERE invitation_id = ${invitationId}`
       );
 
       await Promise.all(queries);

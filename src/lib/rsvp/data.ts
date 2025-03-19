@@ -1,9 +1,9 @@
 "use server";
 
 import { sql } from "@/lib/db";
-import { Group, GuestRaw } from "@/lib/definitions";
+import { Invitation, GuestRaw } from "@/lib/definitions";
 
-export const fetchGroupMembers = async (groupId: string) => {
+export const fetchInvitationMembers = async (invitationId: string) => {
   try {
     const data = await sql<GuestRaw[]>`
     SELECT 
@@ -12,31 +12,35 @@ export const fetchGroupMembers = async (groupId: string) => {
       guests.surname 
     FROM public.guests 
     WHERE 
-      guests.group_id = ${groupId}
+      guests.invitation_id = ${invitationId}
     ORDER BY guests.name, guests.surname ASC
     `;
 
     return data;
   } catch (err) {
     console.error("Database Error:", err);
-    throw new Error(`Failed to fetch group members. GroupID: ${groupId}`);
+    throw new Error(
+      `Failed to fetch group members. InvitationID: ${invitationId}`
+    );
   }
 };
 
-export const fetchGroupInfo = async (groupId: string) => {
+export const fetchGroupInfo = async (invitationId: string) => {
   try {
-    const data = await sql<Group[]>`
+    const data = await sql<Invitation[]>`
     SELECT
       need_accommodation,
       form_filled
-    FROM public.group 
+    FROM invitations 
     WHERE
-      group_id = ${groupId}
+      group_id = ${invitationId}
     `;
 
     return data[0];
   } catch (err) {
     console.error("Database Error:", err);
-    throw new Error(`Failed to fetch group info. GroupID: ${groupId}`);
+    throw new Error(
+      `Failed to fetch group info. InvitationID: ${invitationId}`
+    );
   }
 };

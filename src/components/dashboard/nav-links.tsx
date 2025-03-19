@@ -15,8 +15,8 @@ import { usePathname } from "next/navigation";
 const links = [
   { name: "Home", href: "/dashboard", icon: HiOutlineHome },
   {
-    name: "Groups",
-    href: "/dashboard/groups",
+    name: "Invitations",
+    href: "/dashboard/invitations",
     icon: HiOutlineUserGroup,
   },
   { name: "Guests List", href: "/dashboard/guests", icon: HiOutlineUser },

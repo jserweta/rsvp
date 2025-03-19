@@ -6,7 +6,7 @@ import {
 
 import clsx from "clsx";
 
-export default function GuestStatus({ status }: { status: string }) {
+export default function Status({ status }: { status: string }) {
   return (
     <span
       className={clsx(
