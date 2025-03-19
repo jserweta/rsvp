@@ -1,3 +1,5 @@
+"use server";
+
 import { Guest } from "@/lib/definitions";
 import { sql } from "../db";
 
@@ -33,21 +35,25 @@ export const submitFormDataToDb = async (
   }, {} as Record<string, Guest>);
 
   try {
-    const queries = Object.values(groupedData).map((guest) => {
-      const keys = Object.keys(guest).filter(
-        (key) => key !== "guestId"
-      ) as (keyof Guest)[];
+    console.log(sql);
+    await sql.begin(async (sql) => {
+      const queries = Object.values(groupedData).map(async (guest) => {
+        const keys = Object.keys(guest).filter(
+          (key) => key !== "guestId"
+        ) as (keyof Guest)[];
 
-      return sql`UPDATE public.guest SET ${sql(guest, keys)} WHERE guest_id = ${
-        guest.guestId
-      }`;
+        return sql`UPDATE public.guests SET ${sql(
+          guest,
+          keys
+        )} WHERE guest_id = ${guest.guestId}`;
+      });
+
+      queries.push(
+        sql`UPDATE public.group SET form_filled = 'TRUE' WHERE group_id = ${groupId}`
+      );
+
+      await Promise.all(queries);
     });
-
-    queries.push(
-      sql`UPDATE public.group SET form_filled = 'TRUE' WHERE group_id = ${groupId}`
-    );
-
-    await sql.begin(() => queries);
 
     console.log("Data successfully updated in the database.");
   } catch (error) {
