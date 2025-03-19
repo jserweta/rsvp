@@ -12,7 +12,7 @@ export const generateSchemaForMember = (
         required_error: "Będziesz obecny?",
         invalid_type_error: "Będziesz obecny?",
       }),
-      [`${guestId}_menuKind`]: z.string().optional(),
+      [`${guestId}_menuKind`]: z.nativeEnum(MenuKinds).optional(),
       [`${guestId}_accommodation`]: z.string().optional(),
       ...(isCompanion && {
         [`${guestId}_name`]: z.string().optional(),

@@ -4,37 +4,19 @@ import { getUser, signIn } from "@/auth";
 import { AuthError } from "next-auth";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { z } from "zod";
 import bcrypt from "bcrypt";
 import { sql } from "@/lib/db";
+import { MenuKinds } from "../enum-definitions";
+import { CreateUser, UpdateGuest } from "./schema";
+import { Guest } from "../definitions";
 
-// const FormSchema = z.object({
-//   id: z.string(),
-//   customerId: z.string({
-//     invalid_type_error: "Please select a customer.",
-//   }),
-//   amount: z.coerce
-//     .number()
-//     .gt(0, { message: "Please enter an amount greater than $0." }),
-//   status: z.enum(["pending", "paid"], {
-//     invalid_type_error: "Please select an invoice status.",
-//   }),
-//   date: z.string(),
-// });
-
-const FormSchemaCreateUser = z.object({
-  id: z.string(),
-  name: z.string().min(1, { message: "Name is required" }),
-  email: z.string().email(),
-  password: z.string().min(8),
-  passwordConfirm: z.string(),
-});
-
-export type State = {
+export type UpdateGuestState = {
   errors?: {
-    customerId?: string[];
-    amount?: string[];
-    status?: string[];
+    name?: string[];
+    surname?: string[];
+    attendance?: string[];
+    menuKind?: string[];
+    accommodation?: string[];
   };
   message?: string | null;
 };
@@ -49,93 +31,47 @@ export type StateSignUp = {
   message?: string | null;
 };
 
-// const CreateInvoice = FormSchema.omit({ id: true, date: true });
-// const UpdateInvoice = FormSchema.omit({ id: true, date: true });
-const CreateUser = FormSchemaCreateUser.omit({ id: true }).refine(
-  (data) => data.password === data.passwordConfirm,
-  {
-    message: "Passwords don't match",
-    path: ["passwordConfirm"],
+export async function updateGuest(
+  id: string,
+  prevState: UpdateGuestState,
+  formData: FormData
+) {
+  // Validate form using Zod
+  const validatedFields = UpdateGuest.safeParse({
+    name: formData.get("name"),
+    surname: formData.get("surname"),
+    accommodation: formData.get("accommodation") === null ? false : true,
+    menuKind: formData.get("menuKind"),
+    attendance:
+      formData.get("attendance") === "" ? null : formData.get("attendance"),
+  });
+
+  // If form validation fails, return errors early. Otherwise, continue.
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: "Missing Fields. Failed to update guest.",
+    };
   }
-);
 
-// export async function createInvoice(prevState: State, formData: FormData) {
-//   // Validate form using Zod
-//   const validatedFields = CreateInvoice.safeParse({
-//     customerId: formData.get("customerId"),
-//     amount: formData.get("amount"),
-//     status: formData.get("status"),
-//   });
+  try {
+    const keys = Object.keys(validatedFields.data) as (keyof Omit<
+      Guest,
+      "guestId"
+    >)[];
 
-//   // If form validation fails, return errors early. Otherwise, continue.
-//   if (!validatedFields.success) {
-//     return {
-//       errors: validatedFields.error.flatten().fieldErrors,
-//       message: "Missing Fields. Failed to Create Invoice.",
-//     };
-//   }
+    await sql`
+    UPDATE public.guests
+    SET ${sql(validatedFields.data, keys)}
+    WHERE guest_id = ${id}
+  `;
+  } catch (error) {
+    return { message: "Database Error: Failed to Update Guest." };
+  }
 
-//   // Prepare data for insertion into the database
-//   const { customerId, amount, status } = validatedFields.data;
-
-//   const amountInCents = amount * 100;
-//   const date = new Date().toISOString().split("T")[0];
-
-//   try {
-//     const session = await auth();
-//     const userId = session?.user?.id;
-
-//     await sql`
-//     INSERT INTO invoices (customer_id, user_id, amount, status, date)
-//     VALUES (${customerId}, ${userId}, ${amountInCents}, ${status}, ${date})
-//   `;
-//   } catch (error) {
-//     return {
-//       message: "Database Error: Failed to Create Invoice.",
-//     };
-//   }
-
-//   revalidatePath("/dashboard/invoices");
-//   redirect("/dashboard/invoices");
-// }
-
-// export async function updateGuest(
-//   id: string,
-//   prevState: State,
-//   formData: FormData
-// ) {
-//   // Validate form using Zod
-//   const validatedFields = UpdateInvoice.safeParse({
-//     customerId: formData.get("customerId"),
-//     amount: formData.get("amount"),
-//     status: formData.get("status"),
-//   });
-
-//   // If form validation fails, return errors early. Otherwise, continue.
-//   if (!validatedFields.success) {
-//     return {
-//       errors: validatedFields.error.flatten().fieldErrors,
-//       message: "Missing Fields. Failed to Create Invoice.",
-//     };
-//   }
-
-//   const { customerId, amount, status } = validatedFields.data;
-
-//   const amountInCents = amount * 100;
-
-//   try {
-//     await sql`
-//     UPDATE invoices
-//     SET customer_id = ${customerId}, amount = ${amountInCents}, status = ${status}
-//     WHERE id = ${id}
-//   `;
-//   } catch (error) {
-//     return { message: "Database Error: Failed to Update Invoice." };
-//   }
-
-//   revalidatePath("/dashboard/invoices");
-//   redirect("/dashboard/invoices");
-// }
+  revalidatePath("/dashboard/guests");
+  redirect("/dashboard/guests");
+}
 
 // export async function deleteInvoice(id: string) {
 //   try {
