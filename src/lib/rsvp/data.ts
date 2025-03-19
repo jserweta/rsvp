@@ -40,19 +40,3 @@ export const fetchGroupInfo = async (groupId: string) => {
     throw new Error(`Failed to fetch group info. GroupID: ${groupId}`);
   }
 };
-
-export const fetchMenuKinds = async () => {
-  try {
-    const data = await sql<{ enumRange: [] }[]>`
-    SELECT 
-    enum_range(null::menu_kind)
-    `;
-
-    const { enumRange: menuKinds } = data[0];
-
-    return menuKinds;
-  } catch (err) {
-    console.error("Database Error:", err);
-    throw new Error(`Failed to fetch menu kinds list.`);
-  }
-};

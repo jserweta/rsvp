@@ -13,16 +13,15 @@ import { submitFormDataToDb } from "@/lib/rsvp/actions";
 import { toast } from "sonner";
 import { StepperItem } from "./stepperItem";
 import { GuestRaw } from "@/lib/definitions";
+import { MenuKinds, menuKindsList } from "@/lib/enum-definitions";
 
 export const Stepper = ({
   groupMembers,
   needAccommodation,
-  menuKinds,
   groupId,
 }: {
   groupMembers: GuestRaw[];
   needAccommodation: boolean;
-  menuKinds: string[];
   groupId: string;
 }) => {
   // interface FormStep extends Step {
@@ -36,7 +35,7 @@ export const Stepper = ({
     schema: generateSchemaForMember(
       item.guestId,
       item.name.includes("towarzysząca"),
-      menuKinds
+      menuKindsList
     ),
   }));
 
@@ -137,7 +136,7 @@ export const Stepper = ({
           <StepperItem
             key={stepper.current.id}
             needAccommodation={needAccommodation}
-            menuKinds={menuKinds}
+            menuKinds={menuKindsList}
             step={stepper.current}
           />
 

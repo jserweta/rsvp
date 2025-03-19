@@ -1,9 +1,5 @@
 import { Toaster } from "@/components/ui/sonner";
-import {
-  fetchGroupMembers,
-  fetchGroupInfo,
-  fetchMenuKinds,
-} from "@/lib/rsvp/data";
+import { fetchGroupMembers, fetchGroupInfo } from "@/lib/rsvp/data";
 import { Group, GuestRaw } from "@/lib/definitions";
 import { Stepper } from "../../components/rsvp/stepper";
 
@@ -22,12 +18,10 @@ export default async function Page({
     return <p>Please provide a valid groupId in search parameters.</p>;
   }
 
-  const [groupMembers, groupInfo, menuKinds]: [GuestRaw[], Group, string[]] =
-    await Promise.all([
-      fetchGroupMembers(groupId),
-      fetchGroupInfo(groupId),
-      fetchMenuKinds(),
-    ]);
+  const [groupMembers, groupInfo]: [GuestRaw[], Group] = await Promise.all([
+    fetchGroupMembers(groupId),
+    fetchGroupInfo(groupId),
+  ]);
 
   if (groupMembers.length === 0) {
     return (
@@ -43,7 +37,6 @@ export default async function Page({
         <Stepper
           groupMembers={groupMembers}
           needAccommodation={groupInfo.needAccommodation}
-          menuKinds={menuKinds}
           groupId={groupId}
         />
       ) : (

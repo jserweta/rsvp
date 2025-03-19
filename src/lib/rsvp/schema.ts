@@ -1,9 +1,10 @@
 import { z } from "zod";
+import { MenuKinds } from "../enum-definitions";
 
 export const generateSchemaForMember = (
   guestId: string,
   isCompanion: boolean,
-  menuKinds: string[]
+  menuKinds: MenuKinds[]
 ) => {
   const memberSchema = z
     .object({
@@ -23,7 +24,7 @@ export const generateSchemaForMember = (
         if (data[`${guestId}_attendance`] === "yes") {
           return (
             data[`${guestId}_menuKind`] &&
-            menuKinds.includes(data[`${guestId}_menuKind`]!)
+            menuKinds.includes(data[`${guestId}_menuKind`]! as MenuKinds)
           );
         }
         return true;
