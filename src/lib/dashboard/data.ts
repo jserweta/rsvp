@@ -108,7 +108,7 @@ export async function fetchFilteredInvitations(
       invitations.invitation_id,
       invitations.name,
       invitations.need_accommodation,
-      invitations.form_filled
+      invitations.status
 		FROM invitations
     WHERE
       invitations.name ILIKE ${`%${query}%`}

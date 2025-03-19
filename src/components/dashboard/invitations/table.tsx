@@ -33,7 +33,7 @@ export default async function InvitationsTable({
                 <div className="flex items-center justify-between border-b pb-4">
                   <p className="mb-2">{invitation.name}</p>
 
-                  <Status status={invitation.formFilled ? "true" : "null"} />
+                  <Status status={invitation.status} />
                 </div>
               </div>
             ))}
@@ -69,7 +69,7 @@ export default async function InvitationsTable({
                   </td>
 
                   <td className="whitespace-nowrap px-3 py-3">
-                    <Status status={invitation.formFilled ? "true" : ""} />
+                    <Status status={invitation.status} />
                   </td>
                   <td className="whitespace-nowrap py-3 pl-6 pr-3">
                     <div className="flex justify-end gap-3">

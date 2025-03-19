@@ -34,7 +34,7 @@ export default async function Page({
 
   return (
     <>
-      {!invitationInfo.formFilled ? (
+      {invitationInfo.status === "pending" ? (
         <Stepper
           invitationMembers={invitationMembers}
           needAccommodation={invitationInfo.needAccommodation}

@@ -6,7 +6,7 @@ import { useActionState } from "react";
 import { Guest } from "@/lib/definitions";
 import { Button } from "@/components/ui/button";
 import { updateGuest, UpdateGuestState } from "@/lib/dashboard/actions";
-import { menuKindsList } from "@/lib/enum-definitions";
+import { attendanceStatusList, menuKindsList } from "@/lib/enum-definitions";
 
 export default function EditGuestForm({ guest }: { guest: Guest }) {
   const initialState: UpdateGuestState = { message: null, errors: {} };
@@ -32,13 +32,15 @@ export default function EditGuestForm({ guest }: { guest: Guest }) {
             id="attendance"
             name="attendance"
             className="block w-full cursor-pointer rounded-md border border-gray-200 py-2 pl-4 text-sm outline-2 placeholder:text-gray-500"
-            defaultValue={guest.attendance ?? ""}
+            defaultValue={guest.attendance}
             aria-describedby="attendance-error"
           >
-            <option value="">Will the guest be present?</option>
-            {["true", "false"].map((item, idx) => (
+            <option value="" disabled>
+              Will the guest be present?
+            </option>
+            {attendanceStatusList.map((item, idx) => (
               <option key={`${item}_${idx}`} value={item}>
-                {item === "true" ? "Yes" : "No"}
+                {item}
               </option>
             ))}
           </select>

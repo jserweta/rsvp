@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/form";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import { attendanceStatusList } from "@/lib/enum-definitions";
 
 export const StepperItem = ({
   needAccommodation,
@@ -51,12 +52,14 @@ export const StepperItem = ({
                     <SelectValue placeholder="Wybierz" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem key="no-0" value={"no"}>
-                      Nie
-                    </SelectItem>
-                    <SelectItem key="yes-1" value={"yes"}>
-                      Tak
-                    </SelectItem>
+                    {attendanceStatusList.map(
+                      (status) =>
+                        status !== "pending" && (
+                          <SelectItem key={status} value={status}>
+                            {status === "confirmed" ? "Tak" : "Nie"}
+                          </SelectItem>
+                        )
+                    )}
                   </SelectContent>
                 </Select>
               </FormControl>
@@ -79,7 +82,7 @@ export const StepperItem = ({
                 <Select
                   onValueChange={field.onChange}
                   defaultValue={field.value}
-                  disabled={watch(step.id + "_attendance") !== "yes"}
+                  disabled={watch(step.id + "_attendance") !== "confirmed"}
                 >
                   <SelectTrigger className="w-[200px]">
                     <SelectValue placeholder="Wybierz rodzaj menu" />
@@ -114,7 +117,7 @@ export const StepperItem = ({
                   <Select
                     onValueChange={field.onChange}
                     defaultValue={field.value}
-                    disabled={watch(step.id + "_attendance") !== "yes"}
+                    disabled={watch(step.id + "_attendance") !== "confirmed"}
                   >
                     <SelectTrigger className="w-[110px]">
                       <SelectValue placeholder="Wybierz" />

@@ -7,30 +7,35 @@ import {
 import clsx from "clsx";
 
 export default function Status({ status }: { status: string }) {
+  // const label = MY_LABEL_ENUM[status];
+  // const icon = MY_ICON_ENUM[status];
+  // const style = MY_STYLE_ENUM[status];
+
   return (
     <span
       className={clsx(
         "inline-flex items-center rounded-full px-2 py-1 text-xs",
         {
-          "bg-gray-100 text-gray-500": status === null,
-          "bg-green-500 text-white": String(status) === "true",
-          "bg-red-500 text-white": String(status) === "false",
+          "bg-gray-100 text-gray-500": status === "pending",
+          "bg-green-500 text-white":
+            status === "submitted" || status === "confirmed",
+          "bg-red-500 text-white": status === "declined",
         }
       )}
     >
-      {status === null ? (
+      {status === "pending" ? (
         <>
           Pending
           <HiOutlineClock className="ml-1 w-4 text-gray-500" />
         </>
       ) : null}
-      {String(status) === "true" ? (
+      {status === "submitted" || status === "confirmed" ? (
         <>
           Confirmed
           <HiOutlineCheck className="ml-1 w-4 text-white" />
         </>
       ) : null}
-      {String(status) === "false" ? (
+      {status === "declined" ? (
         <>
           Rejected
           <HiOutlineXCircle className="ml-1 w-4 text-white" />

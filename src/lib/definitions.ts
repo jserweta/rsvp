@@ -1,3 +1,5 @@
+import { AttendanceStatus, InvitationStatus } from "./enum-definitions";
+
 export type User = {
   id: string;
   name: string;
@@ -9,14 +11,14 @@ export type Invitation = {
   invitationId: string;
   name: string;
   needAccommodation: boolean;
-  formFilled: boolean;
+  status: InvitationStatus;
 };
 
 export type Guest = {
   guestId: string;
   name?: string;
   surname?: string;
-  attendance: string;
+  attendance: AttendanceStatus;
   menuKind: string;
   accommodation: string;
 };

@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { MenuKinds } from "../enum-definitions";
+import { AttendanceStatus, MenuKinds } from "../enum-definitions";
 
 export const generateSchemaForMember = (
   guestId: string,
@@ -8,7 +8,7 @@ export const generateSchemaForMember = (
 ) => {
   const memberSchema = z
     .object({
-      [`${guestId}_attendance`]: z.enum(["yes", "no"], {
+      [`${guestId}_attendance`]: z.nativeEnum(AttendanceStatus, {
         required_error: "Będziesz obecny?",
         invalid_type_error: "Będziesz obecny?",
       }),
@@ -21,7 +21,7 @@ export const generateSchemaForMember = (
     })
     .refine(
       (data) => {
-        if (data[`${guestId}_attendance`] === "yes") {
+        if (data[`${guestId}_attendance`] === "confirmed") {
           return (
             data[`${guestId}_menuKind`] &&
             menuKinds.includes(data[`${guestId}_menuKind`]! as MenuKinds)
@@ -36,7 +36,7 @@ export const generateSchemaForMember = (
     )
     .refine(
       (data) => {
-        if (data[`${guestId}_attendance`] === "yes") {
+        if (data[`${guestId}_attendance`] === "confirmed") {
           return (
             data[`${guestId}_accommodation`] &&
             guestId &&

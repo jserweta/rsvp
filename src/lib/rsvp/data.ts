@@ -30,7 +30,7 @@ export const fetchInvitationInfo = async (invitationId: string) => {
     const data = await sql<Invitation[]>`
     SELECT
       need_accommodation,
-      form_filled
+      status
     FROM invitations 
     WHERE
       invitation_id = ${invitationId}
