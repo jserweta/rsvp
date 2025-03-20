@@ -179,7 +179,7 @@ export default function EditGuestForm({ guest }: { guest: Guest }) {
           Cancel
         </Link>
         <Button type="submit" aria-disabled={isPending}>
-          Edit Invoice
+          Edit Guest
         </Button>
       </div>
     </form>

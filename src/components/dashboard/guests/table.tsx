@@ -1,8 +1,8 @@
-import { UpdateGuest } from "@/components/dashboard/guests/buttons";
 import Status from "../response-status";
 import { fetchFilteredGuests } from "@/lib/dashboard/data";
 import { IoBedOutline } from "react-icons/io5";
 import { MdOutlineRestaurantMenu } from "react-icons/md";
+import { EditButton } from "../action-buttons";
 
 export default async function GuestsTable({
   query,
@@ -44,7 +44,7 @@ export default async function GuestsTable({
                     </p>
                   </div>
                   <div className="flex justify-end gap-2">
-                    <UpdateGuest id={guest.guestId} />
+                    <EditButton id={guest.guestId} page="guests" />
                   </div>
                 </div>
               </div>
@@ -95,7 +95,7 @@ export default async function GuestsTable({
                   </td>
                   <td className="whitespace-nowrap py-3 pl-6 pr-3">
                     <div className="flex justify-end gap-3">
-                      <UpdateGuest id={guest.guestId} />
+                      <EditButton id={guest.guestId} page="guests" />
                     </div>
                   </td>
                 </tr>
