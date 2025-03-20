@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useActionState } from "react";
+import { useActionState, useState } from "react";
 import { GuestRaw, Invitation } from "@/lib/definitions";
 import { Button } from "@/components/ui/button";
 import {
@@ -25,6 +25,10 @@ export default function EditInvitationForm({
   const [state, formAction, isPending] = useActionState(
     updateInvitationWithId,
     initialState
+  );
+
+  const [needAccommodationField, setNeedAccommodationField] = useState(
+    !!invitation.needAccommodation
   );
 
   return (
@@ -97,8 +101,9 @@ export default function EditInvitationForm({
               id="needAccommodation"
               name="needAccommodation"
               type="checkbox"
-              defaultChecked={!!invitation.needAccommodation}
-              className=" block w-3 cursor-pointer rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+              checked={needAccommodationField}
+              onChange={(e) => setNeedAccommodationField(e.target.checked)}
+              className="block w-3 cursor-pointer rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
               aria-describedby="needAccommodation-error"
             />
             <label
@@ -122,6 +127,42 @@ export default function EditInvitationForm({
               ))}
           </div>
         </div>
+
+        {/* Accommodation location */}
+        {needAccommodationField && (
+          <div className="mb-4">
+            <label
+              htmlFor="accommodationLocation"
+              className="mb-2 block text-sm font-medium"
+            >
+              Accommodation location
+            </label>
+            <div className="relative mt-2 rounded-md">
+              <input
+                id="accommodationLocation"
+                name="accommodationLocation"
+                type="text"
+                defaultValue={invitation.accommodationLocation}
+                placeholder="Enter accommodation location"
+                className=" block w-full cursor-pointer rounded-md border border-gray-200 py-2 px-4 text-sm outline-2 placeholder:text-gray-500"
+                aria-describedby="accommodationLocation-error"
+              />
+            </div>
+
+            <div
+              id="accommodationLocation-error"
+              aria-live="polite"
+              aria-atomic="true"
+            >
+              {state.errors?.accommodationLocation &&
+                state.errors.accommodationLocation.map((error: string) => (
+                  <p className="mt-2 text-sm text-red-500" key={error}>
+                    {error}
+                  </p>
+                ))}
+            </div>
+          </div>
+        )}
 
         {/* Invitation members */}
         {invitationMembers && (

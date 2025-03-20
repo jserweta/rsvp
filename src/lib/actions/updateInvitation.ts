@@ -11,6 +11,7 @@ export type UpdateInvitationState = {
     name?: string[];
     status?: string[];
     needAccommodation?: string[];
+    accommodationLocation?: string[];
   };
   message?: string | null;
 };
@@ -26,6 +27,7 @@ export async function updateInvitation(
     status: formData.get("status"),
     needAccommodation:
       formData.get("needAccommodation") === null ? false : true,
+    accommodationLocation: formData.get("accommodationLocation") ?? "",
   });
 
   // If form validation fails, return errors early. Otherwise, continue.

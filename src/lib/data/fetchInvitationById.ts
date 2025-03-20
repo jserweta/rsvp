@@ -8,6 +8,7 @@ export async function fetchInvitationById(id: string) {
         invitations.invitation_id,
         invitations.name,
         invitations.need_accommodation,
+        invitations.accommodation_location,
         invitations.status
       FROM public.invitations
       WHERE invitations.invitation_id = ${id};

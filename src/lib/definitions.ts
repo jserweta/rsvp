@@ -12,6 +12,7 @@ export type Invitation = {
   name: string;
   needAccommodation: boolean;
   status: InvitationStatus;
+  accommodationLocation: string;
 };
 
 export type Guest = {

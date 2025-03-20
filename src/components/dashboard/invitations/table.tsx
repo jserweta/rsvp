@@ -29,11 +29,16 @@ export default async function InvitationsTable({
                 </div>
 
                 <div className="flex w-full items-center justify-between pt-4">
-                  <div className="flex flex-nowrap flex-row gap-3 items-center">
-                    {invitation.needAccommodation && (
+                  {invitation.needAccommodation && (
+                    <div className="flex flex-nowrap flex-row gap-3 items-center">
                       <IoBedOutline className="w-5 h-5" />
-                    )}
-                  </div>
+                      {invitation.accommodationLocation && (
+                        <p className="mb-0 text-xs">
+                          {invitation.accommodationLocation}
+                        </p>
+                      )}
+                    </div>
+                  )}
                   <div className="flex justify-end gap-2">
                     <ShowGuests id={invitation.invitationId} />
                     <EditButton
@@ -52,7 +57,7 @@ export default async function InvitationsTable({
                   Name
                 </th>
                 <th scope="col" className="px-3 py-5 font-medium">
-                  Needs accommodation
+                  Accommodation
                 </th>
                 <th scope="col" className="px-3 py-5 font-medium">
                   Response
@@ -73,7 +78,14 @@ export default async function InvitationsTable({
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
                     {invitation.needAccommodation && (
-                      <IoBedOutline className="w-5 h-5" />
+                      <div className="flex flex-nowrap flex-row gap-3 items-center">
+                        <IoBedOutline className="w-5 h-5" />
+                        {invitation.accommodationLocation && (
+                          <p className="mb-0 text-s">
+                            {invitation.accommodationLocation}
+                          </p>
+                        )}
+                      </div>
                     )}
                   </td>
 
