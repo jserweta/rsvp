@@ -33,15 +33,19 @@ export default async function Page({
       <div className="mt-4 flex items-center justify-between gap-2 md:mt-8">
         <Search placeholder="Search invitation..." />
       </div>
+
       <Suspense
         key={query + Number(currentPage)}
         fallback={<GuestsTableSkeleton />}
       >
         <InvitationsTable query={query} currentPage={Number(currentPage)} />
       </Suspense>
-      <div className="mt-5 flex w-full justify-center">
-        <Pagination totalPages={totalPages} />
-      </div>
+
+      {totalPages > 1 && (
+        <div className="mt-5 flex w-full justify-center">
+          <Pagination totalPages={totalPages} />
+        </div>
+      )}
     </>
   );
 }

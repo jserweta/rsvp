@@ -2,7 +2,7 @@ import { unstable_noStore as noStore } from "next/cache";
 import { sql } from "../db";
 
 const ITEMS_PER_PAGE = 15;
-export async function fetchGuestsPages(query: string) {
+export async function fetchGuestsPages(query: string, invitationId: string) {
   noStore();
 
   try {
@@ -10,8 +10,9 @@ export async function fetchGuestsPages(query: string) {
     SELECT COUNT(*)
     FROM guests
     WHERE
-      guests.name ILIKE ${`%${query}%`} OR
-      guests.surname ILIKE ${`%${query}%`}
+      (guests.name ILIKE ${`%${query}%`} OR
+      guests.surname ILIKE ${`%${query}%`})
+      ${invitationId ? sql`AND guests.invitation_id = ${invitationId}` : sql``}
   `;
 
     return Math.ceil(Number(data[0].count) / ITEMS_PER_PAGE);

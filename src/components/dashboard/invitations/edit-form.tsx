@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useActionState } from "react";
-import { Invitation } from "@/lib/definitions";
+import { GuestRaw, Invitation } from "@/lib/definitions";
 import { Button } from "@/components/ui/button";
 import {
   updateInvitation,
@@ -12,8 +12,10 @@ import { invitationStatusList } from "@/lib/enum-definitions";
 
 export default function EditInvitationForm({
   invitation,
+  invitationMembers,
 }: {
   invitation: Invitation;
+  invitationMembers: GuestRaw[];
 }) {
   const initialState: UpdateInvitationState = { message: null, errors: {} };
   const updateInvitationWithId = updateInvitation.bind(
@@ -120,6 +122,20 @@ export default function EditInvitationForm({
               ))}
           </div>
         </div>
+
+        {/* Invitation members */}
+        {invitationMembers && (
+          <div className="mb-4">
+            <p className="text-base font-medium mb-2">Invitation members:</p>
+            <ul>
+              {invitationMembers.map((member) => (
+                <li key={member.guestId} className="text-sm">
+                  {member.name} {member.surname}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
       <div className="mt-6 flex justify-end gap-4">
         <Link

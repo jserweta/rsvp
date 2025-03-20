@@ -7,11 +7,13 @@ import { EditButton } from "../action-buttons";
 export default async function GuestsTable({
   query,
   currentPage,
+  invitationId,
 }: {
   query: string;
   currentPage: number;
+  invitationId: string;
 }) {
-  const guests = await fetchFilteredGuests(query, currentPage);
+  const guests = await fetchFilteredGuests(query, currentPage, invitationId);
 
   return (
     <div className="mt-6 flow-root">

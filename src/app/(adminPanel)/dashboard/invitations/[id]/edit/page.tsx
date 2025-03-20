@@ -3,6 +3,7 @@ import { Metadata } from "next";
 import Breadcrumbs from "@/components/dashboard/breadcrumbs";
 import { fetchInvitationById } from "@/lib/data/fetchInvitationById";
 import EditInvitationForm from "@/components/dashboard/invitations/edit-form";
+import { fetchInvitationMembers } from "@/lib/data/fetchInvitationMembers";
 
 export const metadata: Metadata = {
   title: "Edit Invitation",
@@ -11,7 +12,10 @@ export const metadata: Metadata = {
 export default async function Page(props: { params: Promise<{ id: string }> }) {
   const params = await props.params;
   const id = params.id;
-  const invitation = await fetchInvitationById(id);
+  const [invitation, invitationMembers] = await Promise.all([
+    fetchInvitationById(id),
+    fetchInvitationMembers(id),
+  ]);
 
   if (!invitation) {
     notFound();
@@ -29,7 +33,10 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
           },
         ]}
       />
-      <EditInvitationForm invitation={invitation} />
+      <EditInvitationForm
+        invitation={invitation}
+        invitationMembers={invitationMembers}
+      />
     </main>
   );
 }
