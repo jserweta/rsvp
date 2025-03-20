@@ -23,7 +23,7 @@ export async function fetchFilteredGuests(
     WHERE
       (guests.name ILIKE ${`%${query}%`} OR
       guests.surname ILIKE ${`%${query}%`})
-      ${invitationId ? sql` AND guests.invitation_id = ${invitationId}` : ""}
+      ${invitationId ? sql` AND guests.invitation_id = ${invitationId}` : sql``}
     ORDER BY guests.invitation_id, guests.name, guests.surname ASC
     LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
     `;
