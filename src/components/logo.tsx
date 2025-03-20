@@ -1,12 +1,12 @@
 import { geistSans } from "@/lib/fonts";
-import { HiOutlineGlobeAlt } from "react-icons/hi2";
+import { IoIosPaperPlane } from "react-icons/io";
 
 export default function Logo() {
   return (
     <div
-      className={`${geistSans.className} flex flex-row items-center leading-none text-white`}
+      className={`${geistSans.className} flex flex-row gap-3 items-center leading-none text-white`}
     >
-      <HiOutlineGlobeAlt className="h-12 w-12 rotate-[15deg]" />
+      <IoIosPaperPlane className="h-12 w-12" />
       <p className="text-[44px]">Rsvp</p>
     </div>
   );
