@@ -30,7 +30,9 @@ export default async function InvitationsTable({
 
                 <div className="flex w-full items-center justify-between pt-4">
                   <div className="flex flex-nowrap flex-row gap-3 items-center">
-                    {invitation.needAccommodation && <IoBedOutline />}
+                    {invitation.needAccommodation && (
+                      <IoBedOutline className="w-5 h-5" />
+                    )}
                   </div>
                   <div className="flex justify-end gap-2">
                     <UpdateGuest id={invitation.invitationId} />
@@ -66,7 +68,9 @@ export default async function InvitationsTable({
                     {invitation.name}
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
-                    {invitation.needAccommodation && <IoBedOutline />}
+                    {invitation.needAccommodation && (
+                      <IoBedOutline className="w-5 h-5" />
+                    )}
                   </td>
 
                   <td className="whitespace-nowrap px-3 py-3">
