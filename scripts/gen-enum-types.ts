@@ -16,7 +16,7 @@ const fetchMenuKinds = async () => {
     enum_range(null::menu_kind)
     `;
 
-    return data[0].enumRange;
+    return { name: "MenuKinds", data: data[0].enumRange };
   } catch (err) {
     console.error(err);
     throw new Error(`Failed to fetch menu kinds list.`);
@@ -30,7 +30,7 @@ const fetchInvitationStatus = async () => {
     enum_range(null::invitation_status)
     `;
 
-    return data[0].enumRange;
+    return { name: "InvitationStatus", data: data[0].enumRange };
   } catch (err) {
     console.error(err);
     throw new Error(`Failed to fetch menu kinds list.`);
@@ -44,7 +44,7 @@ const fetchAttendanceStatus = async () => {
     enum_range(null::attendance_status)
     `;
 
-    return data[0].enumRange;
+    return { name: "AttendanceStatus", data: data[0].enumRange };
   } catch (err) {
     console.error(err);
     throw new Error(`Failed to fetch menu kinds list.`);
@@ -53,40 +53,27 @@ const fetchAttendanceStatus = async () => {
 
 async function generateEnumTypes() {
   try {
-    const [menuKinds, invitationStatus, attendanceStatus] = await Promise.all([
+    const fetchedEnums = await Promise.all([
       fetchMenuKinds(),
       fetchInvitationStatus(),
       fetchAttendanceStatus(),
     ]);
 
-    const typeDef = [];
-    typeDef.push("// AUTO-GENERATED FILE. DO NOT EDIT MANUALLY");
-    typeDef.push(
-      `export enum MenuKinds {\n\t${menuKinds
-        .map((e: string) => `${e.toUpperCase()} = "${e}"`)
-        .join(",\n\t")}\n}`
-    );
-    typeDef.push(
-      `export const menuKindsList: MenuKinds[] = Object.values(MenuKinds);\n`
-    );
+    const enumDefFileContent = [];
+    enumDefFileContent.push("// AUTO-GENERATED FILE. DO NOT EDIT MANUALLY");
 
-    typeDef.push(
-      `export enum InvitationStatus {\n\t${invitationStatus
-        .map((e: string) => `${e.toUpperCase()} = "${e}"`)
-        .join(",\n\t")}\n}`
-    );
-    typeDef.push(
-      `export const invitationStatusList: InvitationStatus[] = Object.values(InvitationStatus);\n`
-    );
-
-    typeDef.push(
-      `export enum AttendanceStatus {\n\t${attendanceStatus
-        .map((e: string) => `${e.toUpperCase()} = "${e}"`)
-        .join(",\n\t")}\n}`
-    );
-    typeDef.push(
-      `export const attendanceStatusList: AttendanceStatus[] = Object.values(AttendanceStatus);\n`
-    );
+    fetchedEnums.forEach((enumItem) => {
+      enumDefFileContent.push(
+        `export enum ${enumItem.name} {\n\t${enumItem.data
+          .map((e: string) => `${e.toUpperCase()} = "${e}"`)
+          .join(",\n\t")}\n}`
+      );
+      enumDefFileContent.push(
+        `export const ${
+          enumItem.name.charAt(0).toLowerCase() + enumItem.name.slice(1)
+        }List: ${enumItem.name}[] = Object.values(${enumItem.name});\n`
+      );
+    });
 
     const filePath = path.join(
       __dirname,
@@ -97,7 +84,7 @@ async function generateEnumTypes() {
     );
 
     mkdirSync(path.dirname(filePath), { recursive: true });
-    writeFileSync(filePath, typeDef.join("\n"));
+    writeFileSync(filePath, enumDefFileContent.join("\n"));
 
     console.log("✅ Generated enum-definition.ts");
   } catch (err) {
