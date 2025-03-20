@@ -1,5 +1,5 @@
 import { UpdateGuest } from "@/components/dashboard/guests/buttons";
-import GuestStatus from "../response-status";
+import Status from "../response-status";
 import { fetchFilteredGuests } from "@/lib/dashboard/data";
 import { IoBedOutline } from "react-icons/io5";
 import { MdOutlineRestaurantMenu } from "react-icons/md";
@@ -28,7 +28,7 @@ export default async function GuestsTable({
                     {guest.name} {guest.surname}
                   </p>
 
-                  <GuestStatus status={guest.attendance} />
+                  <Status status={guest.attendance} />
                 </div>
                 <div className="flex w-full items-center justify-between pt-4">
                   <div>
@@ -83,7 +83,7 @@ export default async function GuestsTable({
                   </td>
 
                   <td className="whitespace-nowrap px-3 py-3">
-                    <GuestStatus status={guest.attendance} />
+                    <Status status={guest.attendance} />
                   </td>
                   <td className="whitespace-nowrap py-3 pl-6 pr-3">
                     <div className="flex justify-end gap-3">
