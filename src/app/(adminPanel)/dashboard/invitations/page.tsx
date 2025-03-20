@@ -3,9 +3,8 @@ import { geistSans } from "@/lib/fonts";
 import { Suspense } from "react";
 import { GuestsTableSkeleton } from "../../skeletons";
 import Pagination from "@/components/dashboard/pagination";
-
 import Search from "@/components/dashboard/search";
-import { fetchInvitationsPages } from "@/lib/dashboard/data";
+import { fetchInvitationsPages } from "@/lib/data/fetchInvitationsPages";
 import InvitationsTable from "@/components/dashboard/invitations/table";
 
 export const metadata: Metadata = {

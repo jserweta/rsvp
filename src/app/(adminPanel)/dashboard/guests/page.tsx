@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { fetchGuestsPages } from "@/lib/dashboard/data";
+import { fetchGuestsPages } from "@/lib/data/fetchGuestsPages";
 import { geistSans } from "@/lib/fonts";
 import { Suspense } from "react";
 import { GuestsTableSkeleton } from "../../skeletons";

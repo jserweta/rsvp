@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import EditGuestForm from "@/components/dashboard/guests/edit-form";
 import Breadcrumbs from "@/components/dashboard/breadcrumbs";
-import { fetchGuestById } from "@/lib/dashboard/data";
+import { fetchGuestById } from "@/lib/data/fetchGuestById";
 
 export const metadata: Metadata = {
   title: "Edit Guest",

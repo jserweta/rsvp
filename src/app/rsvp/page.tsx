@@ -1,5 +1,6 @@
 import { Toaster } from "@/components/ui/sonner";
-import { fetchInvitationMembers, fetchInvitationInfo } from "@/lib/rsvp/data";
+import { fetchInvitationMembers } from "@/lib/data/fetchInvitationMembers";
+import { fetchInvitationById } from "@/lib/data/fetchInvitationById";
 import { Invitation, GuestRaw } from "@/lib/definitions";
 import { Stepper } from "../../components/rsvp/stepper";
 
@@ -21,7 +22,7 @@ export default async function Page({
   const [invitationMembers, invitationInfo]: [GuestRaw[], Invitation] =
     await Promise.all([
       fetchInvitationMembers(invitationId),
-      fetchInvitationInfo(invitationId),
+      fetchInvitationById(invitationId),
     ]);
 
   if (invitationMembers.length === 0) {

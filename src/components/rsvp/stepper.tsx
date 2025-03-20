@@ -8,8 +8,8 @@ import React from "react";
 import { Separator } from "@/components/ui/separator";
 import { z } from "zod";
 import { Form } from "@/components/ui/form";
-import { generateSchemaForMember } from "@/lib/rsvp/schema";
-import { submitFormDataToDb } from "@/lib/rsvp/actions";
+import { getGuestStepSchema } from "@/lib/schema/getGuestStepSchema";
+import { submitInvitationForm } from "@/lib/actions/submitInvitationForm";
 import { toast } from "sonner";
 import { StepperItem } from "./stepperItem";
 import { GuestRaw } from "@/lib/definitions";
@@ -27,7 +27,7 @@ export const Stepper = ({
   const formSteps: Step[] = invitationMembers.map((item) => ({
     id: item.guestId,
     title: `${item.name} ${item.surname}`,
-    schema: generateSchemaForMember(
+    schema: getGuestStepSchema(
       item.guestId,
       item.name.includes("towarzysząca"),
       menuKindsList
@@ -51,7 +51,7 @@ export const Stepper = ({
   const onSubmit = async () => {
     try {
       if (stepper.isLast) {
-        await submitFormDataToDb(form.getValues(), invitationId);
+        await submitInvitationForm(form.getValues(), invitationId);
         toast.success("Thank you!", {
           description: "See you at the party ;)",
         });

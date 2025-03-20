@@ -4,7 +4,7 @@ import { Guest } from "@/lib/definitions";
 import { sql } from "../db";
 import { AttendanceStatus } from "../enum-definitions";
 
-export const submitFormDataToDb = async (
+export const submitInvitationForm = async (
   formValues: Record<string, string>,
   invitationId: string
 ) => {

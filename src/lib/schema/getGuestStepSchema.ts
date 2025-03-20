@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { AttendanceStatus, MenuKinds } from "../enum-definitions";
 
-export const generateSchemaForMember = (
+export const getGuestStepSchema = (
   guestId: string,
   isCompanion: boolean,
   menuKinds: MenuKinds[]

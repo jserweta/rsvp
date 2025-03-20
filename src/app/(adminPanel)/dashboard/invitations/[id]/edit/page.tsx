@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import Breadcrumbs from "@/components/dashboard/breadcrumbs";
-import { fetchInvitationById } from "@/lib/dashboard/data";
+import { fetchInvitationById } from "@/lib/data/fetchInvitationById";
 import EditInvitationForm from "@/components/dashboard/invitations/edit-form";
 
 export const metadata: Metadata = {
