@@ -104,7 +104,7 @@ export default function LoginForm() {
         <p className={`${geistSans.className} mt-2 w-[100%]`}>
           If you don&apos;t have an account, please{" "}
           <Link href="/register" className="underline">
-            Sign Up.
+            Sign&nbsp;Up.
           </Link>
         </p>
       </div>

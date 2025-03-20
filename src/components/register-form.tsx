@@ -32,7 +32,7 @@ export default function RegisterForm() {
           Create new account.
         </h1>
         <p className={`${geistSans.className} mb-3 w-[100%]`}>
-          Already have an account,{" "}
+          Already have an account?{" "}
           <Link href="/login" className="underline">
             Sign In.
           </Link>
