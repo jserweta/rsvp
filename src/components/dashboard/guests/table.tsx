@@ -1,5 +1,5 @@
 import Status from "../response-status";
-import { fetchFilteredGuests } from "@/lib/dashboard/data";
+import { fetchFilteredGuests } from "@/lib/data/fetchFilteredGuests";
 import { IoBedOutline } from "react-icons/io5";
 import { MdOutlineRestaurantMenu } from "react-icons/md";
 import { EditButton } from "../action-buttons";

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useActionState } from "react";
 import { Guest } from "@/lib/definitions";
 import { Button } from "@/components/ui/button";
-import { updateGuest, UpdateGuestState } from "@/lib/dashboard/actions";
+import { updateGuest, UpdateGuestState } from "@/lib/actions/updateGuest";
 import { attendanceStatusList, menuKindsList } from "@/lib/enum-definitions";
 
 export default function EditGuestForm({ guest }: { guest: Guest }) {

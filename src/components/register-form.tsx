@@ -11,17 +11,15 @@ import {
   HiArrowRight,
 } from "react-icons/hi2";
 import { Button } from "@/components/ui/button";
-import { signUp, StateSignUp } from "@/lib/dashboard/actions";
+import { signUp, StateSignUp } from "@/lib/actions/signUp";
 import { useActionState, useState } from "react";
 import Link from "next/link";
-// import { useSearchParams } from "next/navigation";
 
 export default function RegisterForm() {
   const initialState: StateSignUp = { message: null, errors: {} };
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordConfirm, setShowPasswordConfirm] = useState(false);
 
-  // const searchParams = useSearchParams();
   const [errorMessage, formAction, isPending] = useActionState(
     signUp,
     initialState

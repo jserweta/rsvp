@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import {
   updateInvitation,
   UpdateInvitationState,
-} from "@/lib/dashboard/actions";
+} from "@/lib/actions/updateInvitation";
 import { invitationStatusList } from "@/lib/enum-definitions";
 
 export default function EditInvitationForm({

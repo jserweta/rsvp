@@ -1,5 +1,5 @@
 import { EditButton } from "@/components/dashboard/action-buttons";
-import { fetchFilteredInvitations } from "@/lib/dashboard/data";
+import { fetchFilteredInvitations } from "@/lib/data/fetchFilteredInvitations";
 import { IoBedOutline } from "react-icons/io5";
 import Status from "../response-status";
 
