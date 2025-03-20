@@ -29,11 +29,11 @@ export const fetchInvitationInfo = async (invitationId: string) => {
   try {
     const data = await sql<Invitation[]>`
     SELECT
-      need_accommodation,
-      status
+      invitations.need_accommodation,
+      invitations.status
     FROM invitations 
     WHERE
-      invitation_id = ${invitationId}
+      invitations.invitation_id = ${invitationId}
     `;
 
     return data[0];

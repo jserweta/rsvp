@@ -1,6 +1,11 @@
 import { sql } from "@/lib/db";
 import { unstable_noStore as noStore } from "next/cache";
-import { Guest, GuestsTableType, InvitationsTableType } from "../definitions";
+import {
+  Guest,
+  GuestsTableType,
+  Invitation,
+  InvitationsTableType,
+} from "../definitions";
 
 const ITEMS_PER_PAGE = 15;
 
@@ -71,7 +76,7 @@ export async function fetchGuestById(id: string) {
     return data[0];
   } catch (error) {
     console.error("Database Error:", error);
-    throw new Error("Failed to fetch invoice.");
+    throw new Error("Failed to fetch guest.");
   }
 }
 
@@ -120,5 +125,24 @@ export async function fetchFilteredInvitations(
   } catch (err) {
     console.error("Database Error:", err);
     throw new Error("Failed to fetch Invitations table.");
+  }
+}
+
+export async function fetchInvitationById(id: string) {
+  try {
+    const data = await sql<Invitation[]>`
+      SELECT
+        invitations.invitation_id,
+        invitations.name,
+        invitations.need_accommodation,
+        invitations.status
+      FROM public.invitations
+      WHERE invitations.invitation_id = ${id};
+    `;
+
+    return data[0];
+  } catch (error) {
+    console.error("Database Error:", error);
+    throw new Error("Failed to fetch invitation.");
   }
 }

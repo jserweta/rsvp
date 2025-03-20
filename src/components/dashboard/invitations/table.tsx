@@ -1,4 +1,4 @@
-import { UpdateGuest } from "@/components/dashboard/guests/buttons";
+import { EditButton } from "@/components/dashboard/action-buttons";
 import { fetchFilteredInvitations } from "@/lib/dashboard/data";
 import { IoBedOutline } from "react-icons/io5";
 import Status from "../response-status";
@@ -35,7 +35,10 @@ export default async function InvitationsTable({
                     )}
                   </div>
                   <div className="flex justify-end gap-2">
-                    <UpdateGuest id={invitation.invitationId} />
+                    <EditButton
+                      id={invitation.invitationId}
+                      page="invitations"
+                    />
                   </div>
                 </div>
               </div>
@@ -78,7 +81,10 @@ export default async function InvitationsTable({
                   </td>
                   <td className="whitespace-nowrap py-3 pl-6 pr-3">
                     <div className="flex justify-end gap-3">
-                      <UpdateGuest id={invitation.invitationId} />
+                      <EditButton
+                        id={invitation.invitationId}
+                        page="invitations"
+                      />
                     </div>
                   </td>
                 </tr>
