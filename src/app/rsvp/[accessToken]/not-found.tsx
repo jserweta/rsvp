@@ -7,9 +7,11 @@ export default function NotFound() {
     <div className="flex h-full flex-col items-center justify-center gap-2">
       <HiOutlineFaceFrown className="w-[40px] h-[40px] text-gray-400" />
       <h2 className="text-xl font-semibold">404 Not Found</h2>
-      <p>Could not find the requested invitation.</p>
+
+      <p>Nie udało się znaleźć zaproszenia dla podanego kodu dostępu.</p>
+
       <Button asChild variant="default" size="default" className="mt-4">
-        <Link href="/dashboard/invitations">Go Back</Link>
+        <Link href="/rsvp">Spróbuj ponownie</Link>
       </Button>
     </div>
   );

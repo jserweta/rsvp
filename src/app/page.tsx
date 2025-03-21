@@ -1,11 +1,38 @@
-import Link from "next/link";
+"use client";
+
+import { Toaster } from "@/components/ui/sonner";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useEffect } from "react";
+import { toast } from "sonner";
 
 export default function Home() {
+  const { replace } = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  const params = new URLSearchParams(searchParams);
+  const invitationAlreadySubmitted = searchParams.get(
+    "invitationAlreadySubmitted"
+  );
+
+  useEffect(() => {
+    if (!invitationAlreadySubmitted) {
+      toast.message("Twoje potwierdzenie już zostało wypełnione", {
+        description: "Dziękujemy :)",
+      });
+
+      params.delete("invitationAlreadySubmitted");
+      replace(`${pathname}?${params.toString()}`);
+    }
+  }, [invitationAlreadySubmitted]);
+
   return (
-    <div>
+    <>
       <main>
-        <Link href="rsvp">RSVP</Link>
+        <h1>Strona główna aplikacji</h1>
       </main>
-    </div>
+
+      <Toaster position="top-center" closeButton />
+    </>
   );
 }

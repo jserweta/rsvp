@@ -18,7 +18,7 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
   }
 
   return (
-    <main>
+    <>
       <Breadcrumbs
         breadcrumbs={[
           { label: "Guests", href: "/dashboard/guests" },
@@ -30,6 +30,6 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
         ]}
       />
       <EditGuestForm guest={guest} />
-    </main>
+    </>
   );
 }

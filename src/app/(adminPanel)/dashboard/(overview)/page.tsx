@@ -5,7 +5,7 @@ import CardWrapper from "@/components/dashboard/cards";
 
 export default async function Page() {
   return (
-    <main>
+    <>
       <h1 className={`${geistSans.variable} mb-4 text-xl md:text-2xl`}>
         Dashboard
       </h1>
@@ -14,6 +14,6 @@ export default async function Page() {
           <CardWrapper />
         </Suspense>
       </div>
-    </main>
+    </>
   );
 }

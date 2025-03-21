@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/form";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { attendanceStatusList } from "@/lib/enum-definitions";
+import { AttendanceStatus, attendanceStatusList } from "@/lib/enum-definitions";
 
 export const StepperItem = ({
   needAccommodation,
@@ -54,9 +54,11 @@ export const StepperItem = ({
                   <SelectContent>
                     {attendanceStatusList.map(
                       (status) =>
-                        status !== "pending" && (
+                        status !== AttendanceStatus.PENDING && (
                           <SelectItem key={status} value={status}>
-                            {status === "confirmed" ? "Tak" : "Nie"}
+                            {status === AttendanceStatus.CONFIRMED
+                              ? "Tak"
+                              : "Nie"}
                           </SelectItem>
                         )
                     )}
@@ -82,7 +84,10 @@ export const StepperItem = ({
                 <Select
                   onValueChange={field.onChange}
                   defaultValue={field.value}
-                  disabled={watch(step.id + "_attendance") !== "confirmed"}
+                  disabled={
+                    watch(step.id + "_attendance") !==
+                    AttendanceStatus.CONFIRMED
+                  }
                 >
                   <SelectTrigger className="w-[200px]">
                     <SelectValue placeholder="Wybierz rodzaj menu" />
@@ -117,7 +122,10 @@ export const StepperItem = ({
                   <Select
                     onValueChange={field.onChange}
                     defaultValue={field.value}
-                    disabled={watch(step.id + "_attendance") !== "confirmed"}
+                    disabled={
+                      watch(step.id + "_attendance") !==
+                      AttendanceStatus.CONFIRMED
+                    }
                   >
                     <SelectTrigger className="w-[110px]">
                       <SelectValue placeholder="Wybierz" />

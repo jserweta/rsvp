@@ -2,7 +2,7 @@
 
 import { Guest } from "@/lib/definitions";
 import { sql } from "../db";
-import { AttendanceStatus } from "../enum-definitions";
+import { AttendanceStatus, InvitationStatus } from "../enum-definitions";
 
 export const submitInvitationForm = async (
   formValues: Record<string, string>,
@@ -50,7 +50,7 @@ export const submitInvitationForm = async (
       });
 
       queries.push(
-        sql`UPDATE invitations SET status = 'submitted' WHERE invitation_id = ${invitationId}`
+        sql`UPDATE invitations SET status = ${InvitationStatus.SUBMITTED} WHERE invitation_id = ${invitationId}`
       );
 
       await Promise.all(queries);

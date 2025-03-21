@@ -22,7 +22,7 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
   }
 
   return (
-    <main>
+    <>
       <Breadcrumbs
         breadcrumbs={[
           { label: "Invitations", href: "/dashboard/invitations" },
@@ -37,6 +37,6 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
         invitation={invitation}
         invitationMembers={invitationMembers}
       />
-    </main>
+    </>
   );
 }

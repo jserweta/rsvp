@@ -21,7 +21,7 @@ export const getGuestStepSchema = (
     })
     .refine(
       (data) => {
-        if (data[`${guestId}_attendance`] === "confirmed") {
+        if (data[`${guestId}_attendance`] === AttendanceStatus.CONFIRMED) {
           return (
             data[`${guestId}_menuKind`] &&
             menuKinds.includes(data[`${guestId}_menuKind`]! as MenuKinds)
@@ -36,7 +36,7 @@ export const getGuestStepSchema = (
     )
     .refine(
       (data) => {
-        if (data[`${guestId}_attendance`] === "confirmed") {
+        if (data[`${guestId}_attendance`] === AttendanceStatus.CONFIRMED) {
           return (
             data[`${guestId}_accommodation`] &&
             guestId &&
