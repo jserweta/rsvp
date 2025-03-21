@@ -34,15 +34,13 @@ export default async function GuestsTable({
                 </div>
                 <div className="flex w-full items-center justify-between pt-4">
                   <div>
-                    {guest.accommodation ? (
+                    {guest.accommodation && (
                       <IoBedOutline className="w-5 h-5 mb-2" />
-                    ) : (
-                      ""
                     )}
 
                     <p className="flex flex-nowrap flex-row gap-3 items-center">
                       <MdOutlineRestaurantMenu className="w-5 h-5" />
-                      {guest.menuKind ?? "-"}
+                      {guest.menuKind}
                     </p>
                   </div>
                   <div className="flex justify-end gap-2">
@@ -82,13 +80,11 @@ export default async function GuestsTable({
                     {guest.name} {guest.surname}
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
-                    {guest.menuKind ?? "-"}
+                    {guest.menuKind}
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
-                    {guest.accommodation ? (
+                    {guest.accommodation && (
                       <IoBedOutline className="w-5 h-5" />
-                    ) : (
-                      "-"
                     )}
                   </td>
 
