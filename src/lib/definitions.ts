@@ -27,7 +27,9 @@ export type GuestRaw = Required<Pick<Guest, "guestId" | "name" | "surname">>;
 
 export type GuestsTableType = Guest;
 
-export type InvitationsTableType = Invitation;
+export type InvitationsTableType = Invitation & {
+  accessToken: string;
+};
 
 export type QrCode = {
   id: string;
@@ -35,4 +37,8 @@ export type QrCode = {
   createdAt: string;
   usedAt: InvitationStatus;
   invitationId: string;
+};
+
+export type QrCodesTableType = QrCode & {
+  invitationName: string;
 };

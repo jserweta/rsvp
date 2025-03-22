@@ -4,7 +4,8 @@ import { InvitationsTableType } from "../definitions";
 const ITEMS_PER_PAGE = 15;
 export async function fetchFilteredInvitations(
   query: string,
-  currentPage: number
+  currentPage: number,
+  invitationId: string
 ) {
   const offset = (currentPage - 1) * ITEMS_PER_PAGE;
 
@@ -15,10 +16,17 @@ export async function fetchFilteredInvitations(
       invitations.name,
       invitations.need_accommodation,
       invitations.accommodation_location,
-      invitations.status
+      invitations.status,
+      qr_codes.access_token AS access_token
 		FROM invitations
+    LEFT JOIN qr_codes ON invitations.invitation_id = qr_codes.invitation_id
     WHERE
       invitations.name ILIKE ${`%${query}%`}
+      ${
+        invitationId
+          ? sql` AND invitations.invitation_id = ${invitationId}`
+          : sql``
+      }
 		ORDER BY invitations.name ASC
     LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
 	  `;

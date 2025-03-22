@@ -1,7 +1,7 @@
 "use client";
 
 import {
-  HiOutlineUserGroup,
+  HiOutlineEnvelope,
   HiOutlineHome,
   HiOutlineUser,
   HiOutlineQrCode,
@@ -15,7 +15,7 @@ const links = [
   {
     name: "Invitations",
     href: "/dashboard/invitations",
-    icon: HiOutlineUserGroup,
+    icon: HiOutlineEnvelope,
   },
   { name: "Guests List", href: "/dashboard/guests", icon: HiOutlineUser },
   { name: "QR Codes", href: "/dashboard/qr-codes", icon: HiOutlineQrCode },

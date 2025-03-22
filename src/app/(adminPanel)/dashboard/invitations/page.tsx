@@ -14,6 +14,7 @@ export const metadata: Metadata = {
 type SearchParams = {
   query?: string;
   page?: string;
+  invitationId?: string;
 };
 
 export default async function Page({
@@ -21,9 +22,13 @@ export default async function Page({
 }: {
   searchParams: Promise<SearchParams>;
 }) {
-  const { query = "", page: currentPage = 1 } = (await searchParams) || {};
+  const {
+    query = "",
+    page: currentPage = 1,
+    invitationId = "",
+  } = (await searchParams) || {};
 
-  const totalPages = await fetchInvitationsPages(query);
+  const totalPages = await fetchInvitationsPages(query, invitationId);
 
   return (
     <>
@@ -35,7 +40,11 @@ export default async function Page({
       </div>
 
       <Suspense key={query + Number(currentPage)} fallback={<TableSkeleton />}>
-        <InvitationsTable query={query} currentPage={Number(currentPage)} />
+        <InvitationsTable
+          query={query}
+          currentPage={Number(currentPage)}
+          invitationId={invitationId}
+        />
       </Suspense>
 
       {totalPages > 1 && (

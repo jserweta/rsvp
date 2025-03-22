@@ -1,16 +1,23 @@
 import { EditButton, ShowGuests } from "@/components/dashboard/action-buttons";
 import { fetchFilteredInvitations } from "@/lib/data/fetchFilteredInvitations";
 import { IoBedOutline } from "react-icons/io5";
+import { HiOutlineQrCode } from "react-icons/hi2";
 import Status from "../response-status";
 
 export default async function InvitationsTable({
   query,
   currentPage,
+  invitationId,
 }: {
   query: string;
   currentPage: number;
+  invitationId: string;
 }) {
-  const invitations = await fetchFilteredInvitations(query, currentPage);
+  const invitations = await fetchFilteredInvitations(
+    query,
+    currentPage,
+    invitationId
+  );
 
   return (
     <div className="mt-6 flow-root">
@@ -29,16 +36,31 @@ export default async function InvitationsTable({
                 </div>
 
                 <div className="flex w-full items-center justify-between pt-4">
-                  {invitation.needAccommodation && (
-                    <div className="flex flex-nowrap flex-row gap-3 items-center">
-                      <IoBedOutline className="w-5 h-5" />
-                      {invitation.accommodationLocation && (
-                        <p className="mb-0 text-xs">
-                          {invitation.accommodationLocation}
-                        </p>
-                      )}
-                    </div>
-                  )}
+                  {invitation.needAccommodation ||
+                    (invitation.accessToken && (
+                      <>
+                        {invitation.needAccommodation && (
+                          <div className="flex flex-nowrap flex-row gap-3 items-center">
+                            <IoBedOutline className="w-5 h-5" />
+                            {invitation.accommodationLocation && (
+                              <p className="mb-0 text-xs">
+                                {invitation.accommodationLocation}
+                              </p>
+                            )}
+                          </div>
+                        )}
+                        {invitation.accessToken && (
+                          <div className="flex flex-nowrap flex-row gap-3 items-center">
+                            <HiOutlineQrCode className="w-5 h-5" />
+                            {invitation.accessToken && (
+                              <p className="mb-0 text-xs">
+                                {invitation.accessToken.toUpperCase()}
+                              </p>
+                            )}
+                          </div>
+                        )}
+                      </>
+                    ))}
                   <div className="flex justify-end gap-2">
                     <ShowGuests id={invitation.invitationId} />
                     <EditButton
@@ -60,10 +82,13 @@ export default async function InvitationsTable({
                   Accommodation
                 </th>
                 <th scope="col" className="px-3 py-5 font-medium">
+                  Access Token
+                </th>
+                <th scope="col" className="px-3 py-5 font-medium">
                   Response
                 </th>
                 <th scope="col" className="relative py-3 pl-6 pr-3">
-                  <span className="sr-only">Edit</span>
+                  <span className="sr-only">Actions</span>
                 </th>
               </tr>
             </thead>
@@ -85,6 +110,17 @@ export default async function InvitationsTable({
                             {invitation.accommodationLocation}
                           </p>
                         )}
+                      </div>
+                    )}
+                  </td>
+
+                  <td className="whitespace-nowrap px-3 py-3">
+                    {invitation.accessToken && (
+                      <div className="flex flex-nowrap flex-row gap-3 items-center">
+                        <HiOutlineQrCode className="w-5 h-5" />
+                        <p className="mb-0 text-s">
+                          {invitation.accessToken.toUpperCase()}
+                        </p>
                       </div>
                     )}
                   </td>
