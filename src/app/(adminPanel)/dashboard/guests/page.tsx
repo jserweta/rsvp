@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { fetchGuestsPages } from "@/lib/data/fetchGuestsPages";
 import { geistSans } from "@/lib/fonts";
 import { Suspense } from "react";
-import { GuestsTableSkeleton } from "../../skeletons";
+import { TableSkeleton } from "../../skeletons";
 import Pagination from "@/components/dashboard/pagination";
 import GuestsTable from "@/components/dashboard/guests/table";
 import Search from "@/components/dashboard/search";
@@ -39,10 +39,7 @@ export default async function Page({
         <Search placeholder="Search guests..." />
       </div>
 
-      <Suspense
-        key={query + Number(currentPage)}
-        fallback={<GuestsTableSkeleton />}
-      >
+      <Suspense key={query + Number(currentPage)} fallback={<TableSkeleton />}>
         <GuestsTable
           query={query}
           currentPage={Number(currentPage)}
