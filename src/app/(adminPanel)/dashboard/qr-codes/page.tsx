@@ -4,7 +4,6 @@ import { Suspense } from "react";
 import { TableSkeleton } from "../../skeletons";
 import Pagination from "@/components/dashboard/pagination";
 import Search from "@/components/dashboard/search";
-import InvitationsTable from "@/components/dashboard/invitations/table";
 import { fetchQrCodesPages } from "@/lib/data/fetchQrCodesPages";
 import QRCodesTable from "@/components/dashboard/qrCodes/table";
 
