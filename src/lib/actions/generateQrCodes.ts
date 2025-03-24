@@ -19,7 +19,7 @@ export default async function generateQrCodes(): Promise<ActionStatus> {
       });
     }
 
-    let availableQrCodes = await sql<QrCode[]>`
+    const availableQrCodes = await sql<QrCode[]>`
       SELECT id
       FROM qr_codes
       WHERE id NOT IN (
