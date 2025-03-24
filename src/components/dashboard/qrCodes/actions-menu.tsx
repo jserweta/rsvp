@@ -20,7 +20,7 @@ import { useTransition } from "react";
 import { toast } from "sonner";
 
 export default function QRCodesTableActions() {
-  const [isPending, startTransition] = useTransition();
+  const [, startTransition] = useTransition();
 
   const handleAutoAssign = () => {
     startTransition(async () => {

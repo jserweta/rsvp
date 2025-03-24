@@ -10,7 +10,7 @@ import {
 } from "@/lib/actions/updateInvitation";
 import { invitationStatusList } from "@/lib/enum-definitions";
 import { useRouter } from "next/navigation";
-import useToastAction from "@/lib/hooks/useToastAction";
+import { toast } from "sonner";
 
 export default function EditInvitationForm({
   invitation,
@@ -39,11 +39,18 @@ export default function EditInvitationForm({
 
   useEffect(() => {
     if (state.message) {
-      useToastAction(state);
-    }
-
-    if (state.type === "success") {
-      router.push("/dashboard/invitations");
+      switch (state.type) {
+        case "success":
+          toast.success(state.message);
+          router.push("/dashboard/invitations");
+          break;
+        case "error":
+          toast.error(state.message);
+          break;
+        case "info":
+          toast.info(state.message);
+          break;
+      }
     }
   }, [state.message]);
 
