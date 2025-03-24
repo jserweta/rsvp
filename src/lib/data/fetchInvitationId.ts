@@ -1,12 +1,13 @@
 import { sql } from "../db";
-import { QrCode } from "../definitions";
+import { Invitation } from "../definitions";
 
 export async function fetchInvitationId(token: string) {
   try {
-    const data = await sql<QrCode[]>`
+    const data = await sql<Invitation[]>`
       SELECT
-        qr_codes.invitation_id
+        invitations.invitation_id
       FROM public.qr_codes
+      LEFT JOIN invitations ON qr_codes.id = invitation.qr_code_id
       WHERE qr_codes.access_token = ${token};
     `;
 

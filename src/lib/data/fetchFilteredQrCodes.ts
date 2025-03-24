@@ -12,10 +12,10 @@ export async function fetchFilteredQrCodes(query: string, currentPage: number) {
       qr_codes.access_token,
       qr_codes.used_at,
       qr_codes.created_at,
-      qr_codes.invitation_id,
-      invitations.name AS invitation_name
+      invitations.name AS invitation_name,
+      invitations.invitation_id AS invitation_id
 		FROM qr_codes
-    LEFT JOIN invitations ON qr_codes.invitation_id = invitations.invitation_id
+    LEFT JOIN invitations ON qr_codes.id = invitations.qr_code_id
     WHERE
       qr_codes.access_token ILIKE ${`%${query}%`} OR
       invitations.name ILIKE ${`%${query}%`}

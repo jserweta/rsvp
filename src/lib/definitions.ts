@@ -13,6 +13,7 @@ export type Invitation = {
   needAccommodation: boolean;
   status: InvitationStatus;
   accommodationLocation: string;
+  qrCodeId?: string;
 };
 
 export type Guest = {
@@ -27,7 +28,7 @@ export type GuestRaw = Required<Pick<Guest, "guestId" | "name" | "surname">>;
 
 export type GuestsTableType = Guest;
 
-export type InvitationsTableType = Invitation & {
+export type InvitationsTableType = Omit<Invitation, "qrCodeId"> & {
   accessToken: string;
 };
 
@@ -36,9 +37,9 @@ export type QrCode = {
   accessToken: string;
   createdAt: string;
   usedAt: InvitationStatus;
-  invitationId: string;
 };
 
 export type QrCodesTableType = QrCode & {
   invitationName: string;
+  invitationId: string;
 };

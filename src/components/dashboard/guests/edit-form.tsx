@@ -18,6 +18,13 @@ export default function EditGuestForm({ guest }: { guest: Guest }) {
   return (
     <form action={formAction}>
       <div className="rounded-md bg-gray-50 p-4 md:p-6">
+        {/* General validation message */}
+        <div aria-live="polite" aria-atomic="true">
+          {state.message ? (
+            <p className="my-2 text-sm text-red-500">{state.message}</p>
+          ) : null}
+        </div>
+
         {/* Attendance */}
         <div className="mb-6">
           <label

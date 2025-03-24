@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useActionState, useState } from "react";
-import { GuestRaw, Invitation } from "@/lib/definitions";
+import { GuestRaw, InvitationsTableType, QrCode } from "@/lib/definitions";
 import { Button } from "@/components/ui/button";
 import {
   updateInvitation,
@@ -13,9 +13,11 @@ import { invitationStatusList } from "@/lib/enum-definitions";
 export default function EditInvitationForm({
   invitation,
   invitationMembers,
+  availableQrCodes,
 }: {
-  invitation: Invitation;
+  invitation: InvitationsTableType;
   invitationMembers: GuestRaw[];
+  availableQrCodes: QrCode[];
 }) {
   const initialState: UpdateInvitationState = { message: null, errors: {} };
   const updateInvitationWithId = updateInvitation.bind(
@@ -34,6 +36,13 @@ export default function EditInvitationForm({
   return (
     <form action={formAction}>
       <div className="rounded-md bg-gray-50 p-4 md:p-6">
+        {/* General validation message */}
+        <div aria-live="polite" aria-atomic="true">
+          {state.message ? (
+            <p className="my-2 text-sm text-red-500">{state.message}</p>
+          ) : null}
+        </div>
+
         {/* Status */}
         <div className="mb-6">
           <label htmlFor="status" className="mb-2 block text-sm font-medium">
@@ -87,6 +96,49 @@ export default function EditInvitationForm({
           <div id="name-error" aria-live="polite" aria-atomic="true">
             {state.errors?.name &&
               state.errors.name.map((error: string) => (
+                <p className="mt-2 text-sm text-red-500" key={error}>
+                  {error}
+                </p>
+              ))}
+          </div>
+        </div>
+
+        {/* Access token */}
+        <div className="mb-6">
+          <label
+            htmlFor="accessToken"
+            className="mb-2 block text-sm font-medium"
+          >
+            Access token
+          </label>
+
+          <select
+            id="accessToken"
+            name="accessToken"
+            className="block w-full cursor-pointer rounded-md border border-gray-200 py-2 pl-4 text-sm outline-2 placeholder:text-gray-500"
+            defaultValue={invitation.accessToken ?? ""}
+            aria-describedby="accessToken-error"
+          >
+            <option value="">Assign access token</option>
+            {invitation.accessToken && (
+              <option value={invitation.accessToken}>
+                {invitation.accessToken.toUpperCase()}
+              </option>
+            )}
+
+            {availableQrCodes.map((item, idx) => (
+              <option
+                key={`${item.accessToken}_${idx}`}
+                value={item.accessToken}
+              >
+                {item.accessToken.toUpperCase()}
+              </option>
+            ))}
+          </select>
+
+          <div id="accessToken-error" aria-live="polite" aria-atomic="true">
+            {state.errors?.accessToken &&
+              state.errors.accessToken.map((error: string) => (
                 <p className="mt-2 text-sm text-red-500" key={error}>
                   {error}
                 </p>

@@ -4,6 +4,7 @@ import Breadcrumbs from "@/components/dashboard/breadcrumbs";
 import { fetchInvitationById } from "@/lib/data/fetchInvitationById";
 import EditInvitationForm from "@/components/dashboard/invitations/edit-form";
 import { fetchInvitationMembers } from "@/lib/data/fetchInvitationMembers";
+import { fetchAvailableQrCodes } from "@/lib/data/fetchAvailableQrCodes";
 
 export const metadata: Metadata = {
   title: "Edit Invitation",
@@ -12,9 +13,10 @@ export const metadata: Metadata = {
 export default async function Page(props: { params: Promise<{ id: string }> }) {
   const params = await props.params;
   const id = params.id;
-  const [invitation, invitationMembers] = await Promise.all([
+  const [invitation, invitationMembers, availableQrCodes] = await Promise.all([
     fetchInvitationById(id),
     fetchInvitationMembers(id),
+    fetchAvailableQrCodes(),
   ]);
 
   if (!invitation) {
@@ -36,6 +38,7 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
       <EditInvitationForm
         invitation={invitation}
         invitationMembers={invitationMembers}
+        availableQrCodes={availableQrCodes}
       />
     </>
   );

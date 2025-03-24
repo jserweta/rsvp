@@ -19,7 +19,7 @@ export async function fetchFilteredInvitations(
       invitations.status,
       qr_codes.access_token AS access_token
 		FROM invitations
-    LEFT JOIN qr_codes ON invitations.invitation_id = qr_codes.invitation_id
+    LEFT JOIN qr_codes ON invitations.qr_code_id = qr_codes.id
     WHERE
       invitations.name ILIKE ${`%${query}%`}
       ${
