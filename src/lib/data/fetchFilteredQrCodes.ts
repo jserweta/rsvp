@@ -19,7 +19,7 @@ export async function fetchFilteredQrCodes(query: string, currentPage: number) {
     WHERE
       qr_codes.access_token ILIKE ${`%${query}%`} OR
       invitations.name ILIKE ${`%${query}%`}
-		ORDER BY qr_codes.access_token ASC
+		ORDER BY (invitations.name IS NULL) DESC, qr_codes.created_at DESC
     LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
 	  `;
 

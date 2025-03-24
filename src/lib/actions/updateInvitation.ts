@@ -27,7 +27,8 @@ export async function updateInvitation(
     needAccommodation:
       formData.get("needAccommodation") === null ? false : true,
     accommodationLocation: formData.get("accommodationLocation") ?? "",
-    accessToken: formData.get("accessToken"),
+    accessToken:
+      formData.get("accessToken") === "" ? null : formData.get("accessToken"),
   });
 
   // If form validation fails, return errors early. Otherwise, continue.

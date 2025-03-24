@@ -32,6 +32,16 @@ export default function QRCodesTableActions() {
     });
   };
 
+  const handleQrCodeGeneration = () => {
+    startTransition(async () => {
+      toast.promise(generateQrCodes(), {
+        loading: "Generating QR codes, please wait...",
+        success: (data) => data.message,
+        error: (message) => message,
+      });
+    });
+  };
+
   return (
     <DropdownMenu>
       <Button asChild variant="outline" size="icon">
@@ -52,7 +62,7 @@ export default function QRCodesTableActions() {
           <DropdownMenuSubContent>
             <DropdownMenuItem
               className="flex items-center gap-2"
-              onSelect={generateQrCodes}
+              onSelect={handleQrCodeGeneration}
             >
               <FiZap />
               Generate codes
