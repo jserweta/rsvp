@@ -6,7 +6,7 @@ import { Guest } from "@/lib/definitions";
 import { Button } from "@/components/ui/button";
 import { updateGuest, UpdateGuestStatus } from "@/lib/actions/updateGuest";
 import { attendanceStatusList, menuKindsList } from "@/lib/enum-definitions";
-import { toast } from "sonner";
+import useToastAction from "@/lib/hooks/useToastAction";
 import { useRouter } from "next/navigation";
 
 export default function EditGuestForm({ guest }: { guest: Guest }) {
@@ -20,15 +20,11 @@ export default function EditGuestForm({ guest }: { guest: Guest }) {
 
   useEffect(() => {
     if (state.message) {
-      switch (state.type) {
-        case "success":
-          toast.success(state.message);
-          router.push("/dashboard/guests");
-          break;
-        case "error":
-          toast.error(state.message);
-          break;
-      }
+      useToastAction(state);
+    }
+
+    if (state.type === "success") {
+      router.push("/dashboard/guests");
     }
   }, [state.message]);
 

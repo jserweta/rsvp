@@ -2,7 +2,8 @@ import { fetchFilteredQrCodes } from "@/lib/data/fetchFilteredQrCodes";
 import { formatDateToLocal } from "@/lib/utils";
 import { MdOutlineUpdate } from "react-icons/md";
 import { HiOutlineQrCode } from "react-icons/hi2";
-import { ShowInvitation } from "../action-buttons";
+import { DeleteButton, ShowInvitation } from "../action-buttons";
+import { deleteQrCode } from "@/lib/actions/deleteQrCode";
 
 export default async function QRCodesTable({
   query,
@@ -40,11 +41,15 @@ export default async function QRCodesTable({
                     </div>
                   )}
 
-                  {qrCode.invitationId && (
-                    <div className="flex justify-end gap-2">
+                  <div className="flex justify-end gap-2">
+                    {qrCode.invitationId && (
                       <ShowInvitation id={qrCode.invitationId} />
-                    </div>
-                  )}
+                    )}
+                    <DeleteButton
+                      id={qrCode.id}
+                      actionFunction={deleteQrCode}
+                    />
+                  </div>
                 </div>
               </div>
             ))}
@@ -96,11 +101,15 @@ export default async function QRCodesTable({
                   </td>
 
                   <td className="whitespace-nowrap py-3 pl-6 pr-3">
-                    {qrCode.invitationId && (
-                      <div className="flex justify-end gap-3">
+                    <div className="flex justify-end gap-3">
+                      {qrCode.invitationId && (
                         <ShowInvitation id={qrCode.invitationId} />
-                      </div>
-                    )}
+                      )}
+                      <DeleteButton
+                        id={qrCode.id}
+                        actionFunction={deleteQrCode}
+                      />
+                    </div>
                   </td>
                 </tr>
               ))}

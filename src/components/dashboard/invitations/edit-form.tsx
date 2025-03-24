@@ -9,8 +9,8 @@ import {
   UpdateInvitationStatus,
 } from "@/lib/actions/updateInvitation";
 import { invitationStatusList } from "@/lib/enum-definitions";
-import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import useToastAction from "@/lib/hooks/useToastAction";
 
 export default function EditInvitationForm({
   invitation,
@@ -39,15 +39,11 @@ export default function EditInvitationForm({
 
   useEffect(() => {
     if (state.message) {
-      switch (state.type) {
-        case "success":
-          toast.success(state.message);
-          router.push("/dashboard/invitations");
-          break;
-        case "error":
-          toast.error(state.message);
-          break;
-      }
+      useToastAction(state);
+    }
+
+    if (state.type === "success") {
+      router.push("/dashboard/invitations");
     }
   }, [state.message]);
 

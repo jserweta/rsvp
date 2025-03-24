@@ -6,6 +6,7 @@ import Pagination from "@/components/dashboard/pagination";
 import Search from "@/components/dashboard/search";
 import { fetchQrCodesPages } from "@/lib/data/fetchQrCodesPages";
 import QRCodesTable from "@/components/dashboard/qrCodes/table";
+import QRCodesTableActions from "@/components/dashboard/qrCodes/actions-menu";
 
 export const metadata: Metadata = {
   title: "QR Codes",
@@ -32,6 +33,7 @@ export default async function Page({
       </div>
       <div className="mt-4 flex items-center justify-between gap-2 md:mt-8">
         <Search placeholder="Search QR Code..." />
+        <QRCodesTableActions />
       </div>
 
       <Suspense key={query + Number(currentPage)} fallback={<TableSkeleton />}>
