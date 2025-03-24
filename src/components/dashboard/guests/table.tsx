@@ -44,7 +44,11 @@ export default async function GuestsTable({
                     </p>
                   </div>
                   <div className="flex justify-end gap-2">
-                    <EditButton id={guest.guestId} page="guests" />
+                    <EditButton
+                      id={guest.guestId}
+                      page="guests"
+                      label="Edit Guest"
+                    />
                   </div>
                 </div>
               </div>
@@ -93,7 +97,11 @@ export default async function GuestsTable({
                   </td>
                   <td className="whitespace-nowrap py-3 pl-6 pr-3">
                     <div className="flex justify-end gap-3">
-                      <EditButton id={guest.guestId} page="guests" />
+                      <EditButton
+                        id={guest.guestId}
+                        page="guests"
+                        label="Edit Guest"
+                      />
                     </div>
                   </td>
                 </tr>

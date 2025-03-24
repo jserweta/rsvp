@@ -3,7 +3,7 @@ import { InvitationStatus } from "../enum-definitions";
 
 export const InvitationFormSchema = z.object({
   invitationId: z.string(),
-  name: z.string({ message: "Name is required" }),
+  name: z.string().nonempty({ message: "Name is required" }),
   status: z.nativeEnum(InvitationStatus),
   needAccommodation: z.boolean(),
   accommodationLocation: z.string().optional(),

@@ -1,12 +1,11 @@
 "use server";
 
 import { sql } from "../db";
-import { Guest } from "../definitions";
+import { ActionStatus, Guest } from "../definitions";
 import { UpdateGuest } from "../schema/guestForm";
 import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
 
-export type UpdateGuestState = {
+export type UpdateGuestStatus = ActionStatus & {
   errors?: {
     name?: string[];
     surname?: string[];
@@ -14,14 +13,13 @@ export type UpdateGuestState = {
     menuKind?: string[];
     accommodation?: string[];
   };
-  message?: string | null;
 };
 
 export async function updateGuest(
   id: string,
-  prevState: UpdateGuestState,
+  prevState: UpdateGuestStatus,
   formData: FormData
-) {
+): Promise<UpdateGuestStatus> {
   // Validate form using Zod
   const validatedFields = UpdateGuest.safeParse({
     name: formData.get("name"),
@@ -34,6 +32,7 @@ export async function updateGuest(
   // If form validation fails, return errors early. Otherwise, continue.
   if (!validatedFields.success) {
     return {
+      type: "error",
       errors: validatedFields.error.flatten().fieldErrors,
       message: "Missing Fields. Failed to update guest.",
     };
@@ -50,10 +49,19 @@ export async function updateGuest(
     SET ${sql(validatedFields.data, keys)}
     WHERE guest_id = ${id}
   `;
-  } catch {
-    return { message: "Database Error: Failed to Update Guest." };
-  }
 
-  revalidatePath("/dashboard/guests");
-  redirect("/dashboard/guests");
+    revalidatePath("/dashboard/guests");
+
+    return {
+      type: "success",
+      message: "Guest updated.",
+    };
+  } catch (error) {
+    console.error(error);
+
+    return {
+      type: "error",
+      message: "Database Error: Failed to Update Guest.",
+    };
+  }
 }

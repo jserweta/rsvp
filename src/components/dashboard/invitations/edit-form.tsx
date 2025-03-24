@@ -1,14 +1,16 @@
 "use client";
 
 import Link from "next/link";
-import { useActionState, useState } from "react";
+import { useActionState, useEffect, useState } from "react";
 import { GuestRaw, InvitationsTableType, QrCode } from "@/lib/definitions";
 import { Button } from "@/components/ui/button";
 import {
   updateInvitation,
-  UpdateInvitationState,
+  UpdateInvitationStatus,
 } from "@/lib/actions/updateInvitation";
 import { invitationStatusList } from "@/lib/enum-definitions";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 export default function EditInvitationForm({
   invitation,
@@ -19,11 +21,13 @@ export default function EditInvitationForm({
   invitationMembers: GuestRaw[];
   availableQrCodes: QrCode[];
 }) {
-  const initialState: UpdateInvitationState = { message: null, errors: {} };
+  const router = useRouter();
+  const initialState: UpdateInvitationStatus = { message: null, errors: {} };
   const updateInvitationWithId = updateInvitation.bind(
     null,
     invitation.invitationId
   );
+
   const [state, formAction, isPending] = useActionState(
     updateInvitationWithId,
     initialState
@@ -33,16 +37,23 @@ export default function EditInvitationForm({
     !!invitation.needAccommodation
   );
 
+  useEffect(() => {
+    if (state.message) {
+      switch (state.type) {
+        case "success":
+          toast.success(state.message);
+          router.push("/dashboard/invitations");
+          break;
+        case "error":
+          toast.error(state.message);
+          break;
+      }
+    }
+  }, [state.message]);
+
   return (
     <form action={formAction}>
       <div className="rounded-md bg-gray-50 p-4 md:p-6">
-        {/* General validation message */}
-        <div aria-live="polite" aria-atomic="true">
-          {state.message ? (
-            <p className="my-2 text-sm text-red-500">{state.message}</p>
-          ) : null}
-        </div>
-
         {/* Status */}
         <div className="mb-6">
           <label htmlFor="status" className="mb-2 block text-sm font-medium">
@@ -88,7 +99,7 @@ export default function EditInvitationForm({
               type="text"
               defaultValue={invitation.name}
               placeholder="Enter name"
-              className=" block w-full cursor-pointer rounded-md border border-gray-200 py-2 px-4 text-sm outline-2 placeholder:text-gray-500"
+              className="block w-full cursor-pointer rounded-md border border-gray-200 py-2 px-4 text-sm outline-2 placeholder:text-gray-500"
               aria-describedby="name-error"
             />
           </div>

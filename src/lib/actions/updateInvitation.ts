@@ -1,12 +1,11 @@
 "use server";
 
 import { sql } from "../db";
-import { Invitation, QrCode } from "../definitions";
+import { ActionStatus, Invitation, QrCode } from "../definitions";
 import { UpdateInvitation } from "../schema/invitationForm";
 import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
 
-export type UpdateInvitationState = {
+export type UpdateInvitationStatus = ActionStatus & {
   errors?: {
     name?: string[];
     status?: string[];
@@ -14,14 +13,13 @@ export type UpdateInvitationState = {
     accommodationLocation?: string[];
     accessToken?: string[];
   };
-  message?: string | null;
 };
 
 export async function updateInvitation(
   id: string,
-  prevState: UpdateInvitationState,
+  prevState: UpdateInvitationStatus,
   formData: FormData
-) {
+): Promise<UpdateInvitationStatus> {
   // Validate form using Zod
   const validatedFields = UpdateInvitation.safeParse({
     name: formData.get("name"),
@@ -35,6 +33,7 @@ export async function updateInvitation(
   // If form validation fails, return errors early. Otherwise, continue.
   if (!validatedFields.success) {
     return {
+      type: "error",
       errors: validatedFields.error.flatten().fieldErrors,
       message: "Missing Fields. Failed to update guest.",
     };
@@ -68,11 +67,18 @@ export async function updateInvitation(
       SET ${sql(invitationData, invitationKeys)}, qr_code_id = ${qrCodeId}
       WHERE invitation_id = ${id}
       `;
+
+    revalidatePath("/dashboard/invitations");
+
+    return {
+      type: "success",
+      message: "Invitation updated.",
+    };
   } catch (error) {
     console.error(error);
-    return { message: "Database Error: Failed to Update Invitation." };
+    return {
+      type: "error",
+      message: "Database Error: Failed to Update Invitation.",
+    };
   }
-
-  revalidatePath("/dashboard/invitations");
-  redirect("/dashboard/invitations");
 }

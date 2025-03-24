@@ -66,6 +66,7 @@ export default async function InvitationsTable({
                     <EditButton
                       id={invitation.invitationId}
                       page="invitations"
+                      label="Edit Invitation"
                     />
                   </div>
                 </div>
@@ -134,6 +135,7 @@ export default async function InvitationsTable({
                       <EditButton
                         id={invitation.invitationId}
                         page="invitations"
+                        label="Edit Invitation"
                       />
                     </div>
                   </td>

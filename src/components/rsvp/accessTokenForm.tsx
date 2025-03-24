@@ -25,10 +25,8 @@ export default function AccessTokenForm() {
   const router = useRouter();
 
   const onSubmit = async () => {
-    try {
-      const { accessToken } = form.getValues();
-      router.push(`/rsvp/${accessToken}`);
-    } catch {}
+    const { accessToken } = form.getValues();
+    router.push(`/rsvp/${accessToken}`);
   };
 
   return (

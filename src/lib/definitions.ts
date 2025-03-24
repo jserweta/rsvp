@@ -43,3 +43,10 @@ export type QrCodesTableType = QrCode & {
   invitationName: string;
   invitationId: string;
 };
+
+export type DeleteFunc = (id: string) => Promise<ActionStatus>;
+
+export type ActionStatus = {
+  type?: "error" | "success";
+  message?: string | null;
+};

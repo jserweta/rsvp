@@ -3,8 +3,8 @@ import { AttendanceStatus, MenuKinds } from "../enum-definitions";
 
 export const GuestFormSchema = z.object({
   guestId: z.string(),
-  name: z.string({ message: "Name is required" }),
-  surname: z.string({ message: "Surname is required" }),
+  name: z.string().nonempty({ message: "Name is required" }),
+  surname: z.string().nonempty({ message: "Surname is required" }),
   menuKind: z.nativeEnum(MenuKinds),
   attendance: z.nativeEnum(AttendanceStatus),
   accommodation: z.boolean(),

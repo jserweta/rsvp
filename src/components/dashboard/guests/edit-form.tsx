@@ -1,30 +1,40 @@
 "use client";
 
 import Link from "next/link";
-import { useActionState } from "react";
+import { useActionState, useEffect } from "react";
 import { Guest } from "@/lib/definitions";
 import { Button } from "@/components/ui/button";
-import { updateGuest, UpdateGuestState } from "@/lib/actions/updateGuest";
+import { updateGuest, UpdateGuestStatus } from "@/lib/actions/updateGuest";
 import { attendanceStatusList, menuKindsList } from "@/lib/enum-definitions";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 export default function EditGuestForm({ guest }: { guest: Guest }) {
-  const initialState: UpdateGuestState = { message: null, errors: {} };
+  const router = useRouter();
+  const initialState: UpdateGuestStatus = { message: null, errors: {} };
   const updateGuestWithId = updateGuest.bind(null, guest.guestId);
   const [state, formAction, isPending] = useActionState(
     updateGuestWithId,
     initialState
   );
 
+  useEffect(() => {
+    if (state.message) {
+      switch (state.type) {
+        case "success":
+          toast.success(state.message);
+          router.push("/dashboard/guests");
+          break;
+        case "error":
+          toast.error(state.message);
+          break;
+      }
+    }
+  }, [state.message]);
+
   return (
     <form action={formAction}>
       <div className="rounded-md bg-gray-50 p-4 md:p-6">
-        {/* General validation message */}
-        <div aria-live="polite" aria-atomic="true">
-          {state.message ? (
-            <p className="my-2 text-sm text-red-500">{state.message}</p>
-          ) : null}
-        </div>
-
         {/* Attendance */}
         <div className="mb-6">
           <label
