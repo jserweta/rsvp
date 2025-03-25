@@ -8,6 +8,7 @@ export const menuKindsList: MenuKinds[] = Object.values(MenuKinds);
 
 export enum InvitationStatus {
 	PENDING = "pending",
+	VISITED = "visited",
 	SUBMITTED = "submitted"
 }
 export const invitationStatusList: InvitationStatus[] = Object.values(InvitationStatus);

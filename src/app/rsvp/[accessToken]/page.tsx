@@ -7,6 +7,7 @@ import { Stepper } from "@/components/rsvp/stepper";
 import { InvitationStatus } from "@/lib/enum-definitions";
 import { fetchInvitationId } from "@/lib/data/fetchInvitationId";
 import InvitationToast from "@/components/invitation-toast";
+import recordQrCodeScan from "@/lib/actions/recordQrCodeScan";
 
 export const metadata: Metadata = {
   title: "Rsvp",
@@ -34,6 +35,10 @@ export default async function Page(props: {
   }
 
   const isSubmitted = invitationInfo.status === InvitationStatus.SUBMITTED;
+
+  if (!isSubmitted) {
+    recordQrCodeScan(accessToken, invitationId);
+  }
 
   return (
     <>

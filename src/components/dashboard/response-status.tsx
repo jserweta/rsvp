@@ -2,6 +2,7 @@ import {
   HiOutlineClock,
   HiOutlineCheckCircle,
   HiOutlineXCircle,
+  HiOutlineEye,
 } from "react-icons/hi2";
 import clsx from "clsx";
 import { AttendanceStatus, InvitationStatus } from "@/lib/enum-definitions";
@@ -9,6 +10,7 @@ import { JSX } from "react";
 
 const STATUS_LABEL = {
   [InvitationStatus.PENDING]: "Pending",
+  [InvitationStatus.VISITED]: "Visited",
   [InvitationStatus.SUBMITTED]: "Submitted",
   [AttendanceStatus.CONFIRMED]: "Confirmed",
   [AttendanceStatus.DECLINED]: "Declined",
@@ -17,6 +19,7 @@ const STATUS_LABEL = {
 const STATUS_STYLE = {
   [InvitationStatus.PENDING]: "bg-gray-100 text-gray-500",
   [InvitationStatus.SUBMITTED]: "bg-green-200 text-green-700",
+  [InvitationStatus.VISITED]: "bg-orange-200 text-orange-700",
   [AttendanceStatus.CONFIRMED]: "bg-green-200 text-green-700",
   [AttendanceStatus.DECLINED]: "bg-red-200 text-red-700",
 } as const satisfies Record<AttendanceStatus | InvitationStatus, string>;
@@ -27,6 +30,9 @@ const STATUS_ICON = {
   ),
   [InvitationStatus.SUBMITTED]: (
     <HiOutlineCheckCircle className="w-4 h-4 text-green-700" />
+  ),
+  [InvitationStatus.VISITED]: (
+    <HiOutlineEye className="w-4 h-4 text-orange-700" />
   ),
   [AttendanceStatus.CONFIRMED]: (
     <HiOutlineCheckCircle className="w-4 h-4 text-green-700" />
