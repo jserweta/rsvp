@@ -29,38 +29,35 @@ export default async function InvitationsTable({
                 key={invitation.invitationId}
                 className="mb-2 w-full rounded-md bg-white p-4"
               >
-                <div className="flex items-center justify-between border-b pb-4">
-                  <p className="mb-2">{invitation.name}</p>
+                <div className="flex gap-2 items-center justify-between border-b pb-4">
+                  <p>{invitation.name}</p>
 
                   <Status status={invitation.status} />
                 </div>
 
-                <div className="flex w-full items-center justify-between pt-4">
-                  {invitation.needAccommodation ||
-                    (invitation.accessToken && (
-                      <>
-                        {invitation.needAccommodation && (
-                          <div className="flex flex-nowrap flex-row gap-3 items-center">
-                            <IoBedOutline className="w-5 h-5" />
-                            {invitation.accommodationLocation && (
-                              <p className="mb-0 text-xs">
-                                {invitation.accommodationLocation}
-                              </p>
-                            )}
-                          </div>
-                        )}
-                        {invitation.accessToken && (
-                          <div className="flex flex-nowrap flex-row gap-3 items-center">
-                            <HiOutlineQrCode className="w-5 h-5" />
-                            {invitation.accessToken && (
-                              <p className="mb-0 text-xs">
-                                {invitation.accessToken.toUpperCase()}
-                              </p>
-                            )}
-                          </div>
-                        )}
-                      </>
-                    ))}
+                <div className="flex gap-2 w-full items-center justify-between pt-4">
+                  {(invitation.needAccommodation || invitation.accessToken) && (
+                    <div className="flex gap-2 flex-col sm:flex-row">
+                      {invitation.needAccommodation && (
+                        <div className="flex flex-nowrap flex-row gap-3 items-center">
+                          <IoBedOutline className="w-5 h-5" />
+                          {invitation.accommodationLocation && (
+                            <p className="mb-0 text-xs">
+                              {invitation.accommodationLocation}
+                            </p>
+                          )}
+                        </div>
+                      )}
+                      {invitation.accessToken && (
+                        <div className="flex flex-nowrap flex-row gap-3 items-center">
+                          <HiOutlineQrCode className="w-5 h-5" />
+                          <p className="mb-0 text-xs">
+                            {invitation.accessToken.toUpperCase()}
+                          </p>
+                        </div>
+                      )}
+                    </div>
+                  )}
                   <div className="flex justify-end gap-2">
                     <ShowGuests id={invitation.invitationId} />
                     <EditButton

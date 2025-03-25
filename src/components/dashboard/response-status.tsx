@@ -23,16 +23,16 @@ const STATUS_STYLE = {
 
 const STATUS_ICON = {
   [InvitationStatus.PENDING]: (
-    <HiOutlineClock className="ml-1 w-5 h-5 text-gray-500" />
+    <HiOutlineClock className="w-4 h-4 text-gray-500" />
   ),
   [InvitationStatus.SUBMITTED]: (
-    <HiOutlineCheckCircle className="ml-1 w-5 h-5 text-green-700" />
+    <HiOutlineCheckCircle className="w-4 h-4 text-green-700" />
   ),
   [AttendanceStatus.CONFIRMED]: (
-    <HiOutlineCheckCircle className="ml-1 w-5 h-5 text-green-700" />
+    <HiOutlineCheckCircle className="w-4 h-4 text-green-700" />
   ),
   [AttendanceStatus.DECLINED]: (
-    <HiOutlineXCircle className="ml-1 w-5 h-5 text-red-700" />
+    <HiOutlineXCircle className="w-4 h-4 text-red-700" />
   ),
 } as const satisfies Record<AttendanceStatus | InvitationStatus, JSX.Element>;
 
@@ -44,7 +44,7 @@ export default function Status({
   return (
     <span
       className={clsx(
-        "inline-flex items-center justify-center gap-1 rounded-full px-2 py-1 text-s min-w-[110px]",
+        "inline-flex items-center justify-center gap-2 rounded-full px-2 py-1 text-xs  min-w-[100px]",
         STATUS_STYLE[status]
       )}
     >
