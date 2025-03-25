@@ -11,21 +11,25 @@ export async function fetchFilteredGuests(
 
   try {
     const data = await sql<GuestsTableType[]>`
-    SELECT
-      guests.guest_id,
-      guests.name,
-      guests.surname,
-      guests.accommodation,
-      guests.menu_kind,
-      guests.attendance,
-      guests.invitation_id
-    FROM public.guests
-    WHERE
-      (guests.name ILIKE ${`%${query}%`} OR
-      guests.surname ILIKE ${`%${query}%`})
-      ${invitationId ? sql` AND guests.invitation_id = ${invitationId}` : sql``}
-    ORDER BY guests.invitation_id, guests.name, guests.surname ASC
-    LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
+      SELECT
+        guests.guest_id,
+        guests.name,
+        guests.surname,
+        guests.accommodation,
+        guests.menu_kind,
+        guests.attendance,
+        guests.invitation_id
+      FROM public.guests
+      WHERE
+        (guests.name ILIKE ${`%${query}%`} OR
+        guests.surname ILIKE ${`%${query}%`})
+        ${
+          invitationId
+            ? sql` AND guests.invitation_id = ${invitationId}`
+            : sql``
+        }
+      ORDER BY guests.invitation_id, guests.name, guests.surname ASC
+      LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
     `;
 
     return data;

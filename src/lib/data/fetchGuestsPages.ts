@@ -7,12 +7,14 @@ export async function fetchGuestsPages(query: string, invitationId: string) {
 
   try {
     const data = await sql<{ count: [] }[]>`
-    SELECT COUNT(*)
-    FROM guests
-    WHERE
-      (guests.name ILIKE ${`%${query}%`} OR
-      guests.surname ILIKE ${`%${query}%`})
-      ${invitationId ? sql`AND guests.invitation_id = ${invitationId}` : sql``}
+      SELECT COUNT(*)
+      FROM guests
+      WHERE
+        (guests.name ILIKE ${`%${query}%`} OR
+        guests.surname ILIKE ${`%${query}%`})
+        ${
+          invitationId ? sql`AND guests.invitation_id = ${invitationId}` : sql``
+        }
   `;
 
     return Math.ceil(Number(data[0].count) / ITEMS_PER_PAGE);

@@ -3,12 +3,39 @@ import { AttendanceStatus, InvitationStatus } from "../enum-definitions";
 
 export async function fetchDashboardSummary() {
   try {
-    const guestsCount = sql`SELECT COUNT(*) FROM guests`;
-    const confirmedGuestsCount = sql`SELECT COUNT(*) FROM guests WHERE attendance = ${AttendanceStatus.CONFIRMED}`;
-    const confirmedAccommodationCount = sql`SELECT COUNT(*) FROM guests WHERE attendance = ${AttendanceStatus.CONFIRMED} AND accommodation = TRUE`;
-    const declinedGuestsCount = sql`SELECT COUNT(*) FROM guests WHERE attendance = ${AttendanceStatus.DECLINED}`;
-    const invitationsCount = sql`SELECT COUNT(*) FROM invitations`;
-    const invitationsSubmittedCount = sql`SELECT COUNT(*) FROM invitations WHERE status = ${InvitationStatus.SUBMITTED}`;
+    const guestsCount = sql`
+      SELECT COUNT(*) 
+      FROM guests
+    `;
+
+    const confirmedGuestsCount = sql`
+      SELECT COUNT(*)
+      FROM guests 
+      WHERE attendance = ${AttendanceStatus.CONFIRMED}
+    `;
+
+    const confirmedAccommodationCount = sql`
+      SELECT COUNT(*) FROM guests 
+      WHERE attendance = ${AttendanceStatus.CONFIRMED} 
+        AND accommodation = TRUE
+    `;
+
+    const declinedGuestsCount = sql`
+      SELECT COUNT(*)
+      FROM guests
+      WHERE attendance = ${AttendanceStatus.DECLINED}
+    `;
+
+    const invitationsCount = sql`
+      SELECT COUNT(*)
+      FROM invitations
+    `;
+
+    const invitationsSubmittedCount = sql`
+      SELECT COUNT(*) 
+      FROM invitations 
+      WHERE status = ${InvitationStatus.SUBMITTED}
+    `;
 
     const [
       [{ count: guests }],

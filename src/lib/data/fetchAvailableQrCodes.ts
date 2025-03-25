@@ -7,14 +7,14 @@ export async function fetchAvailableQrCodes() {
 
   try {
     const data = await sql<QrCode[]>`
-    SELECT 
-      qr_codes.id,
-      qr_codes.access_token
-    FROM qr_codes
-    LEFT JOIN invitations ON qr_codes.id = invitations.qr_code_id
-    WHERE
-      invitations.qr_code_id IS NULL
-  `;
+      SELECT 
+        qr_codes.id,
+        qr_codes.access_token
+      FROM qr_codes
+      LEFT JOIN invitations ON qr_codes.id = invitations.qr_code_id
+      WHERE
+        invitations.qr_code_id IS NULL
+    `;
 
     return data;
   } catch (error) {

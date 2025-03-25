@@ -56,9 +56,11 @@ export async function updateInvitation(
 
     let qrCodeId = null;
     if (accessToken) {
-      const data = await sql<
-        QrCode[]
-      >`SELECT id FROM qr_codes WHERE access_token = ${accessToken}`;
+      const data = await sql<QrCode[]>`
+        SELECT id 
+        FROM qr_codes 
+        WHERE LOWER(access_token) = ${accessToken}
+      `;
 
       qrCodeId = data[0]?.id ?? null;
     }
@@ -67,7 +69,7 @@ export async function updateInvitation(
       UPDATE public.invitations
       SET ${sql(invitationData, invitationKeys)}, qr_code_id = ${qrCodeId}
       WHERE invitation_id = ${id}
-      `;
+    `;
 
     revalidatePath("/dashboard/invitations");
 

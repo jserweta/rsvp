@@ -10,7 +10,7 @@ export async function fetchQrCodesPages(query: string) {
     SELECT COUNT(*)
     FROM qr_codes
     WHERE
-      qr_codes.access_token ILIKE ${`%${query}%`}
+      LOWER(qr_codes.access_token) ILIKE ${`%${query.toLowerCase()}%`}
   `;
 
     return Math.ceil(Number(data[0].count) / ITEMS_PER_PAGE);

@@ -10,16 +10,16 @@ export async function fetchInvitationsPages(
 
   try {
     const data = await sql<{ count: [] }[]>`
-    SELECT COUNT(*)
-    FROM invitations
-    WHERE
-      invitations.name ILIKE ${`%${query}%`}
-      ${
-        invitationId
-          ? sql`AND invitations.invitation_id = ${invitationId}`
-          : sql``
-      }
-  `;
+      SELECT COUNT(*)
+      FROM invitations
+      WHERE
+        invitations.name ILIKE ${`%${query}%`}
+        ${
+          invitationId
+            ? sql`AND invitations.invitation_id = ${invitationId}`
+            : sql``
+        }
+    `;
 
     return Math.ceil(Number(data[0].count) / ITEMS_PER_PAGE);
   } catch (error) {

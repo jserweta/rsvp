@@ -45,10 +45,10 @@ export async function updateGuest(
     >)[];
 
     await sql`
-    UPDATE public.guests
-    SET ${sql(validatedFields.data, keys)}
-    WHERE guest_id = ${id}
-  `;
+      UPDATE public.guests
+      SET ${sql(validatedFields.data, keys)}
+      WHERE guest_id = ${id}
+    `;
 
     revalidatePath("/dashboard/guests");
 

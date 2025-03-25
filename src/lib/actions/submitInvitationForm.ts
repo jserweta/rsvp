@@ -43,14 +43,18 @@ export const submitInvitationForm = async (
         ) as (keyof Guest)[];
 
         return sql`
-        UPDATE guests 
-        SET ${sql(guest, keys)} 
-        WHERE guest_id = ${guest.guestId}
+          UPDATE guests 
+          SET ${sql(guest, keys)} 
+          WHERE guest_id = ${guest.guestId}
         `;
       });
 
       queries.push(
-        sql`UPDATE invitations SET status = ${InvitationStatus.SUBMITTED} WHERE invitation_id = ${invitationId}`
+        sql`
+          UPDATE invitations 
+          SET status = ${InvitationStatus.SUBMITTED} 
+          WHERE invitation_id = ${invitationId}
+        `
       );
 
       await Promise.all(queries);
