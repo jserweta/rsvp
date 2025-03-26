@@ -1,6 +1,6 @@
 import Link from "next/link";
 import NavLinks from "./nav-links";
-import Logo from "@/components/logo";
+import Logo from "@/components/dashboard/logo";
 import { HiOutlinePower } from "react-icons/hi2";
 import { signOut } from "@/auth";
 

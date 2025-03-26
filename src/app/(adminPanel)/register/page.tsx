@@ -1,4 +1,4 @@
-import Logo from "@/components/logo";
+import Logo from "@/components/dashboard/logo";
 import RegisterForm from "@/components/register-form";
 
 export default function LoginPage() {

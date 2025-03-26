@@ -1,4 +1,4 @@
-import Logo from "@/components/logo";
+import Logo from "@/components/dashboard/logo";
 import LoginForm from "../../../components/login-form";
 import { Suspense } from "react";
 
