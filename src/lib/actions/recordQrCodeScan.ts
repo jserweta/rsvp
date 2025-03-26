@@ -1,5 +1,5 @@
 "use server";
-import { sql } from "../db";
+import { sql } from "../utils/db";
 import { InvitationStatus } from "../enum-definitions";
 
 export default async function recordQrCodeScan(

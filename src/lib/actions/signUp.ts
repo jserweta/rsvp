@@ -2,7 +2,7 @@
 
 import { getUser } from "@/auth";
 import { CreateUser } from "../schema/signUpForm";
-import { sql } from "../db";
+import { sql } from "../utils/db";
 import bcrypt from "bcrypt";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";

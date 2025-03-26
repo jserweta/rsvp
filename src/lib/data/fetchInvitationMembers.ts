@@ -1,4 +1,4 @@
-import { sql } from "../db";
+import { sql } from "../utils/db";
 import { GuestRaw } from "../definitions";
 
 export const fetchInvitationMembers = async (invitationId: string) => {

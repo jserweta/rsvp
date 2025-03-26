@@ -1,4 +1,4 @@
-import { sql } from "../db";
+import { sql } from "../utils/db";
 import { AttendanceStatus, InvitationStatus } from "../enum-definitions";
 
 export async function fetchDashboardSummary() {

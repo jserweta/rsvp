@@ -1,4 +1,4 @@
-import { sql } from "../db";
+import { sql } from "../utils/db";
 import { InvitationsTableType } from "../definitions";
 
 const ITEMS_PER_PAGE = 15;

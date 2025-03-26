@@ -1,4 +1,4 @@
-import { sql } from "../db";
+import { sql } from "../utils/db";
 import { GuestsTableType } from "../definitions";
 
 const ITEMS_PER_PAGE = 15;

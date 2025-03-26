@@ -1,4 +1,4 @@
-import { sql } from "../db";
+import { sql } from "../utils/db";
 import { Invitation } from "../definitions";
 
 export async function fetchInvitationId(token: string) {

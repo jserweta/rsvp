@@ -1,4 +1,4 @@
-import { sql } from "../db";
+import { sql } from "../utils/db";
 import { Guest } from "../definitions";
 
 export async function fetchGuestById(id: string) {

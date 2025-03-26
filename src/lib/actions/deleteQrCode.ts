@@ -1,7 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { sql } from "../db";
+import { sql } from "../utils/db";
 import { ActionStatus } from "../definitions";
 
 export async function deleteQrCode(id: string): Promise<ActionStatus> {

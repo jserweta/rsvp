@@ -1,7 +1,7 @@
 "use server";
 
 import { Guest } from "@/lib/definitions";
-import { sql } from "../db";
+import { sql } from "../utils/db";
 import { AttendanceStatus, InvitationStatus } from "../enum-definitions";
 
 export const submitInvitationForm = async (

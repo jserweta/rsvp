@@ -3,7 +3,7 @@
 import { HiArrowLeft, HiArrowRight } from "react-icons/hi2";
 import clsx from "clsx";
 import Link from "next/link";
-import { generatePagination } from "@/lib/utils";
+import { generatePagination } from "@/lib/utils/generatePagination";
 import { usePathname, useSearchParams } from "next/navigation";
 
 export default function Pagination({ totalPages }: { totalPages: number }) {

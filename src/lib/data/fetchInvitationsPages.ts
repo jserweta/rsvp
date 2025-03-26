@@ -1,4 +1,4 @@
-import { sql } from "../db";
+import { sql } from "../utils/db";
 import { unstable_noStore as noStore } from "next/cache";
 
 const ITEMS_PER_PAGE = 15;

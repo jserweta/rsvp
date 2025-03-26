@@ -1,5 +1,5 @@
 import { fetchFilteredQrCodes } from "@/lib/data/fetchFilteredQrCodes";
-import { formatDateToLocal } from "@/lib/utils";
+import { formatDateToLocal } from "@/lib/utils/formatDateToLocal";
 import { MdOutlineUpdate } from "react-icons/md";
 import { HiOutlineQrCode } from "react-icons/hi2";
 import { DeleteButton, ShowInvitation } from "../action-buttons";

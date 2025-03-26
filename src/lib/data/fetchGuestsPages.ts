@@ -1,5 +1,5 @@
 import { unstable_noStore as noStore } from "next/cache";
-import { sql } from "../db";
+import { sql } from "../utils/db";
 
 const ITEMS_PER_PAGE = 15;
 export async function fetchGuestsPages(query: string, invitationId: string) {

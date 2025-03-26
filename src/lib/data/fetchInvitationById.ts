@@ -1,4 +1,4 @@
-import { sql } from "../db";
+import { sql } from "../utils/db";
 import { InvitationsTableType } from "../definitions";
 
 export async function fetchInvitationById(id: string) {

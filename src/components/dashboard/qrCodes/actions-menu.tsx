@@ -18,6 +18,8 @@ import generateQrCodes from "@/lib/actions/generateQrCodes";
 import assignQrCodeToInvitation from "@/lib/actions/assignQrCodeToInvitation";
 import { useTransition } from "react";
 import { toast } from "sonner";
+import addSingleQrCode from "@/lib/actions/addSingleQrCode";
+import { toastActionStatus } from "@/lib/utils/toastActionStatus";
 
 export default function QRCodesTableActions() {
   const [, startTransition] = useTransition();
@@ -42,6 +44,11 @@ export default function QRCodesTableActions() {
     });
   };
 
+  const handleSingleQrCodeAdd = async () => {
+    const actionStatus = await addSingleQrCode();
+    toastActionStatus(actionStatus);
+  };
+
   return (
     <DropdownMenu>
       <Button asChild variant="outline" size="icon">
@@ -50,7 +57,10 @@ export default function QRCodesTableActions() {
         </DropdownMenuTrigger>
       </Button>
       <DropdownMenuContent align="end">
-        <DropdownMenuItem className="flex items-center gap-2">
+        <DropdownMenuItem
+          className="flex items-center gap-2"
+          onSelect={handleSingleQrCodeAdd}
+        >
           <HiOutlinePlusCircle />
           Add token
         </DropdownMenuItem>

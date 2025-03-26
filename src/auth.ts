@@ -4,7 +4,7 @@ import Credentials from "next-auth/providers/credentials";
 import { z } from "zod";
 import type { User } from "@/lib/definitions";
 import bcrypt from "bcrypt";
-import { sql } from "./lib/db";
+import { sql } from "./lib/utils/db";
 
 export async function getUser(email: string): Promise<User | undefined> {
   try {

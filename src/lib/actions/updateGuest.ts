@@ -1,6 +1,6 @@
 "use server";
 
-import { sql } from "../db";
+import { sql } from "../utils/db";
 import { ActionStatus, Guest } from "../definitions";
 import { UpdateGuest } from "../schema/guestForm";
 import { revalidatePath } from "next/cache";

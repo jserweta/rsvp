@@ -1,6 +1,6 @@
 "use server";
 
-import { sql } from "../db";
+import { sql } from "../utils/db";
 import { ActionStatus, Invitation, QrCode } from "../definitions";
 import { UpdateInvitation } from "../schema/invitationForm";
 import { revalidatePath } from "next/cache";
