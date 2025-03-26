@@ -37,7 +37,7 @@ export default async function InvitationsTable({
 
                 <div className="flex gap-2 w-full items-center justify-between pt-4">
                   {(invitation.needAccommodation || invitation.accessToken) && (
-                    <div className="flex gap-2 flex-col sm:flex-row">
+                    <div className="flex gap-2 gap-x-4 flex-col sm:flex-row">
                       {invitation.needAccommodation && (
                         <div className="flex flex-nowrap flex-row gap-3 items-center">
                           <IoBedOutline className="w-5 h-5" />

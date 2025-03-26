@@ -29,17 +29,19 @@ export default async function QRCodesTable({
                 </div>
 
                 <div className="flex w-full items-center justify-between pt-4">
-                  <div className="flex items-center gap-3">
-                    <HiOutlineQrCode />
-                    <p>{qrCode.accessToken.toUpperCase()}</p>
-                  </div>
-
-                  {qrCode.usedAt && (
-                    <div className="flex flex-nowrap flex-row gap-3 items-center">
-                      <MdOutlineUpdate className="w-5 h-5" />
-                      {formatDateToLocal(qrCode.usedAt)}
+                  <div className="flex gap-2 gap-x-4 flex-col sm:flex-row">
+                    <div className="flex items-center gap-3">
+                      <HiOutlineQrCode />
+                      <p>{qrCode.accessToken.toUpperCase()}</p>
                     </div>
-                  )}
+
+                    {qrCode.usedAt && (
+                      <div className="flex flex-nowrap flex-row gap-3 items-center">
+                        <MdOutlineUpdate className="w-5 h-5" />
+                        {formatDateToLocal(qrCode.usedAt)}
+                      </div>
+                    )}
+                  </div>
 
                   <div className="flex justify-end gap-2">
                     {qrCode.invitationId && (
