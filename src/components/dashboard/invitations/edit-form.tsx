@@ -10,7 +10,6 @@ import {
 } from "@/lib/actions/updateInvitation";
 import { invitationStatusList } from "@/lib/enum-definitions";
 import { useRouter } from "next/navigation";
-import { toast } from "sonner";
 import { toastActionStatus } from "@/lib/utils/toastActionStatus";
 
 export default function EditInvitationForm({

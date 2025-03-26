@@ -7,7 +7,6 @@ import { Button } from "@/components/ui/button";
 import { updateGuest, UpdateGuestStatus } from "@/lib/actions/updateGuest";
 import { attendanceStatusList, menuKindsList } from "@/lib/enum-definitions";
 import { useRouter } from "next/navigation";
-import { toast } from "sonner";
 import { toastActionStatus } from "@/lib/utils/toastActionStatus";
 
 export default function EditGuestForm({ guest }: { guest: Guest }) {
