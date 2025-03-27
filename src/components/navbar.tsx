@@ -6,8 +6,11 @@ export default function Navbar() {
     <nav className="px-5 xl:px-10 py-10 flex gap-6 justify-between items-center">
       <div className="flex-1 hidden lg:block"></div>
 
-      <Link href="/" className="font-amandine text-5xl leading-[1.5]">
-        Anna <span className="text-3xl">&</span> Jakub
+      <Link
+        href="/"
+        className="font-amandine text-5xl leading-[1.5] pt-[0.35rem]"
+      >
+        Anna <span className="text-3xl pb-[0.4rem]">&</span> Jakub
       </Link>
 
       <div className="flex-1 flex gap-6 justify-end">
