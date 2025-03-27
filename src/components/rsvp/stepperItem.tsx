@@ -148,7 +148,7 @@ export const StepperItem = ({
       )}
 
       {step.title.includes("towarzysząca") &&
-        watch(step.id + "_attendance") !== AttendanceStatus.DECLINED && (
+        watch(step.id + "_attendance") === AttendanceStatus.CONFIRMED && (
           <>
             <Label className="mt-[20px]">
               Jeśli wiesz kto będzie twoją osobą towarzysząca podaj jej Imię i
