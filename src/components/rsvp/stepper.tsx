@@ -71,7 +71,7 @@ export const Stepper = ({
   return (
     <Form {...form}>
       <form
-        className="space-y-6 p-6 border rounded-lg w-[650px]"
+        className="space-y-6 p-6 border border-black w-full"
         onSubmit={form.handleSubmit(onSubmit)}
       >
         <div className="flex justify-between">

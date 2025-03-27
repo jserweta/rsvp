@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function Hero() {
   return (
-    <section className="flex justify-center items-center sm:h-[calc(100dvh-170px)] max-w-[1560px] mx-auto">
+    <section className="flex justify-center items-center sm:h-[calc(100dvh-155px)] max-w-[1560px] mx-auto">
       <div className="flex gap-10 justify-center items-center w-full">
         <Image
           src="/hero-left.JPEG"

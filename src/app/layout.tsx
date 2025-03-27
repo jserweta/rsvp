@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { geistMono, geistSans } from "@/lib/fonts";
 import { Toaster } from "@/components/ui/sonner";
+import Navbar from "@/components/navbar";
 
 export const metadata: Metadata = {
   title: "RSVP",
@@ -16,6 +17,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable} `}>
+        <Navbar />
         <main className="px-5 xl:px-10">{children}</main>
         <Toaster position="top-center" closeButton />
       </body>

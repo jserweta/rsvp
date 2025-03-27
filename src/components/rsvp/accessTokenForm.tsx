@@ -31,7 +31,7 @@ export default function AccessTokenForm() {
 
   return (
     <Form {...form}>
-      <form className="w-[650px]" onSubmit={form.handleSubmit(onSubmit)}>
+      <form className="w-full" onSubmit={form.handleSubmit(onSubmit)}>
         <div className="mb-3">
           <FormField
             control={form.control}

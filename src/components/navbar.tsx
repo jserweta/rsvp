@@ -3,12 +3,12 @@ import Link from "next/link";
 
 export default function Navbar() {
   return (
-    <nav className="py-10 flex gap-6 justify-between items-center">
+    <nav className="px-5 xl:px-10 py-10 flex gap-6 justify-between items-center">
       <div className="flex-1 hidden lg:block"></div>
 
-      <p className="font-amandine text-5xl leading-[1.5]">
+      <Link href="/" className="font-amandine text-5xl leading-[1.5]">
         Anna <span className="text-3xl">&</span> Jakub
-      </p>
+      </Link>
 
       <div className="flex-1 flex gap-6 justify-end">
         <Button
