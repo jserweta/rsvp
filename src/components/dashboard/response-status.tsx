@@ -4,11 +4,13 @@ import {
   HiOutlineXCircle,
   HiOutlineEye,
 } from "react-icons/hi2";
+import { MdOutlineDriveFileRenameOutline } from "react-icons/md";
 import clsx from "clsx";
 import { AttendanceStatus, InvitationStatus } from "@/lib/enum-definitions";
 import { JSX } from "react";
 
 const STATUS_LABEL = {
+  [InvitationStatus.CREATED]: "Created",
   [InvitationStatus.PENDING]: "Pending",
   [InvitationStatus.VISITED]: "Visited",
   [InvitationStatus.SUBMITTED]: "Submitted",
@@ -17,7 +19,8 @@ const STATUS_LABEL = {
 } as const satisfies Record<AttendanceStatus | InvitationStatus, string>;
 
 const STATUS_STYLE = {
-  [InvitationStatus.PENDING]: "bg-gray-100 text-gray-500",
+  [InvitationStatus.CREATED]: "bg-gray-100 text-gray-500",
+  [InvitationStatus.PENDING]: "bg-blue-200 text-blue-700",
   [InvitationStatus.SUBMITTED]: "bg-green-200 text-green-700",
   [InvitationStatus.VISITED]: "bg-orange-200 text-orange-700",
   [AttendanceStatus.CONFIRMED]: "bg-green-200 text-green-700",
@@ -25,8 +28,11 @@ const STATUS_STYLE = {
 } as const satisfies Record<AttendanceStatus | InvitationStatus, string>;
 
 const STATUS_ICON = {
+  [InvitationStatus.CREATED]: (
+    <MdOutlineDriveFileRenameOutline className="w-4 h-4 text-gray-500" />
+  ),
   [InvitationStatus.PENDING]: (
-    <HiOutlineClock className="w-4 h-4 text-gray-500" />
+    <HiOutlineClock className="w-4 h-4 text-blue-700" />
   ),
   [InvitationStatus.SUBMITTED]: (
     <HiOutlineCheckCircle className="w-4 h-4 text-green-700" />
