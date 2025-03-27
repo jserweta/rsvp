@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { geistMono, geistSans } from "@/lib/fonts";
 import { Toaster } from "@/components/ui/sonner";
-import Navbar from "@/components/navbar";
 
 export const metadata: Metadata = {
   title: "RSVP",
