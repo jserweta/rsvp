@@ -1,11 +1,11 @@
-"use client";
+import Hero from "@/components/hero";
+import Navbar from "@/components/navbar";
 
 export default function Home() {
   return (
     <>
-      <main>
-        <h1>Strona główna aplikacji</h1>
-      </main>
+      <Navbar />
+      <Hero />
     </>
   );
 }
