@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function Hero() {
   return (
-    <section className="flex justify-center items-center h-[calc(100dvh-140px)] max-w-[1560px] mx-auto">
+    <section className="flex justify-center items-center sm:h-[calc(100dvh-170px)] max-w-[1560px] mx-auto">
       <div className="flex gap-10 justify-center items-center w-full">
         <Image
           src="/hero-left.JPEG"
@@ -27,7 +27,7 @@ export default function Hero() {
             alt="Center image - together"
             width="430"
             height="650"
-            className="grayscale-[95%] filter relative z-0 object-cover max-h-[650px]"
+            className="grayscale-[95%] filter relative z-0 object-cover max-h-[450px] md:max-h-[650px]"
           />
         </div>
 
