@@ -6,12 +6,16 @@ export default function Navbar() {
     <nav className="py-10 flex gap-6 justify-between items-center">
       <div className="flex-1 hidden lg:block"></div>
 
-      <p className="font-amandine text-5xl">
+      <p className="font-amandine text-5xl leading-[1.5]">
         Anna <span className="text-3xl">&</span> Jakub
       </p>
 
       <div className="flex-1 flex gap-6 justify-end">
-        <Button asChild variant="outline" className="rounded-none">
+        <Button
+          asChild
+          variant="outline"
+          className="rounded-none border-black leading-none"
+        >
           <Link href="/rsvp">RSVP</Link>
         </Button>
       </div>
