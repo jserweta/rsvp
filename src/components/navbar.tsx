@@ -1,7 +1,12 @@
+"use client";
+
+import { usePathname } from "next/navigation";
 import { Button } from "./ui/button";
 import Link from "next/link";
 
 export default function Navbar() {
+  const pathname = usePathname();
+
   return (
     <nav className="px-5 xl:px-10 py-10 flex gap-6 justify-between items-center">
       <div className="flex-1 hidden lg:block"></div>
@@ -14,13 +19,15 @@ export default function Navbar() {
       </Link>
 
       <div className="flex-1 flex gap-6 justify-end">
-        <Button
-          asChild
-          variant="outline"
-          className="rounded-none border-black leading-none"
-        >
-          <Link href="/rsvp">RSVP</Link>
-        </Button>
+        {!pathname.startsWith("/rsvp") && (
+          <Button
+            asChild
+            variant="outline"
+            className="rounded-none border-black leading-none"
+          >
+            <Link href="/rsvp">RSVP</Link>
+          </Button>
+        )}
       </div>
     </nav>
   );

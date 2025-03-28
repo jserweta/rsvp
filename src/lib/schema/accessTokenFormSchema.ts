@@ -2,7 +2,7 @@ import { z } from "zod";
 
 export const accessTokenSchema = z.object({
   accessToken: z
-    .string()
+    .string({ message: "Proszę wprowadzić kod dostępu." })
     .length(8, { message: "Kod dostępu musi mieć dokładnie 8 znaków." }),
 });
 
