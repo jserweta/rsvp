@@ -14,6 +14,7 @@ export async function fetchFilteredInvitations(
       SELECT
         invitations.invitation_id,
         invitations.name,
+        invitations.need_transport,
         invitations.need_accommodation,
         invitations.accommodation_location,
         invitations.status,

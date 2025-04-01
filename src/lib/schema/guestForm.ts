@@ -8,6 +8,7 @@ export const GuestFormSchema = z.object({
   menuKind: z.nativeEnum(MenuKinds),
   attendance: z.nativeEnum(AttendanceStatus),
   accommodation: z.boolean(),
+  transport: z.string(),
 });
 
 export const UpdateGuest = GuestFormSchema.omit({

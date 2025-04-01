@@ -16,6 +16,7 @@ export async function fetchFilteredGuests(
         guests.name,
         guests.surname,
         guests.accommodation,
+        guests.transport,
         guests.menu_kind,
         guests.attendance,
         guests.invitation_id

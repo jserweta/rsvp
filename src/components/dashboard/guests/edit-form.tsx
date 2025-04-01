@@ -8,6 +8,7 @@ import { updateGuest, UpdateGuestStatus } from "@/lib/actions/updateGuest";
 import { attendanceStatusList, menuKindsList } from "@/lib/enum-definitions";
 import { useRouter } from "next/navigation";
 import { toastActionStatus } from "@/lib/utils/toastActionStatus";
+import { NEED_TRANSPORT_SELECT_VALUES } from "@/lib/data/needTransportSelectValues";
 
 export default function EditGuestForm({ guest }: { guest: Guest }) {
   const router = useRouter();
@@ -172,6 +173,37 @@ export default function EditGuestForm({ guest }: { guest: Guest }) {
           <div id="accommodation-error" aria-live="polite" aria-atomic="true">
             {state.errors?.accommodation &&
               state.errors.accommodation.map((error: string) => (
+                <p className="mt-2 text-sm text-red-500" key={error}>
+                  {error}
+                </p>
+              ))}
+          </div>
+        </div>
+
+        {/* Transport */}
+        <div className="mb-6">
+          <label htmlFor="transport" className="mb-2 block text-sm font-medium">
+            Choose transport
+          </label>
+
+          <select
+            id="transport"
+            name="transport"
+            className="block w-full cursor-pointer rounded-md border border-gray-200 py-2 pl-4 text-sm outline-2 placeholder:text-gray-500"
+            defaultValue={guest.transport ?? ""}
+            aria-describedby="transport-error"
+          >
+            <option value="">Select transport method</option>
+            {NEED_TRANSPORT_SELECT_VALUES.map((menu, idx) => (
+              <option key={`${menu}_${idx}`} value={menu}>
+                {menu}
+              </option>
+            ))}
+          </select>
+
+          <div id="transport-error" aria-live="polite" aria-atomic="true">
+            {state.errors?.transport &&
+              state.errors.transport.map((error: string) => (
                 <p className="mt-2 text-sm text-red-500" key={error}>
                   {error}
                 </p>

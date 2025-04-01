@@ -219,6 +219,35 @@ export default function EditInvitationForm({
           </div>
         )}
 
+        {/* Needs transport */}
+        <div className="mb-4">
+          <div className="relative flex items-center gap-3">
+            <input
+              id="needTransport"
+              name="needTransport"
+              type="checkbox"
+              defaultChecked={!!invitation.needTransport}
+              className="block w-3 cursor-pointer rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+              aria-describedby="needTransport-error"
+            />
+            <label
+              htmlFor="needTransport"
+              className="block text-sm font-medium"
+            >
+              Needs transport
+            </label>
+          </div>
+
+          <div id="needTransport-error" aria-live="polite" aria-atomic="true">
+            {state.errors?.needTransport &&
+              state.errors.needTransport.map((error: string) => (
+                <p className="mt-2 text-sm text-red-500" key={error}>
+                  {error}
+                </p>
+              ))}
+          </div>
+        </div>
+
         {/* Invitation members */}
         {invitationMembers && (
           <div className="mb-4">

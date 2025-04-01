@@ -9,6 +9,7 @@ export async function fetchGuestById(id: string) {
         guests.name,
         guests.surname,
         guests.accommodation,
+        guests.transport,
         guests.menu_kind,
         guests.attendance
       FROM public.guests

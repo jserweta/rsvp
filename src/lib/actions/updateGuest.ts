@@ -12,6 +12,7 @@ export type UpdateGuestStatus = ActionStatus & {
     attendance?: string[];
     menuKind?: string[];
     accommodation?: string[];
+    transport?: string[];
   };
 };
 
@@ -24,10 +25,13 @@ export async function updateGuest(
   const validatedFields = UpdateGuest.safeParse({
     name: formData.get("name"),
     surname: formData.get("surname"),
+    transport: formData.get("transport"),
     accommodation: formData.get("accommodation") === null ? false : true,
     menuKind: formData.get("menuKind"),
     attendance: formData.get("attendance"),
   });
+
+  console.log(formData);
 
   // If form validation fails, return errors early. Otherwise, continue.
   if (!validatedFields.success) {

@@ -2,6 +2,7 @@ import { EditButton, ShowGuests } from "@/components/dashboard/action-buttons";
 import { fetchFilteredInvitations } from "@/lib/data/fetchFilteredInvitations";
 import { IoBedOutline } from "react-icons/io5";
 import { HiOutlineQrCode } from "react-icons/hi2";
+import { IoCarOutline } from "react-icons/io5";
 import Status from "../response-status";
 
 export default async function InvitationsTable({
@@ -36,7 +37,9 @@ export default async function InvitationsTable({
                 </div>
 
                 <div className="flex gap-2 w-full items-center justify-between pt-4">
-                  {(invitation.needAccommodation || invitation.accessToken) && (
+                  {(invitation.needAccommodation ||
+                    invitation.accessToken ||
+                    invitation.needTransport) && (
                     <div className="flex gap-2 gap-x-4 flex-col sm:flex-row">
                       {invitation.needAccommodation && (
                         <div className="flex flex-nowrap flex-row gap-3 items-center">
@@ -46,6 +49,11 @@ export default async function InvitationsTable({
                               {invitation.accommodationLocation}
                             </p>
                           )}
+                        </div>
+                      )}
+                      {invitation.needTransport && (
+                        <div className="flex flex-nowrap flex-row gap-3 items-center">
+                          <IoCarOutline className="w-5 h-5" />
                         </div>
                       )}
                       {invitation.accessToken && (
@@ -80,6 +88,9 @@ export default async function InvitationsTable({
                   Accommodation
                 </th>
                 <th scope="col" className="px-3 py-5 font-medium">
+                  Transport
+                </th>
+                <th scope="col" className="px-3 py-5 font-medium">
                   Access Token
                 </th>
                 <th scope="col" className="px-3 py-5 font-medium">
@@ -99,6 +110,7 @@ export default async function InvitationsTable({
                   <td className="whitespace-nowrap py-3 pl-6 pr-3">
                     {invitation.name}
                   </td>
+
                   <td className="whitespace-nowrap px-3 py-3">
                     {invitation.needAccommodation && (
                       <div className="flex flex-nowrap flex-row gap-3 items-center">
@@ -109,6 +121,12 @@ export default async function InvitationsTable({
                           </p>
                         )}
                       </div>
+                    )}
+                  </td>
+
+                  <td className="whitespace-nowrap px-3 py-3">
+                    {invitation.needTransport && (
+                      <IoCarOutline className="w-5 h-5" />
                     )}
                   </td>
 

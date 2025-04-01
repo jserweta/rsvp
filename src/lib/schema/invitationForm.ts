@@ -7,6 +7,7 @@ export const InvitationFormSchema = z.object({
   status: z.nativeEnum(InvitationStatus),
   needAccommodation: z.boolean(),
   accommodationLocation: z.string().optional(),
+  needTransport: z.boolean(),
   accessToken: z.union([z.string().length(8), z.null()]).optional(),
 });
 

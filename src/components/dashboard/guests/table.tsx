@@ -2,7 +2,9 @@ import Status from "../response-status";
 import { fetchFilteredGuests } from "@/lib/data/fetchFilteredGuests";
 import { IoBedOutline } from "react-icons/io5";
 import { MdOutlineRestaurantMenu } from "react-icons/md";
+import { IoCarOutline } from "react-icons/io5";
 import { EditButton } from "../action-buttons";
+import { NEED_TRANSPORT_SELECT_VALUES } from "@/lib/data/needTransportSelectValues";
 
 export default async function GuestsTable({
   query,
@@ -38,10 +40,17 @@ export default async function GuestsTable({
                       <IoBedOutline className="w-5 h-5 mb-2" />
                     )}
 
-                    <p className="flex flex-nowrap flex-row gap-3 items-center">
+                    {guest.transport && guest.transport !== "Nie" && (
+                      <div className="flex flex-nowrap flex-row gap-3 items-center mb-2">
+                        <IoCarOutline className="w-5 h-5" />
+                        <p className="mb-0 text-xs">{guest.transport}</p>
+                      </div>
+                    )}
+
+                    <div className="flex flex-nowrap flex-row gap-3 items-center">
                       <MdOutlineRestaurantMenu className="w-5 h-5" />
-                      {guest.menuKind}
-                    </p>
+                      <p className="mb-0 text-xs">{guest.menuKind}</p>
+                    </div>
                   </div>
                   <div className="flex justify-end gap-2">
                     <EditButton
@@ -67,6 +76,9 @@ export default async function GuestsTable({
                   Accommodation
                 </th>
                 <th scope="col" className="px-3 py-5 font-medium">
+                  Transport
+                </th>
+                <th scope="col" className="px-3 py-5 font-medium">
                   Attendance
                 </th>
                 <th scope="col" className="relative py-3 pl-6 pr-3">
@@ -84,14 +96,21 @@ export default async function GuestsTable({
                     {guest.name} {guest.surname}
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
-                    {guest.menuKind}
+                    <p className="mb-0 text-s">{guest.menuKind}</p>
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
                     {guest.accommodation && (
                       <IoBedOutline className="w-5 h-5" />
                     )}
                   </td>
-
+                  <td className="whitespace-nowrap px-3 py-3">
+                    {guest.transport && guest.transport !== "Nie" && (
+                      <div className="flex flex-nowrap flex-row gap-3 items-center">
+                        <IoCarOutline className="w-5 h-5" />
+                        <p className="mb-0 text-s">{guest.transport}</p>
+                      </div>
+                    )}
+                  </td>
                   <td className="whitespace-nowrap px-3 py-3">
                     <Status status={guest.attendance} />
                   </td>

@@ -11,6 +11,7 @@ export type UpdateInvitationStatus = ActionStatus & {
     status?: string[];
     needAccommodation?: string[];
     accommodationLocation?: string[];
+    needTransport?: string[];
     accessToken?: string[];
   };
 };
@@ -27,6 +28,7 @@ export async function updateInvitation(
     needAccommodation:
       formData.get("needAccommodation") === null ? false : true,
     accommodationLocation: formData.get("accommodationLocation") ?? "",
+    needTransport: formData.get("needTransport") === null ? false : true,
     accessToken:
       formData.get("accessToken") === "" ? null : formData.get("accessToken"),
   });
