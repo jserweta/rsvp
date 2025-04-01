@@ -18,12 +18,15 @@ import {
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { AttendanceStatus, attendanceStatusList } from "@/lib/enum-definitions";
+import { NEED_TRANSPORT_SELECT_VALUES } from "@/lib/data/needTransportSelectValues";
 
 export const StepperItem = ({
+  needTransport,
   needAccommodation,
   menuKinds,
   step,
 }: {
+  needTransport: boolean;
   needAccommodation: boolean;
   menuKinds: string[];
   step: Step;
@@ -39,9 +42,9 @@ export const StepperItem = ({
         name={step.id + "_attendance"}
         render={({ field }) => (
           <FormItem className="flex flex-col">
-            <div className="flex gap-2 items-center">
+            <div className="flex flex-col gap-2">
               <FormLabel className="text-sm font-medium text-start text-primary">
-                Wezmę udział w uroczystości
+                Czy dołączysz do nas w tym wyjątkowym dniu?
               </FormLabel>
               <FormControl>
                 <Select
@@ -76,9 +79,9 @@ export const StepperItem = ({
         name={step.id + "_menuKind"}
         render={({ field }) => (
           <FormItem className="flex flex-col">
-            <div className="flex gap-2 items-center">
+            <div className="flex flex-col gap-2">
               <FormLabel className="text-sm font-medium text-start text-primary">
-                Wybierz rodzaj menu
+                Jakie menu preferujesz?
               </FormLabel>
               <FormControl>
                 <Select
@@ -108,15 +111,53 @@ export const StepperItem = ({
         )}
       />
 
+      {needTransport && (
+        <FormField
+          control={control}
+          name={step.id + "_transport"}
+          render={({ field }) => (
+            <FormItem className="flex flex-col">
+              <div className="flex flex-col gap-2">
+                <FormLabel className="text-sm font-medium text-start text-primary">
+                  Czy potrzebujesz transportu?
+                </FormLabel>
+                <FormControl>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                    disabled={
+                      watch(step.id + "_attendance") !==
+                      AttendanceStatus.CONFIRMED
+                    }
+                  >
+                    <SelectTrigger className="w-[250px]">
+                      <SelectValue placeholder="Wybierz" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {NEED_TRANSPORT_SELECT_VALUES.map((item, idx) => (
+                        <SelectItem key={`${item}_${idx}`} value={item}>
+                          {item}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </FormControl>
+              </div>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+      )}
+
       {needAccommodation && (
         <FormField
           control={control}
           name={step.id + "_accommodation"}
           render={({ field }) => (
             <FormItem className="flex flex-col">
-              <div className="flex gap-2 items-center">
+              <div className="flex flex-col gap-2">
                 <FormLabel className="text-sm font-medium text-start text-primary">
-                  Będę potrzebować noclegu
+                  Czy potrzebujesz noclegu?
                 </FormLabel>
                 <FormControl>
                   <Select
@@ -151,11 +192,10 @@ export const StepperItem = ({
         watch(step.id + "_attendance") === AttendanceStatus.CONFIRMED && (
           <>
             <Label className="mt-[20px]">
-              Jeśli wiesz kto będzie twoją osobą towarzysząca podaj jej Imię i
-              nazwisko:
+              Jeśli już wiesz, kto będzie Ci towarzyszyć, podaj imię i nazwisko
             </Label>
 
-            <div className="flex flex-row flex-wrap gap-2">
+            <div className="flex flex-row gap-2">
               <FormField
                 control={control}
                 name={step.id + "_name"}

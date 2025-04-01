@@ -1,10 +1,13 @@
 import { z } from "zod";
 import { AttendanceStatus, MenuKinds } from "../enum-definitions";
+import { NEED_TRANSPORT_SELECT_VALUES } from "../data/needTransportSelectValues";
 
 export const getGuestStepSchema = (
   guestId: string,
   isCompanion: boolean,
-  menuKinds: MenuKinds[]
+  menuKinds: MenuKinds[],
+  needAccommodation: boolean,
+  needTransport: boolean
 ) => {
   const memberSchema = z
     .object({
@@ -13,6 +16,7 @@ export const getGuestStepSchema = (
         invalid_type_error: "Będziesz obecny?",
       }),
       [`${guestId}_menuKind`]: z.nativeEnum(MenuKinds).optional(),
+      [`${guestId}_transport`]: z.string().optional(),
       [`${guestId}_accommodation`]: z.string().optional(),
       ...(isCompanion && {
         [`${guestId}_name`]: z.string().optional(),
@@ -36,7 +40,10 @@ export const getGuestStepSchema = (
     )
     .refine(
       (data) => {
-        if (data[`${guestId}_attendance`] === AttendanceStatus.CONFIRMED) {
+        if (
+          data[`${guestId}_attendance`] === AttendanceStatus.CONFIRMED &&
+          needAccommodation
+        ) {
           return (
             data[`${guestId}_accommodation`] &&
             guestId &&
@@ -46,8 +53,27 @@ export const getGuestStepSchema = (
         return true;
       },
       {
-        message: "Zdecyduj, czy potrzebujesz nocleg.",
+        message: "Zdecyduj, czy potrzebujesz noclegu.",
         path: [`${guestId}_accommodation`],
+      }
+    )
+    .refine(
+      (data) => {
+        if (
+          data[`${guestId}_attendance`] === AttendanceStatus.CONFIRMED &&
+          needTransport
+        ) {
+          return (
+            data[`${guestId}_transport`] &&
+            guestId &&
+            NEED_TRANSPORT_SELECT_VALUES.includes(data[`${guestId}_transport`]!)
+          );
+        }
+        return true;
+      },
+      {
+        message: "Zdecyduj, czy potrzebujesz transportu.",
+        path: [`${guestId}_transport`],
       }
     );
 

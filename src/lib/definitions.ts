@@ -13,6 +13,7 @@ export type Invitation = {
   needAccommodation: boolean;
   status: InvitationStatus;
   accommodationLocation: string;
+  needTransport: boolean;
   qrCodeId?: string;
 };
 
@@ -23,6 +24,7 @@ export type Guest = {
   attendance: AttendanceStatus;
   menuKind: string;
   accommodation: string;
+  transport: string;
 };
 export type GuestRaw = Required<Pick<Guest, "guestId" | "name" | "surname">>;
 

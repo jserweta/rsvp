@@ -17,10 +17,12 @@ import { menuKindsList } from "@/lib/enum-definitions";
 
 export const Stepper = ({
   invitationMembers,
+  needTransport,
   needAccommodation,
   invitationId,
 }: {
   invitationMembers: GuestRaw[];
+  needTransport: boolean;
   needAccommodation: boolean;
   invitationId: string;
 }) => {
@@ -30,7 +32,9 @@ export const Stepper = ({
     schema: getGuestStepSchema(
       item.guestId,
       item.name.includes("towarzysząca"),
-      menuKindsList
+      menuKindsList,
+      needAccommodation,
+      needTransport
     ),
   }));
 
@@ -74,21 +78,10 @@ export const Stepper = ({
         className="space-y-6 p-6 border border-black w-full"
         onSubmit={form.handleSubmit(onSubmit)}
       >
-        <div className="flex justify-between">
-          <h2 className="text-lg font-medium">RSVP</h2>
-          <div className="flex items-center gap-2">
-            <span className="text-sm text-muted-foreground">
-              Step {currentIndex + 1} of {steps.length}
-            </span>
-            <div />
-          </div>
-        </div>
+        <h2 className="text-lg font-medium">RSVP</h2>
 
         <nav aria-label="Lista obecności" className="group my-4">
-          <ol
-            className="flex items-center justify-between gap-2 overflow-x-auto no-scrollbar"
-            aria-orientation="horizontal"
-          >
+          <ol className="flex flex-col gap-2" aria-orientation="vertical">
             {stepper.all.map((step, index, array) => (
               <React.Fragment key={step.id}>
                 <li className="flex items-center gap-4 flex-shrink-0">
@@ -103,38 +96,52 @@ export const Stepper = ({
                     aria-setsize={steps.length}
                     aria-selected={stepper.current.id === step.id}
                     className="flex size-10 items-center justify-center rounded-full"
-                    onClick={async (e) => {
-                      e.preventDefault();
-                      const valid = await form.trigger();
-                      if (!valid) return;
-                      if (index - currentIndex > 1) return;
-                      stepper.goTo(step.id);
-                    }}
+                    // onClick={async (e) => {
+                    //   e.preventDefault();
+                    //   const valid = await form.trigger();
+                    //   if (!valid) return;
+                    //   if (index - currentIndex > 1) return;
+                    //   stepper.goTo(step.id);
+                    // }}
                   >
                     {index + 1}
                   </Button>
                   <span className="text-sm font-medium">{step.title}</span>
                 </li>
-                {index < array.length - 1 && (
-                  <Separator
-                    className={`flex-1 ${
-                      index < currentIndex ? "bg-primary" : "bg-muted"
-                    }`}
-                  />
-                )}
+                <div className="flex gap-4 min-h-[8px]">
+                  {index < array.length - 1 && (
+                    <div
+                      className="flex justify-center"
+                      style={{
+                        paddingInlineStart: "1.25rem",
+                      }}
+                    >
+                      <Separator
+                        orientation="vertical"
+                        className={`w-[1px] h-full ${
+                          index < currentIndex ? "bg-primary" : "bg-muted"
+                        }`}
+                      />
+                    </div>
+                  )}
+                  {stepper.current.id === step.id && (
+                    <div className="flex-1 my-4">
+                      <StepperItem
+                        key={stepper.current.id}
+                        needTransport={needTransport}
+                        needAccommodation={needAccommodation}
+                        menuKinds={menuKindsList}
+                        step={stepper.current}
+                      />
+                    </div>
+                  )}
+                </div>
               </React.Fragment>
             ))}
           </ol>
         </nav>
 
         <div className="space-y-4">
-          <StepperItem
-            key={stepper.current.id}
-            needAccommodation={needAccommodation}
-            menuKinds={menuKindsList}
-            step={stepper.current}
-          />
-
           <div className="flex justify-end gap-4">
             <Button
               variant="secondary"

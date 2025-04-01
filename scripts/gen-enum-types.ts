@@ -51,6 +51,10 @@ const fetchAttendanceStatus = async () => {
   }
 };
 
+function removeDiacritics(str: string) {
+  return str.normalize("NFD").replace(/\p{Diacritic}/gu, "");
+}
+
 async function generateEnumTypes() {
   try {
     const fetchedEnums = await Promise.all([
@@ -65,7 +69,7 @@ async function generateEnumTypes() {
     fetchedEnums.forEach((enumItem) => {
       enumDefFileContent.push(
         `export enum ${enumItem.name} {\n\t${enumItem.data
-          .map((e: string) => `${e.toUpperCase()} = "${e}"`)
+          .map((e: string) => `${removeDiacritics(e.toUpperCase())} = "${e}"`)
           .join(",\n\t")}\n}`
       );
       enumDefFileContent.push(

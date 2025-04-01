@@ -10,6 +10,7 @@ export async function fetchInvitationById(id: string) {
         invitations.need_accommodation,
         invitations.accommodation_location,
         invitations.status,
+        invitations.need_transport,
         qr_codes.access_token AS access_token
       FROM public.invitations
       LEFT JOIN qr_codes ON invitations.qr_code_id = qr_codes.id

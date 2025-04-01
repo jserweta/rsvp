@@ -22,6 +22,9 @@ export const submitInvitationForm = async (
       case "accommodation":
         acc[guestId].accommodation = value;
         break;
+      case "transport":
+        acc[guestId].transport = value;
+        break;
       case "name":
         acc[guestId].name = value;
         break;

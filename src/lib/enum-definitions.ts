@@ -1,8 +1,7 @@
 // AUTO-GENERATED FILE. DO NOT EDIT MANUALLY
 export enum MenuKinds {
-	NORMAL = "normal",
-	VEGAN = "vegan",
-	KIDS = "kids"
+	STANDARDOWE = "Standardowe",
+	WEGANSKIE = "Wegańskie"
 }
 export const menuKindsList: MenuKinds[] = Object.values(MenuKinds);
 

@@ -41,11 +41,12 @@ export default async function Page(props: {
   }
 
   return (
-    <div className="flex flex-col gap-3 flex-wrap items-center justify-center h-[calc(100dvh-225px)] sm:h-[calc(100dvh-155px)] max-w-[600px] mx-auto">
+    <div className="flex flex-col gap-3 flex-wrap items-center pb-6 justify-center max-w-[600px] mx-auto">
       <InvitationToast isSubmitted={isSubmitted} />
       {!isSubmitted && (
         <Stepper
           invitationMembers={invitationMembers}
+          needTransport={invitationInfo.needTransport}
           needAccommodation={invitationInfo.needAccommodation}
           invitationId={invitationId}
         />
