@@ -4,7 +4,6 @@ import { IoBedOutline } from "react-icons/io5";
 import { MdOutlineRestaurantMenu } from "react-icons/md";
 import { IoCarOutline } from "react-icons/io5";
 import { EditButton } from "../action-buttons";
-import { NEED_TRANSPORT_SELECT_VALUES } from "@/lib/data/needTransportSelectValues";
 
 export default async function GuestsTable({
   query,

@@ -31,8 +31,6 @@ export async function updateGuest(
     attendance: formData.get("attendance"),
   });
 
-  console.log(formData);
-
   // If form validation fails, return errors early. Otherwise, continue.
   if (!validatedFields.success) {
     return {
