@@ -17,8 +17,13 @@ import {
 } from "@/components/ui/form";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { AttendanceStatus, attendanceStatusList } from "@/lib/enum-definitions";
-import { NEED_TRANSPORT_SELECT_VALUES } from "@/lib/data/needTransportSelectValues";
+import {
+  AttendanceStatus,
+  attendanceStatusList,
+  MenuKinds,
+} from "@/lib/enum-definitions";
+import { TRANSPORT_SELECT_VALUES } from "@/lib/data/transportSelectValues";
+import { ATTENDANCE_SELECT_VALUES } from "@/lib/data/attendanceSelectValues";
 
 export const StepperItem = ({
   needTransport,
@@ -60,8 +65,8 @@ export const StepperItem = ({
                         status !== AttendanceStatus.PENDING && (
                           <SelectItem key={status} value={status}>
                             {status === AttendanceStatus.CONFIRMED
-                              ? "Tak"
-                              : "Nie"}
+                              ? ATTENDANCE_SELECT_VALUES.confirmed
+                              : ATTENDANCE_SELECT_VALUES.declined}
                           </SelectItem>
                         )
                     )}
@@ -86,7 +91,7 @@ export const StepperItem = ({
               <FormControl>
                 <Select
                   onValueChange={field.onChange}
-                  defaultValue={field.value}
+                  defaultValue={field.value ?? MenuKinds.STANDARDOWE}
                   disabled={
                     watch(step.id + "_attendance") !==
                     AttendanceStatus.CONFIRMED
@@ -124,7 +129,7 @@ export const StepperItem = ({
                 <FormControl>
                   <Select
                     onValueChange={field.onChange}
-                    defaultValue={field.value}
+                    defaultValue={field.value ?? TRANSPORT_SELECT_VALUES[0]}
                     disabled={
                       watch(step.id + "_attendance") !==
                       AttendanceStatus.CONFIRMED
@@ -134,7 +139,7 @@ export const StepperItem = ({
                       <SelectValue placeholder="Wybierz" />
                     </SelectTrigger>
                     <SelectContent>
-                      {NEED_TRANSPORT_SELECT_VALUES.map((item, idx) => (
+                      {TRANSPORT_SELECT_VALUES.map((item, idx) => (
                         <SelectItem key={`${item}_${idx}`} value={item}>
                           {item}
                         </SelectItem>

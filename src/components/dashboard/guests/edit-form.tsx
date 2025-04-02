@@ -8,7 +8,7 @@ import { updateGuest, UpdateGuestStatus } from "@/lib/actions/updateGuest";
 import { attendanceStatusList, menuKindsList } from "@/lib/enum-definitions";
 import { useRouter } from "next/navigation";
 import { toastActionStatus } from "@/lib/utils/toastActionStatus";
-import { NEED_TRANSPORT_SELECT_VALUES } from "@/lib/data/needTransportSelectValues";
+import { TRANSPORT_SELECT_VALUES } from "@/lib/data/transportSelectValues";
 
 export default function EditGuestForm({ guest }: { guest: Guest }) {
   const router = useRouter();
@@ -190,11 +190,13 @@ export default function EditGuestForm({ guest }: { guest: Guest }) {
             id="transport"
             name="transport"
             className="block w-full cursor-pointer rounded-md border border-gray-200 py-2 pl-4 text-sm outline-2 placeholder:text-gray-500"
-            defaultValue={guest.transport ?? ""}
+            defaultValue={guest.transport ?? TRANSPORT_SELECT_VALUES[0]}
             aria-describedby="transport-error"
           >
-            <option value="">Select transport method</option>
-            {NEED_TRANSPORT_SELECT_VALUES.map((menu, idx) => (
+            <option value="" disabled>
+              Select transport method
+            </option>
+            {TRANSPORT_SELECT_VALUES.map((menu, idx) => (
               <option key={`${menu}_${idx}`} value={menu}>
                 {menu}
               </option>

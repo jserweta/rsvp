@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { AttendanceStatus, MenuKinds } from "../enum-definitions";
-import { NEED_TRANSPORT_SELECT_VALUES } from "../data/needTransportSelectValues";
+import { TRANSPORT_SELECT_VALUES } from "../data/transportSelectValues";
 
 export const getGuestStepSchema = (
   guestId: string,
@@ -66,7 +66,7 @@ export const getGuestStepSchema = (
           return (
             data[`${guestId}_transport`] &&
             guestId &&
-            NEED_TRANSPORT_SELECT_VALUES.includes(data[`${guestId}_transport`]!)
+            TRANSPORT_SELECT_VALUES.includes(data[`${guestId}_transport`]!)
           );
         }
         return true;

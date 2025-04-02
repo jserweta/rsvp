@@ -15,7 +15,7 @@ export const invitationStatusList: InvitationStatus[] = Object.values(Invitation
 
 export enum AttendanceStatus {
 	PENDING = "pending",
-	DECLINED = "declined",
-	CONFIRMED = "confirmed"
+	CONFIRMED = "confirmed",
+	DECLINED = "declined"
 }
 export const attendanceStatusList: AttendanceStatus[] = Object.values(AttendanceStatus);
