@@ -4,26 +4,26 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { Step } from "@stepperize/react";
-import { useFormContext } from "react-hook-form";
-import { z } from "zod";
+} from '@/components/ui/select';
+import { Step } from '@stepperize/react';
+import { useFormContext } from 'react-hook-form';
+import { z } from 'zod';
 import {
   FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
+} from '@/components/ui/form';
+import { Label } from '@/components/ui/label';
+import { Input } from '@/components/ui/input';
 import {
   AttendanceStatus,
   attendanceStatusList,
   MenuKinds,
-} from "@/lib/enum-definitions";
-import { TRANSPORT_SELECT_VALUES } from "@/lib/data/transportSelectValues";
-import { ATTENDANCE_SELECT_VALUES } from "@/lib/data/attendanceSelectValues";
+} from '@/lib/enum-definitions';
+import { TRANSPORT_SELECT_VALUES } from '@/lib/data/transportSelectValues';
+import { ATTENDANCE_SELECT_VALUES } from '@/lib/data/attendanceSelectValues';
 
 export const StepperItem = ({
   needTransport,
@@ -44,11 +44,11 @@ export const StepperItem = ({
     <div className="grid gap-4">
       <FormField
         control={control}
-        name={step.id + "_attendance"}
+        name={step.id + '_attendance'}
         render={({ field }) => (
           <FormItem className="flex flex-col">
             <div className="flex flex-col gap-2">
-              <FormLabel className="text-sm font-medium text-start text-primary">
+              <FormLabel className="text-start text-sm">
                 Czy dołączysz do nas w tym wyjątkowym dniu?
               </FormLabel>
               <FormControl>
@@ -56,7 +56,7 @@ export const StepperItem = ({
                   onValueChange={field.onChange}
                   defaultValue={field.value}
                 >
-                  <SelectTrigger className="w-[110px]">
+                  <SelectTrigger className="w-fit min-w-[250px]">
                     <SelectValue placeholder="Wybierz" />
                   </SelectTrigger>
                   <SelectContent>
@@ -81,23 +81,23 @@ export const StepperItem = ({
 
       <FormField
         control={control}
-        name={step.id + "_menuKind"}
+        name={step.id + '_menuKind'}
         render={({ field }) => (
           <FormItem className="flex flex-col">
             <div className="flex flex-col gap-2">
-              <FormLabel className="text-sm font-medium text-start text-primary">
+              <FormLabel className="text-start text-sm">
                 Jakie menu preferujesz?
               </FormLabel>
               <FormControl>
                 <Select
                   onValueChange={field.onChange}
-                  defaultValue={field.value ?? MenuKinds.STANDARDOWE}
+                  defaultValue={field.value ?? ''}
                   disabled={
-                    watch(step.id + "_attendance") !==
+                    watch(step.id + '_attendance') !==
                     AttendanceStatus.CONFIRMED
                   }
                 >
-                  <SelectTrigger className="w-[200px]">
+                  <SelectTrigger className="w-fit min-w-[250px]">
                     <SelectValue placeholder="Wybierz rodzaj menu" />
                   </SelectTrigger>
                   <SelectContent>
@@ -119,11 +119,11 @@ export const StepperItem = ({
       {needTransport && (
         <FormField
           control={control}
-          name={step.id + "_transport"}
+          name={step.id + '_transport'}
           render={({ field }) => (
             <FormItem className="flex flex-col">
               <div className="flex flex-col gap-2">
-                <FormLabel className="text-sm font-medium text-start text-primary">
+                <FormLabel className="text-start text-sm">
                   Czy potrzebujesz transportu?
                 </FormLabel>
                 <FormControl>
@@ -131,11 +131,11 @@ export const StepperItem = ({
                     onValueChange={field.onChange}
                     defaultValue={field.value ?? TRANSPORT_SELECT_VALUES[0]}
                     disabled={
-                      watch(step.id + "_attendance") !==
+                      watch(step.id + '_attendance') !==
                       AttendanceStatus.CONFIRMED
                     }
                   >
-                    <SelectTrigger className="w-[250px]">
+                    <SelectTrigger className="w-fit min-w-[250px]">
                       <SelectValue placeholder="Wybierz" />
                     </SelectTrigger>
                     <SelectContent>
@@ -157,11 +157,11 @@ export const StepperItem = ({
       {needAccommodation && (
         <FormField
           control={control}
-          name={step.id + "_accommodation"}
+          name={step.id + '_accommodation'}
           render={({ field }) => (
             <FormItem className="flex flex-col">
               <div className="flex flex-col gap-2">
-                <FormLabel className="text-sm font-medium text-start text-primary">
+                <FormLabel className="text-start text-sm">
                   Czy potrzebujesz noclegu?
                 </FormLabel>
                 <FormControl>
@@ -169,18 +169,18 @@ export const StepperItem = ({
                     onValueChange={field.onChange}
                     defaultValue={field.value}
                     disabled={
-                      watch(step.id + "_attendance") !==
+                      watch(step.id + '_attendance') !==
                       AttendanceStatus.CONFIRMED
                     }
                   >
-                    <SelectTrigger className="w-[110px]">
+                    <SelectTrigger className="w-fit min-w-[250px]">
                       <SelectValue placeholder="Wybierz" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem key="no-0" value={"no"}>
+                      <SelectItem key="no-0" value={'no'}>
                         Nie
                       </SelectItem>
-                      <SelectItem key="yes-1" value={"yes"}>
+                      <SelectItem key="yes-1" value={'yes'}>
                         Tak
                       </SelectItem>
                     </SelectContent>
@@ -193,8 +193,8 @@ export const StepperItem = ({
         />
       )}
 
-      {step.title.includes("towarzysząca") &&
-        watch(step.id + "_attendance") === AttendanceStatus.CONFIRMED && (
+      {step.title.includes('towarzysząca') &&
+        watch(step.id + '_attendance') === AttendanceStatus.CONFIRMED && (
           <>
             <Label className="mt-[20px]">
               Jeśli już wiesz, kto będzie Ci towarzyszyć, podaj imię i nazwisko
@@ -203,7 +203,7 @@ export const StepperItem = ({
             <div className="flex flex-row gap-2">
               <FormField
                 control={control}
-                name={step.id + "_name"}
+                name={step.id + '_name'}
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Imię</FormLabel>
@@ -211,7 +211,7 @@ export const StepperItem = ({
                       <Input
                         placeholder="Imię"
                         {...field}
-                        value={field.value ?? ""}
+                        value={field.value ?? ''}
                       />
                     </FormControl>
                     <FormMessage />
@@ -220,7 +220,7 @@ export const StepperItem = ({
               />
               <FormField
                 control={control}
-                name={step.id + "_surname"}
+                name={step.id + '_surname'}
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Nazwisko</FormLabel>
@@ -228,7 +228,7 @@ export const StepperItem = ({
                       <Input
                         placeholder="Nazwisko"
                         {...field}
-                        value={field.value ?? ""}
+                        value={field.value ?? ''}
                       />
                     </FormControl>
                     <FormMessage />

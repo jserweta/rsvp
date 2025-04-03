@@ -1,34 +1,47 @@
-"use client";
+'use client';
 
-import { usePathname } from "next/navigation";
-import { Button } from "./ui/button";
-import Link from "next/link";
+import { usePathname } from 'next/navigation';
+import { Button } from './ui/button';
+import Link from 'next/link';
 
 export default function Navbar() {
   const pathname = usePathname();
 
+  const isRsvp = pathname.startsWith('/rsvp');
+
+  let headerTitle = '';
+  if (isRsvp) {
+    headerTitle = 'Anna & Jakub';
+  }
+
   return (
-    <nav className="px-5 xl:px-10 py-10 flex gap-6 justify-between items-center">
-      <div className="flex-1 hidden lg:block"></div>
+    <nav
+      className={`flex items-center justify-center gap-6 px-5 py-5 ${!isRsvp ? 'lg:justify-between' : ''} xl:px-10`}
+    >
+      {!isRsvp && <div className="hidden flex-1 lg:block"></div>}
 
-      <Link
-        href="/"
-        className="font-amandine text-5xl leading-[1.5] pt-[0.35rem]"
-      >
-        Anna <span className="text-3xl pb-[0.4rem]">&</span> Jakub
-      </Link>
+      {headerTitle && (
+        <>
+          <Link
+            href="/"
+            className="pt-[0.35rem] font-amandine text-5xl leading-[1.15]"
+          >
+            {headerTitle}
+          </Link>
+        </>
+      )}
 
-      <div className="flex-1 flex gap-6 justify-end">
-        {!pathname.startsWith("/rsvp") && (
+      {!isRsvp && (
+        <div className="flex flex-1 justify-end gap-6">
           <Button
             asChild
             variant="outline"
-            className="rounded-none border-black leading-none"
+            className="rounded-none leading-none"
           >
             <Link href="/rsvp">RSVP</Link>
           </Button>
-        )}
-      </div>
+        </div>
+      )}
     </nav>
   );
 }

@@ -59,6 +59,8 @@ export default {
       fontFamily: {
         amandine: ["amandine", "sans-serif"],
         absoluteBeauty: ["absolute-beauty", "sans-serif"],
+        thonglorSoi4: ["thonglor-soi-4", "sans-serif"],
+        gyst: ["gyst-variable", "sans-serif"],
       },
     },
   },

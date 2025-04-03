@@ -1,16 +1,16 @@
-import { notFound } from "next/navigation";
-import { Metadata } from "next";
-import { fetchInvitationById } from "@/lib/data/fetchInvitationById";
-import { fetchInvitationMembers } from "@/lib/data/fetchInvitationMembers";
-import { GuestRaw, Invitation } from "@/lib/definitions";
-import { Stepper } from "@/components/rsvp/stepper";
-import { InvitationStatus } from "@/lib/enum-definitions";
-import { fetchInvitationId } from "@/lib/data/fetchInvitationId";
-import InvitationToast from "@/components/invitation-toast";
-import recordQrCodeScan from "@/lib/actions/recordQrCodeScan";
+import { notFound } from 'next/navigation';
+import { Metadata } from 'next';
+import { fetchInvitationById } from '@/lib/data/fetchInvitationById';
+import { fetchInvitationMembers } from '@/lib/data/fetchInvitationMembers';
+import { GuestRaw, Invitation } from '@/lib/definitions';
+import { Stepper } from '@/components/rsvp/stepper';
+import { InvitationStatus } from '@/lib/enum-definitions';
+import { fetchInvitationId } from '@/lib/data/fetchInvitationId';
+import InvitationToast from '@/components/invitation-toast';
+import recordQrCodeScan from '@/lib/actions/recordQrCodeScan';
 
 export const metadata: Metadata = {
-  title: "Rsvp",
+  title: 'Rsvp',
 };
 
 export default async function Page(props: {
@@ -41,7 +41,7 @@ export default async function Page(props: {
   }
 
   return (
-    <div className="flex flex-col gap-3 flex-wrap items-center pb-6 justify-center max-w-[600px] mx-auto">
+    <div className="mx-auto flex min-h-[calc(100dvh-120px)] max-w-[600px] flex-col flex-wrap items-center justify-center gap-3 bg-background pb-6">
       <InvitationToast isSubmitted={isSubmitted} />
       {!isSubmitted && (
         <Stepper
