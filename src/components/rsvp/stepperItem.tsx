@@ -17,11 +17,7 @@ import {
 } from '@/components/ui/form';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
-import {
-  AttendanceStatus,
-  attendanceStatusList,
-  MenuKinds,
-} from '@/lib/enum-definitions';
+import { AttendanceStatus, attendanceStatusList } from '@/lib/enum-definitions';
 import { TRANSPORT_SELECT_VALUES } from '@/lib/data/transportSelectValues';
 import { ATTENDANCE_SELECT_VALUES } from '@/lib/data/attendanceSelectValues';
 
