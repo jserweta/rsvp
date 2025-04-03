@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import "./globals.css";
+import "../globals.css";
 import { geistMono, geistSans } from "@/lib/fonts";
 import { Toaster } from "@/components/ui/sonner";
 
 export const metadata: Metadata = {
-  title: "RSVP",
-  description: "Wedding RSVP",
+  title: "RSVP app",
+  description: "Admin dashboard ",
 };
 
 export default function RootLayout({
@@ -14,7 +14,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" className="dashboard-theme" suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable} `}>
         {children}
         <Toaster position="top-center" closeButton />

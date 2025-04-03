@@ -1,10 +1,27 @@
 import Navbar from "@/components/navbar";
+import type { Metadata } from "next";
+import "../globals.css";
+import { geistMono, geistSans } from "@/lib/fonts";
+import { Toaster } from "@/components/ui/sonner";
 
-export default function Layout({ children }: { children: React.ReactNode }) {
+export const metadata: Metadata = {
+  title: "RSVP",
+  description: "Wedding RSVP",
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
-    <>
-      <Navbar />
-      <main className="px-5 xl:px-10">{children}</main>
-    </>
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${geistSans.variable} ${geistMono.variable} `}>
+        <Navbar />
+        <main className="px-5 xl:px-10 font-thonglorSoi4">{children}</main>
+
+        <Toaster position="top-center" closeButton />
+      </body>
+    </html>
   );
 }
