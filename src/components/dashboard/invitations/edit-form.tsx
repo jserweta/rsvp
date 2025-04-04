@@ -1,16 +1,16 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import { useActionState, useEffect, useState } from "react";
-import { GuestRaw, InvitationsTableType, QrCode } from "@/lib/definitions";
-import { Button } from "@/components/ui/button";
+import Link from 'next/link';
+import { useActionState, useEffect, useState } from 'react';
+import { GuestRaw, InvitationsTableType, QrCode } from '@/lib/definitions';
+import { Button } from '@/components/ui/button';
 import {
   updateInvitation,
   UpdateInvitationStatus,
-} from "@/lib/actions/updateInvitation";
-import { invitationStatusList } from "@/lib/enum-definitions";
-import { useRouter } from "next/navigation";
-import { toastActionStatus } from "@/lib/utils/toastActionStatus";
+} from '@/lib/actions/updateInvitation';
+import { invitationStatusList } from '@/lib/enum-definitions';
+import { useRouter } from 'next/navigation';
+import { toastActionStatus } from '@/lib/utils/toastActionStatus';
 
 export default function EditInvitationForm({
   invitation,
@@ -40,7 +40,7 @@ export default function EditInvitationForm({
   useEffect(() => {
     toastActionStatus({ message: state.message, type: state.type });
 
-    if (state.type === "success") router.push("/dashboard/invitations");
+    if (state.type === 'success') router.push('/dashboard/invitations');
   }, [state.message]);
 
   return (
@@ -91,7 +91,7 @@ export default function EditInvitationForm({
               type="text"
               defaultValue={invitation.name}
               placeholder="Enter name"
-              className="block w-full cursor-pointer rounded-md border border-gray-200 py-2 px-4 text-sm outline-2 placeholder:text-gray-500"
+              className="block w-full cursor-pointer rounded-md border border-gray-200 px-4 py-2 text-sm outline-2 placeholder:text-gray-500"
               aria-describedby="name-error"
             />
           </div>
@@ -119,7 +119,7 @@ export default function EditInvitationForm({
             id="accessToken"
             name="accessToken"
             className="block w-full cursor-pointer rounded-md border border-gray-200 py-2 pl-4 text-sm outline-2 placeholder:text-gray-500"
-            defaultValue={invitation.accessToken ?? ""}
+            defaultValue={invitation.accessToken ?? ''}
             aria-describedby="accessToken-error"
           >
             <option value="">Assign access token</option>
@@ -199,7 +199,7 @@ export default function EditInvitationForm({
                 type="text"
                 defaultValue={invitation.accommodationLocation}
                 placeholder="Enter accommodation location"
-                className=" block w-full cursor-pointer rounded-md border border-gray-200 py-2 px-4 text-sm outline-2 placeholder:text-gray-500"
+                className="block w-full cursor-pointer rounded-md border border-gray-200 px-4 py-2 text-sm outline-2 placeholder:text-gray-500"
                 aria-describedby="accommodationLocation-error"
               />
             </div>
@@ -251,7 +251,7 @@ export default function EditInvitationForm({
         {/* Invitation members */}
         {invitationMembers && (
           <div className="mb-4">
-            <p className="text-base font-medium mb-2">Invitation members:</p>
+            <p className="mb-2 text-base font-medium">Invitation members:</p>
             <ul>
               {invitationMembers.map((member) => (
                 <li key={member.guestId} className="text-sm">
@@ -269,7 +269,11 @@ export default function EditInvitationForm({
         >
           Cancel
         </Link>
-        <Button type="submit" aria-disabled={isPending}>
+        <Button
+          type="submit"
+          variant="defaultRounded"
+          aria-disabled={isPending}
+        >
           Edit Invitation
         </Button>
       </div>

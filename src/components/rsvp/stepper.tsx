@@ -8,12 +8,20 @@ import React from 'react';
 import { Separator } from '@/components/ui/separator';
 import { z } from 'zod';
 import { Form } from '@/components/ui/form';
-import { getGuestStepSchema } from '@/lib/schema/getGuestStepSchema';
+import {
+  getGuestStepSchema,
+  ContactStepSchema,
+} from '@/lib/schema/getGuestStepSchema';
 import { submitInvitationForm } from '@/lib/actions/submitInvitationForm';
 import { toast } from 'sonner';
-import { StepperItem } from './stepperItem';
+import { PersonStepperItem } from './personStepperItem';
 import { GuestRaw } from '@/lib/definitions';
-import { menuKindsList } from '@/lib/enum-definitions';
+import { AttendanceStatus, menuKindsList } from '@/lib/enum-definitions';
+import { GoPerson } from 'react-icons/go';
+import { HiOutlineEnvelope } from 'react-icons/hi2';
+import { useRouter } from 'next/navigation';
+
+import { ContactStepperItem } from './contactStepperItem';
 
 export const Stepper = ({
   invitationMembers,
@@ -26,6 +34,8 @@ export const Stepper = ({
   needAccommodation: boolean;
   invitationId: string;
 }) => {
+  const router = useRouter();
+
   const formSteps: Step[] = invitationMembers.map((item) => ({
     id: item.guestId,
     title: `${item.name} ${item.surname}`,
@@ -37,6 +47,12 @@ export const Stepper = ({
       needTransport
     ),
   }));
+
+  formSteps.push({
+    id: 'contact',
+    title: 'Kontakt',
+    schema: ContactStepSchema,
+  });
 
   const { useStepper, steps, utils } = defineStepper(...formSteps);
   const stepper = useStepper();
@@ -56,9 +72,17 @@ export const Stepper = ({
     try {
       if (stepper.isLast) {
         await submitInvitationForm(form.getValues(), invitationId);
-        toast.success('Thank you!', {
-          description: 'See you at the party ;)',
-        });
+        const formValues = form.getValues();
+        const hasConfirmedAttendance = Object.keys(formValues).some(
+          (key) =>
+            key.includes('_attendance') &&
+            formValues[key] === AttendanceStatus.CONFIRMED
+        );
+
+        sessionStorage.setItem('rsvpSubmissionSuccess', 'true');
+        router.push(
+          `/rsvp/success${hasConfirmedAttendance ? '?status=confirmed' : ''}`
+        );
 
         stepper.reset();
         form.reset();
@@ -66,8 +90,9 @@ export const Stepper = ({
         stepper.next();
       }
     } catch {
-      toast.error('Form submission failed.', {
-        description: 'Please try again later.',
+      toast.error('Wystapił błąd :/', {
+        description:
+          'Prosimy spróbować później lub skontaktować się z nami telefonicznie',
       });
     }
   };
@@ -91,37 +116,50 @@ export const Stepper = ({
                     aria-posinset={index + 1}
                     aria-setsize={steps.length}
                     aria-selected={stepper.current.id === step.id}
-                    className={`flex size-10 items-center justify-center rounded-full leading-none ${index <= currentIndex ? 'bg-foreground text-white' : 'border border-white'} `}
+                    className={`flex size-10 items-center justify-center rounded-full leading-none ${index <= currentIndex ? 'bg-foreground text-white' : 'border border-white/75'} `}
                   >
-                    {index + 1}
+                    {/* {index + 1} */}
+                    {step.id === 'contact' ? (
+                      <HiOutlineEnvelope />
+                    ) : (
+                      <GoPerson />
+                    )}
                   </div>
                   <span className="text-sm font-[600]">{step.title}</span>
                 </li>
-                <div className="flex min-h-[8px] gap-4">
-                  {index < array.length - 1 && (
-                    <div
-                      className="flex justify-center"
-                      style={{
-                        paddingInlineStart: '1.25rem',
-                      }}
-                    >
+                <div className="flex min-h-[8px] gap-[calc(1rem+20px)]">
+                  <div
+                    className="flex justify-center"
+                    style={{
+                      paddingInlineStart: '1.25rem',
+                    }}
+                  >
+                    {index < array.length - 1 && (
                       <Separator
                         orientation="vertical"
                         className={`h-full w-[1px] ${
                           index <= currentIndex ? 'bg-foreground' : 'bg-muted'
                         }`}
                       />
-                    </div>
-                  )}
+                    )}
+                  </div>
+
                   {stepper.current.id === step.id && (
                     <div className="my-4 flex-1">
-                      <StepperItem
-                        key={stepper.current.id}
-                        needTransport={needTransport}
-                        needAccommodation={needAccommodation}
-                        menuKinds={menuKindsList}
-                        step={stepper.current}
-                      />
+                      {step.id === 'contact' ? (
+                        <ContactStepperItem
+                          key={stepper.current.id}
+                          step={stepper.current}
+                        />
+                      ) : (
+                        <PersonStepperItem
+                          key={stepper.current.id}
+                          needTransport={needTransport}
+                          needAccommodation={needAccommodation}
+                          menuKinds={menuKindsList}
+                          step={stepper.current}
+                        />
+                      )}
                     </div>
                   )}
                 </div>
@@ -132,21 +170,20 @@ export const Stepper = ({
 
         <div className="space-y-4">
           <div className="flex justify-end gap-4">
-            <Button
-              variant="outline"
-              className="rounded-none border-white"
-              type="button"
-              onClick={(e) => {
-                e.preventDefault();
-                stepper.prev();
-              }}
-              disabled={stepper.isFirst}
-            >
-              Wróć
-            </Button>
-            <Button type="submit" className="b rounded-none">
-              {stepper.isLast ? 'Wyślij' : 'Dalej'}
-            </Button>
+            {!stepper.isFirst && (
+              <Button
+                variant="secondary"
+                type="button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  stepper.prev();
+                }}
+                disabled={stepper.isFirst}
+              >
+                Wróć
+              </Button>
+            )}
+            <Button type="submit">{stepper.isLast ? 'Wyślij' : 'Dalej'}</Button>
           </div>
         </div>
       </form>

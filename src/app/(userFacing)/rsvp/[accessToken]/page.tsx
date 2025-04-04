@@ -8,6 +8,7 @@ import { InvitationStatus } from '@/lib/enum-definitions';
 import { fetchInvitationId } from '@/lib/data/fetchInvitationId';
 import InvitationToast from '@/components/invitation-toast';
 import recordQrCodeScan from '@/lib/actions/recordQrCodeScan';
+import Header from '@/components/rsvp/header';
 
 export const metadata: Metadata = {
   title: 'Rsvp',
@@ -41,8 +42,12 @@ export default async function Page(props: {
   }
 
   return (
-    <div className="mx-auto flex min-h-[calc(100dvh-120px)] max-w-[600px] flex-col flex-wrap items-center justify-center gap-3 bg-background pb-6">
+    <>
       <InvitationToast isSubmitted={isSubmitted} />
+      <Header
+        title="RSVP"
+        subTitle="Prosimy o potwierdzenie obecności do 31 sierpnia 2025 roku"
+      />
       {!isSubmitted && (
         <Stepper
           invitationMembers={invitationMembers}
@@ -51,6 +56,6 @@ export default async function Page(props: {
           invitationId={invitationId}
         />
       )}
-    </div>
+    </>
   );
 }

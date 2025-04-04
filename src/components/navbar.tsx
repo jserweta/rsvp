@@ -24,7 +24,7 @@ export default function Navbar() {
         <>
           <Link
             href="/"
-            className="pt-[0.35rem] font-amandine text-5xl leading-[1.15]"
+            className="pt-[0.35rem] font-amandine text-4xl leading-[1.15]"
           >
             {headerTitle}
           </Link>
@@ -33,11 +33,7 @@ export default function Navbar() {
 
       {!isRsvp && (
         <div className="flex flex-1 justify-end gap-6">
-          <Button
-            asChild
-            variant="outline"
-            className="rounded-none leading-none"
-          >
+          <Button asChild variant="outline" className="leading-none">
             <Link href="/rsvp">RSVP</Link>
           </Button>
         </div>

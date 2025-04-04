@@ -1,6 +1,6 @@
-import { z } from "zod";
-import { AttendanceStatus, MenuKinds } from "../enum-definitions";
-import { TRANSPORT_SELECT_VALUES } from "../data/transportSelectValues";
+import { z } from 'zod';
+import { AttendanceStatus, MenuKinds } from '../enum-definitions';
+import { TRANSPORT_SELECT_VALUES } from '../data/transportSelectValues';
 
 export const getGuestStepSchema = (
   guestId: string,
@@ -12,8 +12,8 @@ export const getGuestStepSchema = (
   const memberSchema = z
     .object({
       [`${guestId}_attendance`]: z.nativeEnum(AttendanceStatus, {
-        required_error: "Będziesz obecny?",
-        invalid_type_error: "Będziesz obecny?",
+        required_error: 'Będziesz obecny?',
+        invalid_type_error: 'Będziesz obecny?',
       }),
       [`${guestId}_menuKind`]: z.nativeEnum(MenuKinds).optional(),
       [`${guestId}_transport`]: z.string().optional(),
@@ -34,7 +34,7 @@ export const getGuestStepSchema = (
         return true;
       },
       {
-        message: "Wybierz rodzaj menu.",
+        message: 'Wybierz rodzaj menu.',
         path: [`${guestId}_menuKind`],
       }
     )
@@ -47,13 +47,13 @@ export const getGuestStepSchema = (
           return (
             data[`${guestId}_accommodation`] &&
             guestId &&
-            ["yes", "no"].includes(data[`${guestId}_accommodation`]!)
+            ['yes', 'no'].includes(data[`${guestId}_accommodation`]!)
           );
         }
         return true;
       },
       {
-        message: "Zdecyduj, czy potrzebujesz noclegu.",
+        message: 'Zdecyduj, czy potrzebujesz noclegu.',
         path: [`${guestId}_accommodation`],
       }
     )
@@ -72,10 +72,17 @@ export const getGuestStepSchema = (
         return true;
       },
       {
-        message: "Zdecyduj, czy potrzebujesz transportu.",
+        message: 'Zdecyduj, czy potrzebujesz transportu.',
         path: [`${guestId}_transport`],
       }
     );
 
   return memberSchema;
 };
+
+export const ContactStepSchema = z.object({
+  contact_email: z
+    .string()
+    .email({ message: 'Podaj poprawny adres email' })
+    .optional(),
+});

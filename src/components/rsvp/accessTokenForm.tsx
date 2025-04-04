@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import {
   Form,
@@ -6,20 +6,21 @@ import {
   FormField,
   FormItem,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
 import {
   accessTokenSchema,
   AccessTokenSchema,
-} from "@/lib/schema/accessTokenFormSchema";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { Button } from "../ui/button";
-import { useRouter } from "next/navigation";
+} from '@/lib/schema/accessTokenFormSchema';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import { Button } from '../ui/button';
+import { useRouter } from 'next/navigation';
+import { Label } from '../ui/label';
 
 export default function AccessTokenForm() {
   const form = useForm<AccessTokenSchema>({
-    mode: "onTouched",
+    mode: 'onTouched',
     resolver: zodResolver(accessTokenSchema),
   });
   const router = useRouter();
@@ -31,28 +32,37 @@ export default function AccessTokenForm() {
 
   return (
     <Form {...form}>
-      <form className="w-full" onSubmit={form.handleSubmit(onSubmit)}>
+      <form
+        className="flex w-full flex-col space-y-6 bg-white/20 p-6"
+        onSubmit={form.handleSubmit(onSubmit)}
+      >
         <div className="mb-3">
           <FormField
             control={form.control}
             name="accessToken"
             render={({ field }) => (
               <FormItem>
-                {/* <FormLabel>Imię</FormLabel> */}
-                <FormControl>
-                  <Input
-                    placeholder="Kod dostępu"
-                    {...field}
-                    value={field.value ?? ""}
-                  />
-                </FormControl>
+                <div className="flex flex-col gap-4">
+                  <Label className="text-start text-sm">
+                    Wprowadź swój kod dostępu
+                  </Label>
+                  <FormControl>
+                    <Input
+                      placeholder="Kod dostępu"
+                      {...field}
+                      value={field.value ?? ''}
+                    />
+                  </FormControl>
+                </div>
                 <FormMessage />
               </FormItem>
             )}
           />
         </div>
 
-        <Button type="submit">{"Zatwierdź"}</Button>
+        <Button type="submit" className="w-fit self-end">
+          {'Zatwierdź'}
+        </Button>
       </form>
     </Form>
   );

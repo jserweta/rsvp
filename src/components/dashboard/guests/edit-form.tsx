@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import { useActionState, useEffect } from "react";
-import { Guest } from "@/lib/definitions";
-import { Button } from "@/components/ui/button";
-import { updateGuest, UpdateGuestStatus } from "@/lib/actions/updateGuest";
-import { attendanceStatusList, menuKindsList } from "@/lib/enum-definitions";
-import { useRouter } from "next/navigation";
-import { toastActionStatus } from "@/lib/utils/toastActionStatus";
-import { TRANSPORT_SELECT_VALUES } from "@/lib/data/transportSelectValues";
+import Link from 'next/link';
+import { useActionState, useEffect } from 'react';
+import { Guest } from '@/lib/definitions';
+import { Button } from '@/components/ui/button';
+import { updateGuest, UpdateGuestStatus } from '@/lib/actions/updateGuest';
+import { attendanceStatusList, menuKindsList } from '@/lib/enum-definitions';
+import { useRouter } from 'next/navigation';
+import { toastActionStatus } from '@/lib/utils/toastActionStatus';
+import { TRANSPORT_SELECT_VALUES } from '@/lib/data/transportSelectValues';
 
 export default function EditGuestForm({ guest }: { guest: Guest }) {
   const router = useRouter();
@@ -22,7 +22,7 @@ export default function EditGuestForm({ guest }: { guest: Guest }) {
   useEffect(() => {
     toastActionStatus({ message: state.message, type: state.type });
 
-    if (state.type === "success") router.push("/dashboard/guests");
+    if (state.type === 'success') router.push('/dashboard/guests');
   }, [state.message]);
 
   return (
@@ -76,7 +76,7 @@ export default function EditGuestForm({ guest }: { guest: Guest }) {
               type="text"
               defaultValue={guest.name}
               placeholder="Enter name"
-              className=" block w-full cursor-pointer rounded-md border border-gray-200 py-2 px-4 text-sm outline-2 placeholder:text-gray-500"
+              className="block w-full cursor-pointer rounded-md border border-gray-200 px-4 py-2 text-sm outline-2 placeholder:text-gray-500"
               aria-describedby="name-error"
             />
           </div>
@@ -103,7 +103,7 @@ export default function EditGuestForm({ guest }: { guest: Guest }) {
               type="text"
               defaultValue={guest.surname}
               placeholder="Enter surname"
-              className=" block w-full rounded-md border border-gray-200 py-2 px-4 text-sm outline-2 placeholder:text-gray-500"
+              className="block w-full rounded-md border border-gray-200 px-4 py-2 text-sm outline-2 placeholder:text-gray-500"
               aria-describedby="surname-error"
             />
           </div>
@@ -128,7 +128,7 @@ export default function EditGuestForm({ guest }: { guest: Guest }) {
             id="menuKind"
             name="menuKind"
             className="block w-full cursor-pointer rounded-md border border-gray-200 py-2 pl-4 text-sm outline-2 placeholder:text-gray-500"
-            defaultValue={guest.menuKind ?? ""}
+            defaultValue={guest.menuKind ?? ''}
             aria-describedby="menuKind-error"
           >
             <option value="" disabled>
@@ -159,7 +159,7 @@ export default function EditGuestForm({ guest }: { guest: Guest }) {
               name="accommodation"
               type="checkbox"
               defaultChecked={!!guest.accommodation}
-              className=" block w-3 cursor-pointer rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+              className="block w-3 cursor-pointer rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
               aria-describedby="accommodation-error"
             />
             <label
@@ -220,7 +220,11 @@ export default function EditGuestForm({ guest }: { guest: Guest }) {
         >
           Cancel
         </Link>
-        <Button type="submit" aria-disabled={isPending}>
+        <Button
+          type="submit"
+          variant="defaultRounded"
+          aria-disabled={isPending}
+        >
           Edit Guest
         </Button>
       </div>

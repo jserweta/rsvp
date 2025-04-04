@@ -1,12 +1,14 @@
-import AccessTokenForm from "@/components/rsvp/accessTokenForm";
+import AccessTokenForm from '@/components/rsvp/accessTokenForm';
+import Header from '@/components/rsvp/header';
 
 export default async function Page() {
   return (
     <>
-      <div className="flex flex-col gap-3 flex-wrap items-center justify-center h-[calc(100dvh-225px)] sm:h-[calc(100dvh-155px)] max-w-[500px] mx-auto">
-        <h1 className="self-start">Wprowadź swój kod dostępu</h1>
-        <AccessTokenForm />
-      </div>
+      <Header
+        title="RSVP"
+        subTitle="Prosimy o potwierdzenie obecności do 31 sierpnia 2025 roku"
+      />
+      <AccessTokenForm />
     </>
   );
 }

@@ -12,7 +12,6 @@ import {
   FormControl,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from '@/components/ui/form';
 import { Label } from '@/components/ui/label';
@@ -21,7 +20,7 @@ import { AttendanceStatus, attendanceStatusList } from '@/lib/enum-definitions';
 import { TRANSPORT_SELECT_VALUES } from '@/lib/data/transportSelectValues';
 import { ATTENDANCE_SELECT_VALUES } from '@/lib/data/attendanceSelectValues';
 
-export const StepperItem = ({
+export const PersonStepperItem = ({
   needTransport,
   needAccommodation,
   menuKinds,
@@ -37,16 +36,16 @@ export const StepperItem = ({
   const { control, watch } = useFormContext<AttendanceFormCurrentStepSchema>();
 
   return (
-    <div className="grid gap-4">
+    <div className="grid gap-6">
       <FormField
         control={control}
         name={step.id + '_attendance'}
         render={({ field }) => (
           <FormItem className="flex flex-col">
             <div className="flex flex-col gap-2">
-              <FormLabel className="text-start text-sm">
+              <Label className="text-start text-sm">
                 Czy dołączysz do nas w tym wyjątkowym dniu?
-              </FormLabel>
+              </Label>
               <FormControl>
                 <Select
                   onValueChange={field.onChange}
@@ -81,9 +80,9 @@ export const StepperItem = ({
         render={({ field }) => (
           <FormItem className="flex flex-col">
             <div className="flex flex-col gap-2">
-              <FormLabel className="text-start text-sm">
+              <Label className="text-start text-sm">
                 Jakie menu preferujesz?
-              </FormLabel>
+              </Label>
               <FormControl>
                 <Select
                   onValueChange={field.onChange}
@@ -119,9 +118,9 @@ export const StepperItem = ({
           render={({ field }) => (
             <FormItem className="flex flex-col">
               <div className="flex flex-col gap-2">
-                <FormLabel className="text-start text-sm">
+                <Label className="text-start text-sm">
                   Czy potrzebujesz transportu?
-                </FormLabel>
+                </Label>
                 <FormControl>
                   <Select
                     onValueChange={field.onChange}
@@ -157,9 +156,9 @@ export const StepperItem = ({
           render={({ field }) => (
             <FormItem className="flex flex-col">
               <div className="flex flex-col gap-2">
-                <FormLabel className="text-start text-sm">
+                <Label className="text-start text-sm">
                   Czy potrzebujesz noclegu?
-                </FormLabel>
+                </Label>
                 <FormControl>
                   <Select
                     onValueChange={field.onChange}
@@ -191,18 +190,17 @@ export const StepperItem = ({
 
       {step.title.includes('towarzysząca') &&
         watch(step.id + '_attendance') === AttendanceStatus.CONFIRMED && (
-          <>
-            <Label className="mt-[20px]">
+          <div className="flex flex-col gap-2">
+            <Label>
               Jeśli już wiesz, kto będzie Ci towarzyszyć, podaj imię i nazwisko
             </Label>
-
             <div className="flex flex-row gap-2">
               <FormField
                 control={control}
                 name={step.id + '_name'}
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Imię</FormLabel>
+                    {/* <Label>Imię</Label> */}
                     <FormControl>
                       <Input
                         placeholder="Imię"
@@ -219,7 +217,7 @@ export const StepperItem = ({
                 name={step.id + '_surname'}
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Nazwisko</FormLabel>
+                    {/* <Label>Nazwisko</Label> */}
                     <FormControl>
                       <Input
                         placeholder="Nazwisko"
@@ -232,7 +230,7 @@ export const StepperItem = ({
                 )}
               />
             </div>
-          </>
+          </div>
         )}
     </div>
   );

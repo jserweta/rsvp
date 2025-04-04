@@ -22,7 +22,41 @@
     --foreground: 0 21% 12%;
     --background: 8 24% 56%;
 
-    --card: 0 0% 100%;
+    --card: 7 23% 59%;
+    --card-foreground: 0 21% 12%;
+
+    --popover: 7 23% 59%;
+    --popover-foreground: 0 21% 12%;
+
+    --primary: 0 30% 25%;
+    --primary-foreground: 60 9% 98%;
+
+    --secondary: 30 23% 82%;
+    --secondary-foreground: 0 21% 12%;
+
+    --muted: 30 23% 75%;
+    --muted-foreground: 15 10% 35%;
+
+    --accent: 14 30% 70%;
+    --accent-foreground: 0 21% 12%;
+
+    --destructive: 0 57% 33%;
+    --destructive-foreground: 60 9% 98%;
+
+    --border: 8 18% 40%;
+    --input: 8 18% 40%;
+
+    --ring: 0 21% 12%;
+
+    --chart-1: 10 70% 60%;
+    --chart-2: 170 40% 30%;
+    --chart-3: 210 30% 20%;
+    --chart-4: 40 70% 65%;
+    --chart-5: 15 50% 55%;
+
+    --radius: 0.5rem;
+
+    /* OLD --card: 0 0% 100%;
     --card-foreground: 20 14.3% 4.1%;
     --popover: 0 0% 100%;
     --popover-foreground: 20 14.3% 4.1%;
@@ -44,7 +78,7 @@
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
-    --radius: 0.5rem;
+    --radius: 0.5rem; */
   }
 
   .dashboard-theme {
