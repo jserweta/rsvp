@@ -81,7 +81,11 @@ export default function LoginForm() {
         </div>
 
         <input type="hidden" name="redirectTo" value={callbackUrl} />
-        <Button className="mt-4 w-full" aria-disabled={isPending}>
+        <Button
+          className="mt-4 w-full"
+          variant="defaultRounded"
+          aria-disabled={isPending}
+        >
           Log in <HiArrowRight className="ml-auto h-5 w-5 text-gray-50" />
         </Button>
 
@@ -98,12 +102,12 @@ export default function LoginForm() {
           </div>
         )}
 
-        <p className={`mt-2 w-[100%]`}>
+        {/* <p className={`mt-2 w-[100%]`}>
           If you don&apos;t have an account, please{' '}
           <Link href="/register" className="underline">
             Sign&nbsp;Up.
           </Link>
-        </p>
+        </p> */}
       </div>
     </form>
   );

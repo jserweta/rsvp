@@ -183,7 +183,11 @@ export default function RegisterForm() {
             </div>
           </div>
         </div>
-        <Button className="mt-4 w-full" aria-disabled={isPending}>
+        <Button
+          className="mt-4 w-full"
+          variant="defaultRounded"
+          aria-disabled={isPending}
+        >
           Sign up <HiArrowRight className="ml-auto h-5 w-5 text-gray-50" />
         </Button>
 
