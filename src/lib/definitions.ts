@@ -1,4 +1,4 @@
-import { AttendanceStatus, InvitationStatus } from "./enum-definitions";
+import { AttendanceStatus, InvitationStatus } from './enum-definitions';
 
 export type User = {
   id: string;
@@ -23,14 +23,14 @@ export type Guest = {
   surname?: string;
   attendance: AttendanceStatus;
   menuKind: string;
-  accommodation: string;
+  accommodation: boolean;
   transport: string;
 };
-export type GuestRaw = Required<Pick<Guest, "guestId" | "name" | "surname">>;
+export type GuestRaw = Required<Pick<Guest, 'guestId' | 'name' | 'surname'>>;
 
 export type GuestsTableType = Guest;
 
-export type InvitationsTableType = Omit<Invitation, "qrCodeId"> & {
+export type InvitationsTableType = Omit<Invitation, 'qrCodeId'> & {
   accessToken: string;
 };
 
@@ -49,6 +49,6 @@ export type QrCodesTableType = QrCode & {
 export type DeleteFunc = (id: string) => Promise<ActionStatus>;
 
 export type ActionStatus = {
-  type?: "error" | "success" | "info";
+  type?: 'error' | 'success' | 'info';
   message?: string | null;
 };

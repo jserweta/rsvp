@@ -124,7 +124,7 @@ export const PersonStepperItem = ({
                 <FormControl>
                   <Select
                     onValueChange={field.onChange}
-                    defaultValue={field.value ?? TRANSPORT_SELECT_VALUES[0]}
+                    defaultValue={field.value ?? ''}
                     disabled={
                       watch(step.id + '_attendance') !==
                       AttendanceStatus.CONFIRMED

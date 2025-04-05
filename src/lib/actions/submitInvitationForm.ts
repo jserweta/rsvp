@@ -2,7 +2,11 @@
 
 import { Guest } from '@/lib/definitions';
 import { sql } from '../utils/db';
-import { AttendanceStatus, InvitationStatus } from '../enum-definitions';
+import {
+  AttendanceStatus,
+  InvitationStatus,
+  MenuKinds,
+} from '../enum-definitions';
 
 export const submitInvitationForm = async (
   formValues: Record<string, string>,
@@ -21,10 +25,10 @@ export const submitInvitationForm = async (
           acc[guestId].attendance = value as AttendanceStatus;
           break;
         case 'menuKind':
-          acc[guestId].menuKind = value;
+          acc[guestId].menuKind = value as MenuKinds;
           break;
         case 'accommodation':
-          acc[guestId].accommodation = value;
+          acc[guestId].accommodation = value === 'yes' ? true : false;
           break;
         case 'transport':
           acc[guestId].transport = value;
