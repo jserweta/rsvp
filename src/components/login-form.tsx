@@ -9,7 +9,6 @@ import {
   HiArrowRight,
 } from 'react-icons/hi2';
 import { authenticate } from '@/lib/actions/authenticate';
-import Link from 'next/link';
 import { useState, useActionState } from 'react';
 import { Button } from '@/components/ui/button';
 import { useSearchParams } from 'next/navigation';
