@@ -30,7 +30,7 @@ export async function updateInvitation(
       formData.get('needAccommodation') === null ? false : true,
     accommodationLocation: formData.get('accommodationLocation') ?? '',
     needTransport: formData.get('needTransport') === null ? false : true,
-    contactEmail: formData.get('contactEmail'),
+    contactEmail: formData.get('contactEmail') ?? '',
     accessToken:
       formData.get('accessToken') === '' ? null : formData.get('accessToken'),
   });
