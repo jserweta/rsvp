@@ -1,4 +1,4 @@
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 import { Metadata } from 'next';
 import { fetchInvitationById } from '@/lib/data/fetchInvitationById';
 import { fetchInvitationMembers } from '@/lib/data/fetchInvitationMembers';
@@ -6,7 +6,6 @@ import { GuestRaw, Invitation } from '@/lib/definitions';
 import { Stepper } from '@/components/rsvp/stepper';
 import { InvitationStatus } from '@/lib/enum-definitions';
 import { fetchInvitationId } from '@/lib/data/fetchInvitationId';
-import InvitationToast from '@/components/invitation-toast';
 import recordQrCodeScan from '@/lib/actions/recordQrCodeScan';
 import Header from '@/components/rsvp/header';
 
@@ -37,13 +36,16 @@ export default async function Page(props: {
 
   const isSubmitted = invitationInfo.status === InvitationStatus.SUBMITTED;
 
+  if (isSubmitted) {
+    redirect('/rsvp/success?status=submitted');
+  }
+
   if (!isSubmitted) {
     recordQrCodeScan(accessToken, invitationId);
   }
 
   return (
     <>
-      <InvitationToast isSubmitted={isSubmitted} />
       <Header
         title="RSVP"
         subTitle="Prosimy o potwierdzenie obecności do 31 sierpnia 2025 roku"

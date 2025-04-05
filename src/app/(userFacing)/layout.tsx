@@ -1,7 +1,6 @@
 import Navbar from '@/components/navbar';
 import type { Metadata } from 'next';
 import '../globals.css';
-import { geistMono, geistSans } from '@/lib/fonts';
 import { Toaster } from '@/components/ui/sonner';
 
 export const metadata: Metadata = {
@@ -16,7 +15,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${geistSans.variable} ${geistMono.variable} `}>
+      <body>
         <Navbar />
         <main className="px-5 xl:px-10">{children}</main>
 

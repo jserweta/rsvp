@@ -17,8 +17,22 @@ function SuccessPage() {
   const status = searchParams.get('status');
 
   let subTitle = '';
-  if (status === 'confirmed') {
-    subTitle = 'Do zobaczenia :)';
+  let title = '';
+  switch (status) {
+    case 'confirmed':
+      title = 'Dziękujemy za potwierdzenie!';
+      subTitle = 'Do zobaczenia na weselu! Cieszymy się, że będziecie z nami.';
+      break;
+    case 'submitted':
+      title = 'Otrzymaliśmy już Waszą odpowiedź!';
+      subTitle = 'Jeśli chcielibyście coś zmienić prosimy o kontakt.';
+      break;
+    default:
+      title = 'Dziękujemy za wiadomość!';
+      subTitle =
+        'Szkoda, że nie możecie być z nami – mamy nadzieję, że spotkamy się przy innej okazji.';
+      break;
   }
-  return <Header title="Dziękujemy!" subTitle={subTitle} />;
+
+  return <Header title={title} subTitle={subTitle} />;
 }

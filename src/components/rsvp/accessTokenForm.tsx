@@ -17,6 +17,8 @@ import { useForm } from 'react-hook-form';
 import { Button } from '../ui/button';
 import { useRouter } from 'next/navigation';
 import { Label } from '../ui/label';
+import { useTransition } from 'react';
+import { AiOutlineLoading } from 'react-icons/ai';
 
 export default function AccessTokenForm() {
   const form = useForm<AccessTokenSchema>({
@@ -24,10 +26,16 @@ export default function AccessTokenForm() {
     resolver: zodResolver(accessTokenSchema),
   });
   const router = useRouter();
+  const [isPending, startTransition] = useTransition();
 
-  const onSubmit = async () => {
+  const onSubmit = () => {
     const { accessToken } = form.getValues();
-    router.push(`/rsvp/${accessToken}`);
+
+    try {
+      startTransition(() => router.push(`/rsvp/${accessToken}`));
+    } catch (err) {
+      console.error('Routing error:', err);
+    }
   };
 
   return (
@@ -51,6 +59,9 @@ export default function AccessTokenForm() {
                       placeholder="Kod dostępu"
                       {...field}
                       value={field.value ?? ''}
+                      onChange={(e) =>
+                        field.onChange(e.target.value.toUpperCase())
+                      }
                     />
                   </FormControl>
                 </div>
@@ -60,8 +71,14 @@ export default function AccessTokenForm() {
           />
         </div>
 
-        <Button type="submit" className="w-fit self-end">
-          {'Zatwierdź'}
+        <Button type="submit" disabled={isPending} className="w-fit self-end">
+          {isPending ? (
+            <>
+              {'Zatwierdź'} <AiOutlineLoading className="animate-spin" />
+            </>
+          ) : (
+            'Zatwierdź'
+          )}
         </Button>
       </form>
     </Form>

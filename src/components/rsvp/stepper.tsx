@@ -4,7 +4,7 @@ import { defineStepper, Step } from '@stepperize/react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { Button } from '@/components/ui/button';
-import React from 'react';
+import React, { useTransition } from 'react';
 import { Separator } from '@/components/ui/separator';
 import { z } from 'zod';
 import { Form } from '@/components/ui/form';
@@ -20,8 +20,8 @@ import { AttendanceStatus, menuKindsList } from '@/lib/enum-definitions';
 import { GoPerson } from 'react-icons/go';
 import { HiOutlineEnvelope } from 'react-icons/hi2';
 import { useRouter } from 'next/navigation';
-
 import { ContactStepperItem } from './contactStepperItem';
+import { AiOutlineLoading } from 'react-icons/ai';
 
 export const Stepper = ({
   invitationMembers,
@@ -35,6 +35,7 @@ export const Stepper = ({
   invitationId: string;
 }) => {
   const router = useRouter();
+  const [isPending, startTransition] = useTransition();
 
   const formSteps: Step[] = invitationMembers.map((item) => ({
     id: item.guestId,
@@ -71,21 +72,19 @@ export const Stepper = ({
   const onSubmit = async () => {
     try {
       if (stepper.isLast) {
-        await submitInvitationForm(form.getValues(), invitationId);
-        const formValues = form.getValues();
-        const hasConfirmedAttendance = Object.keys(formValues).some(
-          (key) =>
-            key.includes('_attendance') &&
-            formValues[key] === AttendanceStatus.CONFIRMED
-        );
+        startTransition(async () => {
+          await submitInvitationForm(form.getValues(), invitationId);
+          const formValues = form.getValues();
+          const hasConfirmedAttendance = Object.keys(formValues).some(
+            (key) =>
+              key.includes('_attendance') &&
+              formValues[key] === AttendanceStatus.CONFIRMED
+          );
 
-        sessionStorage.setItem('rsvpSubmissionSuccess', 'true');
-        router.push(
-          `/rsvp/success${hasConfirmedAttendance ? '?status=confirmed' : ''}`
-        );
-
-        stepper.reset();
-        form.reset();
+          router.push(
+            `/rsvp/success${hasConfirmedAttendance ? '?status=confirmed' : ''}`
+          );
+        });
       } else {
         stepper.next();
       }
@@ -183,7 +182,19 @@ export const Stepper = ({
                 Wróć
               </Button>
             )}
-            <Button type="submit">{stepper.isLast ? 'Wyślij' : 'Dalej'}</Button>
+            <Button type="submit" disabled={isPending}>
+              {stepper.isLast ? (
+                isPending ? (
+                  <>
+                    {'Wyślij'} <AiOutlineLoading className="animate-spin" />
+                  </>
+                ) : (
+                  'Wyślij'
+                )
+              ) : (
+                'Dalej'
+              )}
+            </Button>
           </div>
         </div>
       </form>

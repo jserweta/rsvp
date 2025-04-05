@@ -1,16 +1,16 @@
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import { HiOutlineFaceFrown } from "react-icons/hi2";
+import Header from '@/components/rsvp/header';
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 
 export default function NotFound() {
   return (
-    <div className="flex h-full flex-col items-center justify-center gap-2">
-      <HiOutlineFaceFrown className="w-[40px] h-[40px] text-gray-400" />
-      <h2 className="text-xl font-semibold">404 Not Found</h2>
+    <div className="flex h-full w-full flex-col items-start justify-center gap-2">
+      <Header
+        title="Ups, coś poszło nie tak..."
+        subTitle="Upewnij się, że kod jest poprawny. W razie problemów skontaktuj się z nami."
+      />
 
-      <p>Nie udało się znaleźć zaproszenia dla podanego kodu dostępu.</p>
-
-      <Button asChild variant="default" size="default" className="mt-4">
+      <Button asChild variant="default" size="default">
         <Link href="/rsvp">Spróbuj ponownie</Link>
       </Button>
     </div>
