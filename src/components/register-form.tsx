@@ -1,6 +1,5 @@
-"use client";
+'use client';
 
-import { geistSans } from "@/lib/fonts";
 import {
   HiOutlineAtSymbol,
   HiOutlineKey,
@@ -9,11 +8,11 @@ import {
   HiOutlineEye,
   HiOutlineEyeSlash,
   HiArrowRight,
-} from "react-icons/hi2";
-import { Button } from "@/components/ui/button";
-import { signUp, StateSignUp } from "@/lib/actions/signUp";
-import { useActionState, useState } from "react";
-import Link from "next/link";
+} from 'react-icons/hi2';
+import { Button } from '@/components/ui/button';
+import { signUp, StateSignUp } from '@/lib/actions/signUp';
+import { useActionState, useState } from 'react';
+import Link from 'next/link';
 
 export default function RegisterForm() {
   const initialState: StateSignUp = { message: null, errors: {} };
@@ -28,11 +27,9 @@ export default function RegisterForm() {
   return (
     <form action={formAction} className="space-y-3">
       <div className="flex-1 rounded-lg bg-gray-50 px-6 pb-4 pt-8">
-        <h1 className={`${geistSans.className} mb-2 text-2xl`}>
-          Create new account.
-        </h1>
-        <p className={`${geistSans.className} mb-3 w-[100%]`}>
-          Already have an account?{" "}
+        <h1 className={`mb-2 text-2xl`}>Create new account.</h1>
+        <p className={`mb-3 w-[100%]`}>
+          Already have an account?{' '}
           <Link href="/login" className="underline">
             Sign In.
           </Link>
@@ -106,7 +103,7 @@ export default function RegisterForm() {
               <input
                 className="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 pr-10 text-sm outline-2 placeholder:text-gray-500"
                 id="password"
-                type={showPassword ? "text" : "password"}
+                type={showPassword ? 'text' : 'password'}
                 name="password"
                 placeholder="Enter password"
                 aria-describedby="password-error"
@@ -118,7 +115,7 @@ export default function RegisterForm() {
                 type="button"
                 className="absolute right-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 cursor-pointer text-gray-500 peer-focus:text-gray-900"
                 aria-label={
-                  showPassword ? "Password Visible" : "Password Invisible."
+                  showPassword ? 'Password Visible' : 'Password Invisible.'
                 }
                 onClick={() => {
                   setShowPassword((prev) => !prev);
@@ -148,7 +145,7 @@ export default function RegisterForm() {
               <input
                 className="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
                 id="passwordConfirm"
-                type={showPasswordConfirm ? "text" : "password"}
+                type={showPasswordConfirm ? 'text' : 'password'}
                 name="passwordConfirm"
                 placeholder="Re-enter password"
                 aria-describedby="confirm-password-error"
@@ -161,8 +158,8 @@ export default function RegisterForm() {
                 className="absolute right-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 cursor-pointer text-gray-500 peer-focus:text-gray-900"
                 aria-label={
                   showPasswordConfirm
-                    ? "Password Visible"
-                    : "Password Invisible."
+                    ? 'Password Visible'
+                    : 'Password Invisible.'
                 }
                 onClick={() => {
                   setShowPasswordConfirm((prev) => !prev);

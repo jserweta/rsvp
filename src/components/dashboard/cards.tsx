@@ -1,10 +1,9 @@
-import { HiOutlineUser, HiOutlineUserGroup } from "react-icons/hi2";
-import { IoBedOutline } from "react-icons/io5";
-import { BsPersonCheck, BsPersonDash } from "react-icons/bs";
-import { geistSans } from "@/lib/fonts";
-import { fetchDashboardSummary } from "@/lib/data/fetchDashboardSummary";
-import { IconType } from "react-icons/lib";
-import { HiOutlineCheckCircle } from "react-icons/hi2";
+import { HiOutlineUser, HiOutlineUserGroup } from 'react-icons/hi2';
+import { IoBedOutline } from 'react-icons/io5';
+import { BsPersonCheck, BsPersonDash } from 'react-icons/bs';
+import { fetchDashboardSummary } from '@/lib/data/fetchDashboardSummary';
+import { IconType } from 'react-icons/lib';
+import { HiOutlineCheckCircle } from 'react-icons/hi2';
 
 const iconMap: Record<CardType, IconType> = {
   guests: HiOutlineUser,
@@ -16,12 +15,12 @@ const iconMap: Record<CardType, IconType> = {
 };
 
 type CardType =
-  | "guests"
-  | "confirmedGuests"
-  | "confirmedAccommodations"
-  | "declinedGuests"
-  | "invitations"
-  | "submittedInvitations";
+  | 'guests'
+  | 'confirmedGuests'
+  | 'confirmedAccommodations'
+  | 'declinedGuests'
+  | 'invitations'
+  | 'submittedInvitations';
 
 export default async function CardWrapper() {
   const {
@@ -83,8 +82,7 @@ export function Card({
         <h3 className="ml-2 text-sm font-medium">{title}</h3>
       </div>
       <p
-        className={`${geistSans.className}
-          truncate rounded-xl bg-white px-4 py-8 text-center text-2xl`}
+        className={`truncate rounded-xl bg-white px-4 py-8 text-center text-2xl`}
       >
         {value}
       </p>

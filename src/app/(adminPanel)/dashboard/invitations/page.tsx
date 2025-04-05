@@ -1,14 +1,13 @@
-import { Metadata } from "next";
-import { geistSans } from "@/lib/fonts";
-import { Suspense } from "react";
-import { TableSkeleton } from "../../skeletons";
-import Pagination from "@/components/dashboard/pagination";
-import Search from "@/components/dashboard/search";
-import { fetchInvitationsPages } from "@/lib/data/fetchInvitationsPages";
-import InvitationsTable from "@/components/dashboard/invitations/table";
+import { Metadata } from 'next';
+import { Suspense } from 'react';
+import { TableSkeleton } from '../../skeletons';
+import Pagination from '@/components/dashboard/pagination';
+import Search from '@/components/dashboard/search';
+import { fetchInvitationsPages } from '@/lib/data/fetchInvitationsPages';
+import InvitationsTable from '@/components/dashboard/invitations/table';
 
 export const metadata: Metadata = {
-  title: "Invitations",
+  title: 'Invitations',
 };
 
 type SearchParams = {
@@ -23,9 +22,9 @@ export default async function Page({
   searchParams: Promise<SearchParams>;
 }) {
   const {
-    query = "",
+    query = '',
     page: currentPage = 1,
-    invitationId = "",
+    invitationId = '',
   } = (await searchParams) || {};
 
   const totalPages = await fetchInvitationsPages(query, invitationId);
@@ -33,7 +32,7 @@ export default async function Page({
   return (
     <>
       <div className="flex w-full items-center justify-between">
-        <h1 className={`${geistSans.className} text-2xl`}>Invitations</h1>
+        <h1 className={`text-2xl`}>Invitations</h1>
       </div>
       <div className="mt-4 flex items-center justify-between gap-2 md:mt-8">
         <Search placeholder="Search invitation..." />

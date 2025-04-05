@@ -1,11 +1,10 @@
-import type { Metadata } from "next";
-import "../globals.css";
-import { geistMono, geistSans } from "@/lib/fonts";
-import { Toaster } from "@/components/ui/sonner";
+import type { Metadata } from 'next';
+import '../globals.css';
+import { Toaster } from '@/components/ui/sonner';
 
 export const metadata: Metadata = {
-  title: "RSVP app",
-  description: "Admin dashboard ",
+  title: 'RSVP app',
+  description: 'Admin dashboard ',
 };
 
 export default function RootLayout({
@@ -15,7 +14,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dashboard-theme" suppressHydrationWarning>
-      <body className={`${geistSans.variable} ${geistMono.variable} `}>
+      <body>
         {children}
         <Toaster position="top-center" closeButton />
       </body>

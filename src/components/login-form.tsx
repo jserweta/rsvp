@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import {
   HiOutlineAtSymbol,
@@ -7,17 +7,16 @@ import {
   HiOutlineEye,
   HiOutlineEyeSlash,
   HiArrowRight,
-} from "react-icons/hi2";
-import { authenticate } from "@/lib/actions/authenticate";
-import Link from "next/link";
-import { useState, useActionState } from "react";
-import { geistSans } from "@/lib/fonts";
-import { Button } from "@/components/ui/button";
-import { useSearchParams } from "next/navigation";
+} from 'react-icons/hi2';
+import { authenticate } from '@/lib/actions/authenticate';
+import Link from 'next/link';
+import { useState, useActionState } from 'react';
+import { Button } from '@/components/ui/button';
+import { useSearchParams } from 'next/navigation';
 
 export default function LoginForm() {
   const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get("callbackUrl") || "/dashboard";
+  const callbackUrl = searchParams.get('callbackUrl') || '/dashboard';
   const [errorMessage, formAction, isPending] = useActionState(
     authenticate,
     undefined
@@ -27,9 +26,7 @@ export default function LoginForm() {
   return (
     <form action={formAction} className="space-y-3">
       <div className="flex-1 rounded-lg bg-gray-50 px-6 pb-4 pt-8">
-        <h1 className={`${geistSans.className} mb-3 text-2xl`}>
-          Please log in to continue.
-        </h1>
+        <h1 className={`mb-3 text-2xl`}>Please log in to continue.</h1>
         <div className="mb-3 w-full">
           <div>
             <label
@@ -60,7 +57,7 @@ export default function LoginForm() {
               <input
                 className="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
                 id="password"
-                type={showPassword ? "text" : "password"}
+                type={showPassword ? 'text' : 'password'}
                 name="password"
                 placeholder="Enter password"
               />
@@ -71,7 +68,7 @@ export default function LoginForm() {
                 type="button"
                 className="absolute right-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 cursor-pointer text-gray-500 peer-focus:text-gray-900"
                 aria-label={
-                  showPassword ? "Password Visible" : "Password Invisible."
+                  showPassword ? 'Password Visible' : 'Password Invisible.'
                 }
                 onClick={() => {
                   setShowPassword((prev) => !prev);
@@ -101,8 +98,8 @@ export default function LoginForm() {
           </div>
         )}
 
-        <p className={`${geistSans.className} mt-2 w-[100%]`}>
-          If you don&apos;t have an account, please{" "}
+        <p className={`mt-2 w-[100%]`}>
+          If you don&apos;t have an account, please{' '}
           <Link href="/register" className="underline">
             Sign&nbsp;Up.
           </Link>

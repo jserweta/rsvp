@@ -1,14 +1,13 @@
-import { Metadata } from "next";
-import { fetchGuestsPages } from "@/lib/data/fetchGuestsPages";
-import { geistSans } from "@/lib/fonts";
-import { Suspense } from "react";
-import { TableSkeleton } from "../../skeletons";
-import Pagination from "@/components/dashboard/pagination";
-import GuestsTable from "@/components/dashboard/guests/table";
-import Search from "@/components/dashboard/search";
+import { Metadata } from 'next';
+import { fetchGuestsPages } from '@/lib/data/fetchGuestsPages';
+import { Suspense } from 'react';
+import { TableSkeleton } from '../../skeletons';
+import Pagination from '@/components/dashboard/pagination';
+import GuestsTable from '@/components/dashboard/guests/table';
+import Search from '@/components/dashboard/search';
 
 export const metadata: Metadata = {
-  title: "Guests",
+  title: 'Guests',
 };
 
 type SearchParams = {
@@ -23,9 +22,9 @@ export default async function Page({
   searchParams: Promise<SearchParams>;
 }) {
   const {
-    query = "",
+    query = '',
     page: currentPage = 1,
-    invitationId = "",
+    invitationId = '',
   } = (await searchParams) || {};
 
   const totalPages = await fetchGuestsPages(query, invitationId);
@@ -33,7 +32,7 @@ export default async function Page({
   return (
     <>
       <div className="flex w-full items-center justify-between">
-        <h1 className={`${geistSans.className} text-2xl`}>Guests list</h1>
+        <h1 className={`text-2xl`}>Guests list</h1>
       </div>
       <div className="mt-4 flex items-center justify-between gap-2 md:mt-8">
         <Search placeholder="Search guests..." />
