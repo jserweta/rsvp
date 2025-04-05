@@ -1,13 +1,14 @@
-import { z } from "zod";
-import { InvitationStatus } from "../enum-definitions";
+import { z } from 'zod';
+import { InvitationStatus } from '../enum-definitions';
 
 export const InvitationFormSchema = z.object({
   invitationId: z.string(),
-  name: z.string().nonempty({ message: "Name is required" }),
+  name: z.string().nonempty({ message: 'Name is required' }),
   status: z.nativeEnum(InvitationStatus),
   needAccommodation: z.boolean(),
   accommodationLocation: z.string().optional(),
   needTransport: z.boolean(),
+  contactEmail: z.string().email().optional(),
   accessToken: z.union([z.string().length(8), z.null()]).optional(),
 });
 
@@ -21,7 +22,7 @@ export const UpdateInvitation = InvitationFormSchema.omit({
     return true;
   },
   {
-    message: "Location is required",
-    path: ["accommodationLocation"],
+    message: 'Location is required',
+    path: ['accommodationLocation'],
   }
 );

@@ -248,6 +248,37 @@ export default function EditInvitationForm({
           </div>
         </div>
 
+        {/* Contact email */}
+
+        <div className="mb-4">
+          <label
+            htmlFor="contactEmail"
+            className="mb-2 block text-sm font-medium"
+          >
+            Contact email
+          </label>
+          <div className="relative mt-2 rounded-md">
+            <input
+              id="contactEmail"
+              name="contactEmail"
+              type="text"
+              defaultValue={invitation.contactEmail}
+              placeholder="Enter email"
+              className="block w-full cursor-pointer rounded-md border border-gray-200 px-4 py-2 text-sm outline-2 placeholder:text-gray-500"
+              aria-describedby="contactEmail-error"
+            />
+          </div>
+
+          <div id="contactEmail-error" aria-live="polite" aria-atomic="true">
+            {state.errors?.contactEmail &&
+              state.errors.contactEmail.map((error: string) => (
+                <p className="mt-2 text-sm text-red-500" key={error}>
+                  {error}
+                </p>
+              ))}
+          </div>
+        </div>
+
         {/* Invitation members */}
         {invitationMembers && (
           <div className="mb-4">

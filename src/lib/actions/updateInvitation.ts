@@ -1,9 +1,9 @@
-"use server";
+'use server';
 
-import { sql } from "../utils/db";
-import { ActionStatus, Invitation, QrCode } from "../definitions";
-import { UpdateInvitation } from "../schema/invitationForm";
-import { revalidatePath } from "next/cache";
+import { sql } from '../utils/db';
+import { ActionStatus, Invitation, QrCode } from '../definitions';
+import { UpdateInvitation } from '../schema/invitationForm';
+import { revalidatePath } from 'next/cache';
 
 export type UpdateInvitationStatus = ActionStatus & {
   errors?: {
@@ -13,6 +13,7 @@ export type UpdateInvitationStatus = ActionStatus & {
     accommodationLocation?: string[];
     needTransport?: string[];
     accessToken?: string[];
+    contactEmail?: string[];
   };
 };
 
@@ -23,22 +24,23 @@ export async function updateInvitation(
 ): Promise<UpdateInvitationStatus> {
   // Validate form using Zod
   const validatedFields = UpdateInvitation.safeParse({
-    name: formData.get("name"),
-    status: formData.get("status"),
+    name: formData.get('name'),
+    status: formData.get('status'),
     needAccommodation:
-      formData.get("needAccommodation") === null ? false : true,
-    accommodationLocation: formData.get("accommodationLocation") ?? "",
-    needTransport: formData.get("needTransport") === null ? false : true,
+      formData.get('needAccommodation') === null ? false : true,
+    accommodationLocation: formData.get('accommodationLocation') ?? '',
+    needTransport: formData.get('needTransport') === null ? false : true,
+    contactEmail: formData.get('contactEmail'),
     accessToken:
-      formData.get("accessToken") === "" ? null : formData.get("accessToken"),
+      formData.get('accessToken') === '' ? null : formData.get('accessToken'),
   });
 
   // If form validation fails, return errors early. Otherwise, continue.
   if (!validatedFields.success) {
     return {
-      type: "error",
+      type: 'error',
       errors: validatedFields.error.flatten().fieldErrors,
-      message: "Missing Fields. Failed to update guest.",
+      message: 'Missing Fields. Failed to update guest.',
     };
   }
 
@@ -47,13 +49,13 @@ export async function updateInvitation(
 
     const invitationData = Object.fromEntries(
       Object.entries(validatedFields.data).filter(
-        ([key]) => key !== "accessToken"
+        ([key]) => key !== 'accessToken'
       )
-    ) as Omit<Invitation, "invitationId" | "qrCodeId">;
+    ) as Omit<Invitation, 'invitationId' | 'qrCodeId'>;
 
     const invitationKeys = Object.keys(invitationData) as (keyof Omit<
       Invitation,
-      "invitationId" | "qrCodeId"
+      'invitationId' | 'qrCodeId'
     >)[];
 
     let qrCodeId = null;
@@ -73,17 +75,17 @@ export async function updateInvitation(
       WHERE invitation_id = ${id}
     `;
 
-    revalidatePath("/dashboard/invitations");
+    revalidatePath('/dashboard/invitations');
 
     return {
-      type: "success",
-      message: "Invitation updated.",
+      type: 'success',
+      message: 'Invitation updated.',
     };
   } catch (error) {
     console.error(error);
     return {
-      type: "error",
-      message: "Database Error: Failed to Update Invitation.",
+      type: 'error',
+      message: 'Database Error: Failed to Update Invitation.',
     };
   }
 }

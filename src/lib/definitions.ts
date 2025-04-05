@@ -15,6 +15,7 @@ export type Invitation = {
   accommodationLocation: string;
   needTransport: boolean;
   qrCodeId?: string;
+  contactEmail: string;
 };
 
 export type Guest = {
