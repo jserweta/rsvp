@@ -1,5 +1,5 @@
-import { sql } from "../utils/db";
-import { AttendanceStatus, InvitationStatus } from "../enum-definitions";
+import { sql } from '../utils/db';
+import { AttendanceStatus, InvitationStatus } from '../enum-definitions';
 
 export async function fetchDashboardSummary() {
   try {
@@ -53,12 +53,12 @@ export async function fetchDashboardSummary() {
       invitationsSubmittedCount,
     ]);
 
-    const totalNumberOfGuests = Number(guests ?? "0");
-    const totalConfirmedGuests = Number(confirmedGuests ?? "0");
-    const totalConfirmedAccommodations = Number(confirmedAccommodations ?? "0");
-    const totalDeclinedGuests = Number(declinedGuests ?? "0");
-    const totalInvitations = Number(invitations ?? "0");
-    const totalInvitationsSubmissions = Number(invitationsSubmitted ?? "0");
+    const totalNumberOfGuests = Number(guests ?? '0');
+    const totalConfirmedGuests = Number(confirmedGuests ?? '0');
+    const totalConfirmedAccommodations = Number(confirmedAccommodations ?? '0');
+    const totalDeclinedGuests = Number(declinedGuests ?? '0');
+    const totalInvitations = Number(invitations ?? '0');
+    const totalInvitationsSubmissions = Number(invitationsSubmitted ?? '0');
 
     return {
       totalNumberOfGuests,
@@ -69,7 +69,7 @@ export async function fetchDashboardSummary() {
       totalInvitationsSubmissions,
     };
   } catch (error) {
-    console.error("Database Error:", error);
-    throw new Error("Failed to fetch card data.");
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch card data.');
   }
 }

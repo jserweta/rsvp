@@ -1,5 +1,5 @@
 import AccessTokenForm from '@/components/rsvp/accessTokenForm';
-import Header from '@/components/rsvp/header';
+import Header from '@/components/header';
 
 export default async function Page() {
   return (

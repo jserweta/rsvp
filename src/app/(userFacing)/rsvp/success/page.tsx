@@ -1,6 +1,6 @@
 'use client';
 
-import Header from '@/components/rsvp/header';
+import Header from '@/components/header';
 import { useSearchParams } from 'next/navigation';
 import { Suspense } from 'react';
 

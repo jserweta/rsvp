@@ -7,7 +7,7 @@ import { Stepper } from '@/components/rsvp/stepper';
 import { InvitationStatus } from '@/lib/enum-definitions';
 import { fetchInvitationId } from '@/lib/data/fetchInvitationId';
 import recordQrCodeScan from '@/lib/actions/recordQrCodeScan';
-import Header from '@/components/rsvp/header';
+import Header from '@/components/header';
 
 export const metadata: Metadata = {
   title: 'Rsvp',

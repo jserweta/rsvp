@@ -16,7 +16,7 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`flex items-center justify-center gap-6 px-5 py-5 ${!isRsvp ? 'lg:justify-between' : ''} xl:px-10`}
+      className={`mx-auto flex w-full max-w-[1920px] items-center justify-center gap-6 px-5 py-5 ${!isRsvp ? 'lg:justify-between' : ''} xl:px-10`}
     >
       {!isRsvp && <div className="hidden flex-1 lg:block"></div>}
 
