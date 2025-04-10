@@ -1,16 +1,16 @@
+import { cn } from '@/lib/utils/cn';
+
 export default function Header({
   title,
   subTitle,
-  center,
+  className,
 }: {
   title?: string;
   subTitle?: string;
-  center?: boolean;
+  className?: string;
 }) {
   return (
-    <div
-      className={`mb-10 mt-10 flex flex-col gap-5 ${center ? 'items-center' : ''}`}
-    >
+    <div className={cn('mb-10 mt-10 flex flex-col gap-5', className)}>
       {title && <h2 className="font-amandine text-5xl font-[500]">{title}</h2>}
       {subTitle && <p>{subTitle}</p>}
     </div>

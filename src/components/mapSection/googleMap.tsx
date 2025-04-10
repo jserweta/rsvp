@@ -8,12 +8,12 @@ import {
   useApiLoadingStatus,
 } from '@vis.gl/react-google-maps';
 import React from 'react';
-import { BiSolidChurch } from 'react-icons/bi';
 import Route from './route';
-import { LiaUtensilsSolid } from 'react-icons/lia';
 import { AiOutlineLoading } from 'react-icons/ai';
 import InfoWindowMarker from './infoWindowMarker';
 import { MapMarker } from '@/lib/definitions';
+import PlateIcon from '@/assets/icons/plate-icon.svg';
+import ChurchIcon from '@/assets/icons/church-icon.svg';
 
 const apiClient = new RoutesApi(process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!);
 
@@ -41,7 +41,9 @@ function MapContent() {
         lat: 49.58017061259105,
         lng: 20.66924750997955,
       },
-      icon: <BiSolidChurch size="48px" className="text-background" />,
+      icon: (
+        <ChurchIcon className="h-[48px] w-[48px] fill-background text-background" />
+      ),
     },
     {
       name: 'Willa Poprad',
@@ -51,12 +53,14 @@ function MapContent() {
         lat: 49.49085319070032,
         lng: 20.682282739210553,
       },
-      icon: <LiaUtensilsSolid size="48px" className="text-background" />,
+      icon: (
+        <PlateIcon className="h-[48px] w-[48px] fill-background text-background" />
+      ),
     },
   ];
 
   return (
-    <div className="h-[550px] w-[50%] flex-1">
+    <div className="h-[550px] w-[50%] flex-1 basis-80">
       {status !== APILoadingStatus.LOADED ? (
         <div className="relative flex h-full w-full items-center justify-center overflow-hidden bg-foreground/10">
           <AiOutlineLoading className="h-6 w-6 animate-spin text-foreground" />
