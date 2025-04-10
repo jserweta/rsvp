@@ -1,28 +1,30 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useMap } from '@vis.gl/react-google-maps';
 import { RoutesApi } from '@/lib/utils/routesAPI';
 import { Polyline } from './polyline';
-
-const defaultAppearance = {
-  walkingPolylineColor: '#000000',
-  defaultPolylineColor: '#9a1e45',
-  stepMarkerFillColor: '#333333',
-  stepMarkerBorderColor: '#000000',
-};
-
-type Appearance = typeof defaultAppearance;
+import {
+  Appearance,
+  defaultAppearance,
+  defaultRouteOptions,
+  RouteOptions,
+} from '@/lib/utils/routesAPI.config';
 
 export type RouteProps = {
   apiClient: RoutesApi;
   origin: { lat: number; lng: number };
   destination: { lat: number; lng: number };
-  routeOptions?: any;
+  routeOptions?: Partial<RouteOptions>;
   appearance?: Partial<Appearance>;
 };
 
 const Route = (props: RouteProps) => {
-  const { apiClient, origin, destination, routeOptions } = props;
+  const { apiClient, origin, destination } = props;
 
+  const routeOptions = useMemo(() => {
+    return { ...defaultRouteOptions, ...props.routeOptions };
+  }, [props.routeOptions]);
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [route, setRoute] = useState<any>(null);
 
   const map = useMap();
@@ -53,6 +55,7 @@ const Route = (props: RouteProps) => {
 
   // With only two waypoints, our route will have a single leg.
   // We now want to create a visualization for the steps in that leg.
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const routeSteps: any[] = route.legs[0].steps;
 
   const appearance = { ...defaultAppearance, ...props.appearance };

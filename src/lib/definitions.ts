@@ -53,3 +53,11 @@ export type ActionStatus = {
   type?: 'error' | 'success' | 'info';
   message?: string | null;
 };
+
+export type MapMarker = {
+  name: string;
+  address: { street: string; city: string };
+  link: string;
+  position: { lat: number; lng: number };
+  icon: React.JSX.Element;
+};

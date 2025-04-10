@@ -4,17 +4,15 @@ import {
   useAdvancedMarkerRef,
 } from '@vis.gl/react-google-maps';
 import React, { useState } from 'react';
+import { MapMarker } from '@/lib/definitions';
+import { Button } from '../ui/button';
 
 export default function InfoWindowMarker({
   markerInfo,
 }: {
-  markerInfo: {
-    name: string;
-    position: { lat: number; lng: number };
-    icon: React.JSX.Element;
-  };
+  markerInfo: MapMarker;
 }) {
-  const [infowindowOpen, setInfowindowOpen] = useState(false);
+  const [isInfoOpen, setIsInfoOpen] = useState(false);
   const [markerRef, marker] = useAdvancedMarkerRef();
   return (
     <>
@@ -22,18 +20,33 @@ export default function InfoWindowMarker({
         ref={markerRef}
         position={markerInfo.position}
         clickable
-        onClick={() => setInfowindowOpen(true)}
+        onClick={() => setIsInfoOpen(true)}
+        title={markerInfo.name}
       >
         {markerInfo.icon}
       </AdvancedMarker>
 
-      {infowindowOpen && (
+      {isInfoOpen && (
         <InfoWindow
           anchor={marker}
-          maxWidth={200}
-          onCloseClick={() => setInfowindowOpen(false)}
+          maxWidth={215}
+          onCloseClick={() => setIsInfoOpen(false)}
+          headerContent={
+            <span className="me-5 max-w-[150px] font-[600]">
+              {markerInfo.name}
+            </span>
+          }
         >
-          {markerInfo.name}
+          <div className="mt-2 flex flex-col">
+            <p>{markerInfo.address.street}</p>
+            <p>{markerInfo.address.city}</p>
+          </div>
+
+          <Button asChild variant="secondary" className="mt-4">
+            <a href={markerInfo.link} target="_blank">
+              Jak dojechać?
+            </a>
+          </Button>
         </InfoWindow>
       )}
     </>

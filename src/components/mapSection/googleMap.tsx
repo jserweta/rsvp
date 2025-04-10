@@ -13,6 +13,7 @@ import Route from './route';
 import { LiaUtensilsSolid } from 'react-icons/lia';
 import { AiOutlineLoading } from 'react-icons/ai';
 import InfoWindowMarker from './infoWindowMarker';
+import { MapMarker } from '@/lib/definitions';
 
 const apiClient = new RoutesApi(process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!);
 
@@ -23,12 +24,6 @@ const appearance = {
   stepMarkerBorderColor: '#000000',
 };
 
-const routeOptions = {
-  travelMode: 'DRIVE',
-  computeAlternativeRoutes: false,
-  units: 'METRIC',
-};
-
 function MapContent() {
   const status = useApiLoadingStatus();
 
@@ -37,9 +32,11 @@ function MapContent() {
     lng: 20.675765124595053,
   };
 
-  const markers = [
+  const markers: MapMarker[] = [
     {
-      name: 'Church',
+      name: 'Kościół św. Wawrzyńca w Nowym Sączu',
+      address: { street: 'Biegonicka 8', city: '33-300 Nowy Sącz' },
+      link: 'https://maps.google.com/maps?ll=49.580301,20.668944&z=18&t=m&hl=en&gl=US&mapclient=apiv3&cid=8241979195982614352',
       position: {
         lat: 49.58017061259105,
         lng: 20.66924750997955,
@@ -47,7 +44,9 @@ function MapContent() {
       icon: <BiSolidChurch size="48px" className="text-background" />,
     },
     {
-      name: 'Restaurant',
+      name: 'Willa Poprad',
+      address: { street: 'Rytro 306', city: '33-343 Rytro' },
+      link: 'https://maps.google.com/maps?ll=49.514622,20.672423&z=13&t=m&hl=en&gl=US&mapclient=apiv3&cid=4988801318780363707',
       position: {
         lat: 49.49085319070032,
         lng: 20.682282739210553,
@@ -66,7 +65,6 @@ function MapContent() {
         <Map
           defaultCenter={center}
           defaultZoom={12}
-          defaultTilt={180}
           gestureHandling={'cooperative'}
           disableDefaultUI={true}
           mapId={process.env.NEXT_PUBLIC_MAP_STYLE_ID!}
@@ -75,7 +73,6 @@ function MapContent() {
             apiClient={apiClient}
             origin={markers[0].position}
             destination={markers[1].position}
-            routeOptions={routeOptions}
             appearance={appearance}
           />
           {markers &&
