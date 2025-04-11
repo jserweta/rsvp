@@ -27,7 +27,10 @@ export default function Home() {
     <>
       <Hero />
 
-      <section className="mx-auto flex min-h-[min(100dvh,1080px)] max-w-[1560px] flex-row-reverse flex-wrap items-center gap-16 py-5">
+      <section
+        id="map-section"
+        className="mx-auto flex min-h-[min(100dvh,1080px)] max-w-[1560px] flex-row-reverse flex-wrap items-center gap-16 py-5"
+      >
         <div className="flex-1 basis-80">
           <Header title="Szczegóły" className="mt-0" />
 

@@ -71,7 +71,7 @@ function MapContent() {
   return (
     <div className="h-[550px] w-[50%] flex-1 basis-80">
       {status !== APILoadingStatus.LOADED ? (
-        <div className="relative flex h-full w-full items-center justify-center overflow-hidden bg-foreground/10">
+        <div className="relative flex h-full w-full animate-pulse items-center justify-center overflow-hidden bg-foreground/10">
           <AiOutlineLoading className="h-6 w-6 animate-spin text-foreground" />
         </div>
       ) : (
