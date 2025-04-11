@@ -12,8 +12,7 @@ import Route from './route';
 import { AiOutlineLoading } from 'react-icons/ai';
 import InfoWindowMarker from './infoWindowMarker';
 import { MapMarker } from '@/lib/definitions';
-import PlateIcon from '@/assets/icons/plate-icon.svg';
-import ChurchIcon from '@/assets/icons/church-icon.svg';
+import Image from 'next/image';
 
 const apiClient = new RoutesApi(process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!);
 
@@ -42,7 +41,12 @@ function MapContent() {
         lng: 20.66924750997955,
       },
       icon: (
-        <ChurchIcon className="h-[48px] w-[48px] fill-background text-background" />
+        <Image
+          height={48}
+          width={48}
+          src="/church-icon.svg"
+          alt="Ikona kościół"
+        />
       ),
     },
     {
@@ -54,7 +58,12 @@ function MapContent() {
         lng: 20.682282739210553,
       },
       icon: (
-        <PlateIcon className="h-[48px] w-[48px] fill-background text-background" />
+        <Image
+          height={48}
+          width={48}
+          src="/plate-icon.svg"
+          alt="Ikona restauracja"
+        />
       ),
     },
   ];
