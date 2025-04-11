@@ -11,7 +11,6 @@ export default function Home() {
         'Kościół św. Wawrzyńca w Nowym Sączu',
         'Biegonicka 8',
         '33-300 Nowy Sącz',
-        'o godzinie 13:00',
       ],
     },
     {
@@ -20,7 +19,7 @@ export default function Home() {
     },
     {
       title: 'Rsvp',
-      details: ['Prosimy o potwierdzenie przybycia do 31 sierpnia 2025'],
+      details: ['Prosimy o potwierdzenie przybycia do', '31 sierpnia 2025'],
     },
   ];
 
@@ -28,7 +27,7 @@ export default function Home() {
     <>
       <Hero />
 
-      <section className="mx-auto flex min-h-[min(calc(100dvh-76px),1080px)] max-w-[1560px] flex-row-reverse flex-wrap items-center gap-16 py-5">
+      <section className="mx-auto flex min-h-[min(100dvh,1080px)] max-w-[1560px] flex-row-reverse flex-wrap items-center gap-16 py-5">
         <div className="flex-1 basis-80">
           <Header title="Szczegóły" className="mt-0" />
 
@@ -38,6 +37,7 @@ export default function Home() {
                 key={`${row.title}_${index}`}
                 title={row.title}
                 details={row.details}
+                {...(index === detailedInfo.length - 1 ? { last: true } : {})}
               />
             ))}
           </div>
