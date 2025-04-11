@@ -2,6 +2,7 @@ import Navbar from '@/components/navbar';
 import type { Metadata } from 'next';
 import '../globals.css';
 import { Toaster } from '@/components/ui/sonner';
+import Footer from '@/components/footer';
 
 export const metadata: Metadata = {
   title: 'RSVP',
@@ -17,8 +18,11 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body>
         <Navbar />
-        <main className="px-5 xl:px-10">{children}</main>
+        <main className="min-h-[min(calc(100dvh-76px),calc(1080px-76px))] px-5 xl:px-10">
+          {children}
+        </main>
 
+        <Footer />
         <Toaster position="top-center" closeButton />
       </body>
     </html>
