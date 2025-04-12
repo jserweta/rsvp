@@ -1,11 +1,11 @@
-"use server";
+'use server';
 
-import { getUser } from "@/auth";
-import { CreateUser } from "../schema/signUpForm";
-import { sql } from "../utils/db";
-import bcrypt from "bcrypt";
-import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
+import { getUser } from '@/auth';
+import bcrypt from 'bcrypt';
+import { revalidatePath } from 'next/cache';
+import { redirect } from 'next/navigation';
+import { CreateUser } from '../schema/signUpForm';
+import { sql } from '../utils/db';
 
 export type StateSignUp = {
   errors?: {
@@ -20,17 +20,17 @@ export type StateSignUp = {
 export async function signUp(prevState: StateSignUp, formData: FormData) {
   // Validate form using Zod
   const validatedFields = CreateUser.safeParse({
-    name: formData.get("name"),
-    email: formData.get("email"),
-    password: formData.get("password"),
-    passwordConfirm: formData.get("passwordConfirm"),
+    name: formData.get('name'),
+    email: formData.get('email'),
+    password: formData.get('password'),
+    passwordConfirm: formData.get('passwordConfirm'),
   });
 
   // If form validation fails, return errors early. Otherwise, continue.
   if (!validatedFields.success) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
-      message: "Missing Fields. Failed to Sign Up.",
+      message: 'Missing Fields. Failed to Sign Up.',
     };
   }
 
@@ -40,7 +40,7 @@ export async function signUp(prevState: StateSignUp, formData: FormData) {
   const user = await getUser(email);
   if (user) {
     return {
-      message: "User already exists. Try Sign In.",
+      message: 'User already exists. Try Sign In.',
     };
   }
 
@@ -53,10 +53,10 @@ export async function signUp(prevState: StateSignUp, formData: FormData) {
   `;
   } catch {
     return {
-      message: "Database Error: Failed to Create User.",
+      message: 'Database Error: Failed to Create User.',
     };
   }
 
-  revalidatePath("/login");
-  redirect("/login");
+  revalidatePath('/login');
+  redirect('/login');
 }

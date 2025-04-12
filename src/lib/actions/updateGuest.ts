@@ -1,9 +1,9 @@
-"use server";
+'use server';
 
-import { sql } from "../utils/db";
-import { ActionStatus, Guest } from "../definitions";
-import { UpdateGuest } from "../schema/guestForm";
-import { revalidatePath } from "next/cache";
+import { revalidatePath } from 'next/cache';
+import { ActionStatus, Guest } from '../definitions';
+import { UpdateGuest } from '../schema/guestForm';
+import { sql } from '../utils/db';
 
 export type UpdateGuestStatus = ActionStatus & {
   errors?: {
@@ -23,27 +23,27 @@ export async function updateGuest(
 ): Promise<UpdateGuestStatus> {
   // Validate form using Zod
   const validatedFields = UpdateGuest.safeParse({
-    name: formData.get("name"),
-    surname: formData.get("surname"),
-    transport: formData.get("transport"),
-    accommodation: formData.get("accommodation") === null ? false : true,
-    menuKind: formData.get("menuKind"),
-    attendance: formData.get("attendance"),
+    name: formData.get('name'),
+    surname: formData.get('surname'),
+    transport: formData.get('transport'),
+    accommodation: formData.get('accommodation') === null ? false : true,
+    menuKind: formData.get('menuKind'),
+    attendance: formData.get('attendance'),
   });
 
   // If form validation fails, return errors early. Otherwise, continue.
   if (!validatedFields.success) {
     return {
-      type: "error",
+      type: 'error',
       errors: validatedFields.error.flatten().fieldErrors,
-      message: "Missing Fields. Failed to update guest.",
+      message: 'Missing Fields. Failed to update guest.',
     };
   }
 
   try {
     const keys = Object.keys(validatedFields.data) as (keyof Omit<
       Guest,
-      "guestId"
+      'guestId'
     >)[];
 
     await sql`
@@ -52,18 +52,18 @@ export async function updateGuest(
       WHERE guest_id = ${id}
     `;
 
-    revalidatePath("/dashboard/guests");
+    revalidatePath('/dashboard/guests');
 
     return {
-      type: "success",
-      message: "Guest updated.",
+      type: 'success',
+      message: 'Guest updated.',
     };
   } catch (error) {
     console.error(error);
 
     return {
-      type: "error",
-      message: "Database Error: Failed to Update Guest.",
+      type: 'error',
+      message: 'Database Error: Failed to Update Guest.',
     };
   }
 }

@@ -1,9 +1,8 @@
-import Status from "../response-status";
-import { fetchFilteredGuests } from "@/lib/data/fetchFilteredGuests";
-import { IoBedOutline } from "react-icons/io5";
-import { MdOutlineRestaurantMenu } from "react-icons/md";
-import { IoCarOutline } from "react-icons/io5";
-import { EditButton } from "../action-buttons";
+import { fetchFilteredGuests } from '@/lib/data/fetchFilteredGuests';
+import { IoBedOutline, IoCarOutline } from 'react-icons/io5';
+import { MdOutlineRestaurantMenu } from 'react-icons/md';
+import { EditButton } from '../action-buttons';
+import Status from '../response-status';
 
 export default async function GuestsTable({
   query,
@@ -39,7 +38,7 @@ export default async function GuestsTable({
                       <IoBedOutline className="w-5 h-5 mb-2" />
                     )}
 
-                    {guest.transport && guest.transport !== "Nie" && (
+                    {guest.transport && guest.transport !== 'Nie' && (
                       <div className="flex flex-nowrap flex-row gap-3 items-center mb-2">
                         <IoCarOutline className="w-5 h-5" />
                         <p className="mb-0 text-xs">{guest.transport}</p>
@@ -103,7 +102,7 @@ export default async function GuestsTable({
                     )}
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
-                    {guest.transport && guest.transport !== "Nie" && (
+                    {guest.transport && guest.transport !== 'Nie' && (
                       <div className="flex flex-nowrap flex-row gap-3 items-center">
                         <IoCarOutline className="w-5 h-5" />
                         <p className="mb-0 text-s">{guest.transport}</p>

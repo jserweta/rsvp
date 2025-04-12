@@ -1,5 +1,5 @@
-import { sql } from "../utils/db";
-import { Guest } from "../definitions";
+import { Guest } from '../definitions';
+import { sql } from '../utils/db';
 
 export async function fetchGuestById(id: string) {
   try {
@@ -18,7 +18,7 @@ export async function fetchGuestById(id: string) {
 
     return data[0];
   } catch (error) {
-    console.error("Database Error:", error);
-    throw new Error("Failed to fetch guest.");
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch guest.');
   }
 }

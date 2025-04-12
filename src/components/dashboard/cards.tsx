@@ -1,9 +1,12 @@
-import { HiOutlineUser, HiOutlineUserGroup } from 'react-icons/hi2';
-import { IoBedOutline } from 'react-icons/io5';
-import { BsPersonCheck, BsPersonDash } from 'react-icons/bs';
 import { fetchDashboardSummary } from '@/lib/data/fetchDashboardSummary';
+import { BsPersonCheck, BsPersonDash } from 'react-icons/bs';
+import {
+  HiOutlineCheckCircle,
+  HiOutlineUser,
+  HiOutlineUserGroup,
+} from 'react-icons/hi2';
+import { IoBedOutline } from 'react-icons/io5';
 import { IconType } from 'react-icons/lib';
-import { HiOutlineCheckCircle } from 'react-icons/hi2';
 
 const iconMap: Record<CardType, IconType> = {
   guests: HiOutlineUser,

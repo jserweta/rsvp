@@ -1,10 +1,10 @@
+import { MapMarker } from '@/lib/definitions';
 import {
   AdvancedMarker,
   InfoWindow,
   useAdvancedMarkerRef,
 } from '@vis.gl/react-google-maps';
 import React, { useState } from 'react';
-import { MapMarker } from '@/lib/definitions';
 import { Button } from '../ui/button';
 
 export default function InfoWindowMarker({

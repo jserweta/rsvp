@@ -1,6 +1,3 @@
-import { Step } from '@stepperize/react';
-import { useFormContext } from 'react-hook-form';
-import { z } from 'zod';
 import {
   FormControl,
   FormField,
@@ -8,6 +5,9 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { Step } from '@stepperize/react';
+import { useFormContext } from 'react-hook-form';
+import { z } from 'zod';
 import { Label } from '../ui/label';
 
 export const ContactStepperItem = ({ step }: { step: Step }) => {

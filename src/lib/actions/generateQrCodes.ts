@@ -1,8 +1,8 @@
-"use server";
+'use server';
 
-import { revalidatePath } from "next/cache";
-import { sql } from "../utils/db";
-import { ActionStatus, Invitation, QrCode } from "../definitions";
+import { revalidatePath } from 'next/cache';
+import { ActionStatus, Invitation, QrCode } from '../definitions';
+import { sql } from '../utils/db';
 
 export default async function generateQrCodes(): Promise<ActionStatus> {
   try {
@@ -14,8 +14,8 @@ export default async function generateQrCodes(): Promise<ActionStatus> {
 
     if (invitations.length === 0) {
       return Promise.resolve({
-        type: "info",
-        message: "All invitations already have QR codes.",
+        type: 'info',
+        message: 'All invitations already have QR codes.',
       });
     }
 
@@ -29,21 +29,21 @@ export default async function generateQrCodes(): Promise<ActionStatus> {
 
     if (invitations.length <= availableQrCodes.length) {
       return Promise.resolve({
-        type: "success",
-        message: "There are enough available QR codes",
+        type: 'success',
+        message: 'There are enough available QR codes',
       });
     }
 
     await sql`INSERT INTO qr_codes DEFAULT VALUES`;
 
-    revalidatePath("/dashboard/qr-codes");
+    revalidatePath('/dashboard/qr-codes');
 
     return Promise.resolve({
-      type: "success",
-      message: "QR codes generated successfully.",
+      type: 'success',
+      message: 'QR codes generated successfully.',
     });
   } catch (error) {
     console.error(error);
-    return Promise.reject("Error while generating QR codes.");
+    return Promise.reject('Error while generating QR codes.');
   }
 }

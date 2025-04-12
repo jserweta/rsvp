@@ -1,8 +1,8 @@
-"use server";
+'use server';
 
-import { revalidatePath } from "next/cache";
-import { sql } from "../utils/db";
-import { ActionStatus, Invitation, QrCode } from "../definitions";
+import { revalidatePath } from 'next/cache';
+import { ActionStatus, Invitation, QrCode } from '../definitions';
+import { sql } from '../utils/db';
 
 export default async function assignQrCodeToInvitation(): Promise<ActionStatus> {
   try {
@@ -14,8 +14,8 @@ export default async function assignQrCodeToInvitation(): Promise<ActionStatus> 
 
     if (invitations.length === 0) {
       return {
-        type: "info",
-        message: "All invitations already have QR codes.",
+        type: 'info',
+        message: 'All invitations already have QR codes.',
       };
     }
 
@@ -29,7 +29,7 @@ export default async function assignQrCodeToInvitation(): Promise<ActionStatus> 
       `;
 
     if (availableQrCodes.length === 0) {
-      return { type: "error", message: "No available QR codes left." };
+      return { type: 'error', message: 'No available QR codes left.' };
     }
 
     let assignedCount = 0;
@@ -45,24 +45,24 @@ export default async function assignQrCodeToInvitation(): Promise<ActionStatus> 
       assignedCount++;
     }
 
-    revalidatePath("/dashboard/qr-codes");
-    revalidatePath("/dashboard/invitations");
+    revalidatePath('/dashboard/qr-codes');
+    revalidatePath('/dashboard/invitations');
 
     if (assignedCount === invitations.length) {
       return {
-        type: "success",
-        message: "All invitations were successfully assigned QR codes.",
+        type: 'success',
+        message: 'All invitations were successfully assigned QR codes.',
       };
     }
 
     return {
-      type: "info",
+      type: 'info',
       message: `Assigned all available QR codes. ${
         invitations.length - assignedCount
       } invitations remain unassigned.`,
     };
   } catch (error) {
     console.error(error);
-    return { type: "error", message: "Error while assigning QR codes." };
+    return { type: 'error', message: 'Error while assigning QR codes.' };
   }
 }

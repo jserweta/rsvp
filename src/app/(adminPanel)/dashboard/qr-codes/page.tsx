@@ -1,11 +1,11 @@
+import Pagination from '@/components/dashboard/pagination';
+import QRCodesTableActions from '@/components/dashboard/qrCodes/actions-menu';
+import QRCodesTable from '@/components/dashboard/qrCodes/table';
+import Search from '@/components/dashboard/search';
+import { fetchQrCodesPages } from '@/lib/data/fetchQrCodesPages';
 import { Metadata } from 'next';
 import { Suspense } from 'react';
 import { TableSkeleton } from '../../skeletons';
-import Pagination from '@/components/dashboard/pagination';
-import Search from '@/components/dashboard/search';
-import { fetchQrCodesPages } from '@/lib/data/fetchQrCodesPages';
-import QRCodesTable from '@/components/dashboard/qrCodes/table';
-import QRCodesTableActions from '@/components/dashboard/qrCodes/actions-menu';
 
 export const metadata: Metadata = {
   title: 'QR Codes',

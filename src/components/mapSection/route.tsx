@@ -1,13 +1,13 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import { useMap } from '@vis.gl/react-google-maps';
 import { RoutesApi } from '@/lib/utils/routesAPI';
-import { Polyline } from './polyline';
 import {
   Appearance,
   defaultAppearance,
   defaultRouteOptions,
   RouteOptions,
 } from '@/lib/utils/routesAPI.config';
+import { useMap } from '@vis.gl/react-google-maps';
+import React, { useEffect, useMemo, useState } from 'react';
+import { Polyline } from './polyline';
 
 export type RouteProps = {
   apiClient: RoutesApi;

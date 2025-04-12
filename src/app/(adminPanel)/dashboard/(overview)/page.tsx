@@ -1,6 +1,6 @@
+import CardWrapper from '@/components/dashboard/cards';
 import { Suspense } from 'react';
 import { CardsSkeleton } from '../../skeletons';
-import CardWrapper from '@/components/dashboard/cards';
 
 export default async function Page() {
   return (

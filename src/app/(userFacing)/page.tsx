@@ -1,7 +1,7 @@
-import Hero from '@/components/hero';
-import GoogleMap from '@/components/mapSection/googleMap';
 import Header from '@/components/header';
+import Hero from '@/components/hero';
 import InfoRow from '@/components/infoRow';
+import GoogleMap from '@/components/mapSection/googleMap';
 
 export default function Home() {
   const detailedInfo = [

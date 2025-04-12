@@ -1,11 +1,11 @@
-import { notFound } from "next/navigation";
-import { Metadata } from "next";
-import EditGuestForm from "@/components/dashboard/guests/edit-form";
-import Breadcrumbs from "@/components/dashboard/breadcrumbs";
-import { fetchGuestById } from "@/lib/data/fetchGuestById";
+import Breadcrumbs from '@/components/dashboard/breadcrumbs';
+import EditGuestForm from '@/components/dashboard/guests/edit-form';
+import { fetchGuestById } from '@/lib/data/fetchGuestById';
+import { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 
 export const metadata: Metadata = {
-  title: "Edit Guest",
+  title: 'Edit Guest',
 };
 
 export default async function Page(props: { params: Promise<{ id: string }> }) {
@@ -21,9 +21,9 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
     <>
       <Breadcrumbs
         breadcrumbs={[
-          { label: "Guests", href: "/dashboard/guests" },
+          { label: 'Guests', href: '/dashboard/guests' },
           {
-            label: "Edit Guest",
+            label: 'Edit Guest',
             href: `/dashboard/guests/${id}/edit`,
             active: true,
           },

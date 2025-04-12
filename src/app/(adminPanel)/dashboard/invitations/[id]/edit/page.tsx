@@ -1,13 +1,13 @@
-import { notFound } from "next/navigation";
-import { Metadata } from "next";
-import Breadcrumbs from "@/components/dashboard/breadcrumbs";
-import { fetchInvitationById } from "@/lib/data/fetchInvitationById";
-import EditInvitationForm from "@/components/dashboard/invitations/edit-form";
-import { fetchInvitationMembers } from "@/lib/data/fetchInvitationMembers";
-import { fetchAvailableQrCodes } from "@/lib/data/fetchAvailableQrCodes";
+import Breadcrumbs from '@/components/dashboard/breadcrumbs';
+import EditInvitationForm from '@/components/dashboard/invitations/edit-form';
+import { fetchAvailableQrCodes } from '@/lib/data/fetchAvailableQrCodes';
+import { fetchInvitationById } from '@/lib/data/fetchInvitationById';
+import { fetchInvitationMembers } from '@/lib/data/fetchInvitationMembers';
+import { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 
 export const metadata: Metadata = {
-  title: "Edit Invitation",
+  title: 'Edit Invitation',
 };
 
 export default async function Page(props: { params: Promise<{ id: string }> }) {
@@ -27,9 +27,9 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
     <>
       <Breadcrumbs
         breadcrumbs={[
-          { label: "Invitations", href: "/dashboard/invitations" },
+          { label: 'Invitations', href: '/dashboard/invitations' },
           {
-            label: "Edit Invitation",
+            label: 'Edit Invitation',
             href: `/dashboard/invitations/${id}/edit`,
             active: true,
           },

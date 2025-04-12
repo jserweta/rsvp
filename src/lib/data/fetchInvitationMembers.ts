@@ -1,5 +1,5 @@
-import { sql } from "../utils/db";
-import { GuestRaw } from "../definitions";
+import { GuestRaw } from '../definitions';
+import { sql } from '../utils/db';
 
 export const fetchInvitationMembers = async (invitationId: string) => {
   try {
@@ -16,7 +16,7 @@ export const fetchInvitationMembers = async (invitationId: string) => {
 
     return data;
   } catch (err) {
-    console.error("Database Error:", err);
+    console.error('Database Error:', err);
     throw new Error(
       `Failed to fetch invitation members. InvitationID: ${invitationId}`
     );

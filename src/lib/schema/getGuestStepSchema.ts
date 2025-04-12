@@ -1,6 +1,6 @@
 import { z } from 'zod';
-import { AttendanceStatus, MenuKinds } from '../enum-definitions';
 import { TRANSPORT_SELECT_VALUES } from '../data/transportSelectValues';
+import { AttendanceStatus, MenuKinds } from '../enum-definitions';
 
 export const getGuestStepSchema = (
   guestId: string,

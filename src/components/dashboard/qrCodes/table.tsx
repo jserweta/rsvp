@@ -1,9 +1,9 @@
-import { fetchFilteredQrCodes } from "@/lib/data/fetchFilteredQrCodes";
-import { formatDateToLocal } from "@/lib/utils/formatDateToLocal";
-import { MdOutlineUpdate } from "react-icons/md";
-import { HiOutlineQrCode } from "react-icons/hi2";
-import { DeleteButton, ShowInvitation } from "../action-buttons";
-import { deleteQrCode } from "@/lib/actions/deleteQrCode";
+import { deleteQrCode } from '@/lib/actions/deleteQrCode';
+import { fetchFilteredQrCodes } from '@/lib/data/fetchFilteredQrCodes';
+import { formatDateToLocal } from '@/lib/utils/formatDateToLocal';
+import { HiOutlineQrCode } from 'react-icons/hi2';
+import { MdOutlineUpdate } from 'react-icons/md';
+import { DeleteButton, ShowInvitation } from '../action-buttons';
 
 export default async function QRCodesTable({
   query,

@@ -1,5 +1,5 @@
-import { sql } from "../utils/db";
-import { InvitationsTableType } from "../definitions";
+import { InvitationsTableType } from '../definitions';
+import { sql } from '../utils/db';
 
 const ITEMS_PER_PAGE = 15;
 export async function fetchFilteredInvitations(
@@ -34,7 +34,7 @@ export async function fetchFilteredInvitations(
 
     return data;
   } catch (err) {
-    console.error("Database Error:", err);
-    throw new Error("Failed to fetch Invitations table.");
+    console.error('Database Error:', err);
+    throw new Error('Failed to fetch Invitations table.');
   }
 }

@@ -1,6 +1,6 @@
-import { sql } from "../utils/db";
-import { unstable_noStore as noStore } from "next/cache";
-import { QrCode } from "../definitions";
+import { unstable_noStore as noStore } from 'next/cache';
+import { QrCode } from '../definitions';
+import { sql } from '../utils/db';
 
 export async function fetchAvailableQrCodes() {
   noStore();
@@ -18,7 +18,7 @@ export async function fetchAvailableQrCodes() {
 
     return data;
   } catch (error) {
-    console.error("Database Error:", error);
-    throw new Error("Failed to fetch total number of qr codes.");
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch total number of qr codes.');
   }
 }

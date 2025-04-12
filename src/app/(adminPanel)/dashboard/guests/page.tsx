@@ -1,10 +1,10 @@
-import { Metadata } from 'next';
+import GuestsTable from '@/components/dashboard/guests/table';
+import Pagination from '@/components/dashboard/pagination';
+import Search from '@/components/dashboard/search';
 import { fetchGuestsPages } from '@/lib/data/fetchGuestsPages';
+import { Metadata } from 'next';
 import { Suspense } from 'react';
 import { TableSkeleton } from '../../skeletons';
-import Pagination from '@/components/dashboard/pagination';
-import GuestsTable from '@/components/dashboard/guests/table';
-import Search from '@/components/dashboard/search';
 
 export const metadata: Metadata = {
   title: 'Guests',

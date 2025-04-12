@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
+import { DeleteFunc } from '@/lib/definitions';
+import Link from 'next/link';
 import {
-  HiOutlinePencil,
   HiOutlineEnvelope,
+  HiOutlinePencil,
   HiOutlineTrash,
-} from "react-icons/hi2";
-import { PiUsersThree } from "react-icons/pi";
-import Link from "next/link";
-import { DeleteFunc } from "@/lib/definitions";
-import { toast } from "sonner";
+} from 'react-icons/hi2';
+import { PiUsersThree } from 'react-icons/pi';
+import { toast } from 'sonner';
 
 export function DeleteButton({
   id,
@@ -22,7 +22,7 @@ export function DeleteButton({
   async function handleSubmit() {
     const result = await deleteWithId();
 
-    if (result.type === "success") {
+    if (result.type === 'success') {
       toast.success(result.message);
     } else {
       toast.error(result.message);

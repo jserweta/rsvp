@@ -1,5 +1,5 @@
-import { sql } from "../utils/db";
-import { Invitation } from "../definitions";
+import { Invitation } from '../definitions';
+import { sql } from '../utils/db';
 
 export async function fetchInvitationId(token: string) {
   try {
@@ -11,9 +11,9 @@ export async function fetchInvitationId(token: string) {
       WHERE LOWER(qr_codes.access_token) = ${token.toLowerCase()};
     `;
 
-    return data[0]?.invitationId || "";
+    return data[0]?.invitationId || '';
   } catch (error) {
-    console.error("Database Error:", error);
-    throw new Error("Failed to fetch invitation.");
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch invitation.');
   }
 }

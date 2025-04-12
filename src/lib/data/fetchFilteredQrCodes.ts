@@ -1,5 +1,5 @@
-import { sql } from "../utils/db";
-import { QrCodesTableType } from "../definitions";
+import { QrCodesTableType } from '../definitions';
+import { sql } from '../utils/db';
 
 const ITEMS_PER_PAGE = 15;
 export async function fetchFilteredQrCodes(query: string, currentPage: number) {
@@ -25,7 +25,7 @@ export async function fetchFilteredQrCodes(query: string, currentPage: number) {
 
     return data;
   } catch (err) {
-    console.error("Database Error:", err);
-    throw new Error("Failed to fetch QR Codes table.");
+    console.error('Database Error:', err);
+    throw new Error('Failed to fetch QR Codes table.');
   }
 }

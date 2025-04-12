@@ -1,27 +1,27 @@
 'use client';
 
-import { defineStepper, Step } from '@stepperize/react';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
 import { Button } from '@/components/ui/button';
-import React, { useTransition } from 'react';
-import { Separator } from '@/components/ui/separator';
-import { z } from 'zod';
 import { Form } from '@/components/ui/form';
-import {
-  getGuestStepSchema,
-  ContactStepSchema,
-} from '@/lib/schema/getGuestStepSchema';
+import { Separator } from '@/components/ui/separator';
 import { submitInvitationForm } from '@/lib/actions/submitInvitationForm';
-import { toast } from 'sonner';
-import { PersonStepperItem } from './personStepperItem';
 import { GuestRaw } from '@/lib/definitions';
 import { AttendanceStatus, menuKindsList } from '@/lib/enum-definitions';
+import {
+  ContactStepSchema,
+  getGuestStepSchema,
+} from '@/lib/schema/getGuestStepSchema';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { defineStepper, Step } from '@stepperize/react';
+import { useRouter } from 'next/navigation';
+import React, { useTransition } from 'react';
+import { useForm } from 'react-hook-form';
+import { AiOutlineLoading } from 'react-icons/ai';
 import { GoPerson } from 'react-icons/go';
 import { HiOutlineEnvelope } from 'react-icons/hi2';
-import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
+import { z } from 'zod';
 import { ContactStepperItem } from './contactStepperItem';
-import { AiOutlineLoading } from 'react-icons/ai';
+import { PersonStepperItem } from './personStepperItem';
 
 export const Stepper = ({
   invitationMembers,

@@ -1,5 +1,5 @@
 import { useMap, useMapsLibrary } from '@vis.gl/react-google-maps';
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 type PolylineCustomProps = {
   encodedPath?: string;

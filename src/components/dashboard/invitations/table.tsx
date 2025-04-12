@@ -1,9 +1,8 @@
-import { EditButton, ShowGuests } from "@/components/dashboard/action-buttons";
-import { fetchFilteredInvitations } from "@/lib/data/fetchFilteredInvitations";
-import { IoBedOutline } from "react-icons/io5";
-import { HiOutlineQrCode } from "react-icons/hi2";
-import { IoCarOutline } from "react-icons/io5";
-import Status from "../response-status";
+import { EditButton, ShowGuests } from '@/components/dashboard/action-buttons';
+import { fetchFilteredInvitations } from '@/lib/data/fetchFilteredInvitations';
+import { HiOutlineQrCode } from 'react-icons/hi2';
+import { IoBedOutline, IoCarOutline } from 'react-icons/io5';
+import Status from '../response-status';
 
 export default async function InvitationsTable({
   query,

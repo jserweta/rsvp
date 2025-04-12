@@ -4,12 +4,12 @@
 // NOTE: This file should not be edited
 // see https://nextjs.org/docs/app/api-reference/config/typescript for more information.
 
-import "next-auth";
+import 'next-auth';
 
-declare module "next-auth" {
+declare module 'next-auth' {
   interface Session {
     user: {
       id: string;
-    } & DefaultSession["user"];
+    } & DefaultSession['user'];
   }
 }

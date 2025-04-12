@@ -1,9 +1,6 @@
-"use client";
+'use client';
 
-import { Button } from "@/components/ui/button";
-import { MdAutoFixHigh } from "react-icons/md";
-import { FiZap } from "react-icons/fi";
-import { HiOutlinePlusCircle } from "react-icons/hi2";
+import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,14 +9,17 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { HiOutlineDotsVertical } from "react-icons/hi";
-import generateQrCodes from "@/lib/actions/generateQrCodes";
-import assignQrCodeToInvitation from "@/lib/actions/assignQrCodeToInvitation";
-import { useTransition } from "react";
-import { toast } from "sonner";
-import addSingleQrCode from "@/lib/actions/addSingleQrCode";
-import { toastActionStatus } from "@/lib/utils/toastActionStatus";
+} from '@/components/ui/dropdown-menu';
+import addSingleQrCode from '@/lib/actions/addSingleQrCode';
+import assignQrCodeToInvitation from '@/lib/actions/assignQrCodeToInvitation';
+import generateQrCodes from '@/lib/actions/generateQrCodes';
+import { toastActionStatus } from '@/lib/utils/toastActionStatus';
+import { useTransition } from 'react';
+import { FiZap } from 'react-icons/fi';
+import { HiOutlineDotsVertical } from 'react-icons/hi';
+import { HiOutlinePlusCircle } from 'react-icons/hi2';
+import { MdAutoFixHigh } from 'react-icons/md';
+import { toast } from 'sonner';
 
 export default function QRCodesTableActions() {
   const [, startTransition] = useTransition();
@@ -27,7 +27,7 @@ export default function QRCodesTableActions() {
   const handleAutoAssign = () => {
     startTransition(async () => {
       toast.promise(assignQrCodeToInvitation(), {
-        loading: "Assigning QR codes, please wait...",
+        loading: 'Assigning QR codes, please wait...',
         success: (data) => data.message,
         error: (data) => data.message,
       });
@@ -37,7 +37,7 @@ export default function QRCodesTableActions() {
   const handleQrCodeGeneration = () => {
     startTransition(async () => {
       toast.promise(generateQrCodes(), {
-        loading: "Generating QR codes, please wait...",
+        loading: 'Generating QR codes, please wait...',
         success: (data) => data.message,
         error: (message) => message,
       });

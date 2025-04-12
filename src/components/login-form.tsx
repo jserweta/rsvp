@@ -1,17 +1,17 @@
 'use client';
 
+import { Button } from '@/components/ui/button';
+import { authenticate } from '@/lib/actions/authenticate';
+import { useSearchParams } from 'next/navigation';
+import { useActionState, useState } from 'react';
 import {
+  HiArrowRight,
   HiOutlineAtSymbol,
-  HiOutlineKey,
   HiOutlineExclamationCircle,
   HiOutlineEye,
   HiOutlineEyeSlash,
-  HiArrowRight,
+  HiOutlineKey,
 } from 'react-icons/hi2';
-import { authenticate } from '@/lib/actions/authenticate';
-import { useState, useActionState } from 'react';
-import { Button } from '@/components/ui/button';
-import { useSearchParams } from 'next/navigation';
 
 export default function LoginForm() {
   const searchParams = useSearchParams();

@@ -1,5 +1,5 @@
-import { unstable_noStore as noStore } from "next/cache";
-import { sql } from "../utils/db";
+import { unstable_noStore as noStore } from 'next/cache';
+import { sql } from '../utils/db';
 
 const ITEMS_PER_PAGE = 15;
 export async function fetchGuestsPages(query: string, invitationId: string) {
@@ -19,7 +19,7 @@ export async function fetchGuestsPages(query: string, invitationId: string) {
 
     return Math.ceil(Number(data[0].count) / ITEMS_PER_PAGE);
   } catch (error) {
-    console.error("Database Error:", error);
-    throw new Error("Failed to fetch total number of guests.");
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch total number of guests.');
   }
 }

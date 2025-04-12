@@ -1,18 +1,18 @@
 'use client';
 
-import {
-  HiOutlineAtSymbol,
-  HiOutlineKey,
-  HiOutlineExclamationCircle,
-  HiOutlineUserCircle,
-  HiOutlineEye,
-  HiOutlineEyeSlash,
-  HiArrowRight,
-} from 'react-icons/hi2';
 import { Button } from '@/components/ui/button';
 import { signUp, StateSignUp } from '@/lib/actions/signUp';
-import { useActionState, useState } from 'react';
 import Link from 'next/link';
+import { useActionState, useState } from 'react';
+import {
+  HiArrowRight,
+  HiOutlineAtSymbol,
+  HiOutlineExclamationCircle,
+  HiOutlineEye,
+  HiOutlineEyeSlash,
+  HiOutlineKey,
+  HiOutlineUserCircle,
+} from 'react-icons/hi2';
 
 export default function RegisterForm() {
   const initialState: StateSignUp = { message: null, errors: {} };

@@ -1,17 +1,17 @@
-import { toast } from "sonner";
-import { ActionStatus } from "../definitions";
+import { toast } from 'sonner';
+import { ActionStatus } from '../definitions';
 
 export const toastActionStatus = ({ message, type }: ActionStatus) => {
   if (!message) return;
 
   switch (type) {
-    case "success":
+    case 'success':
       toast.success(message);
       break;
-    case "error":
+    case 'error':
       toast.error(message);
       break;
-    case "info":
+    case 'info':
       toast.info(message);
       break;
   }

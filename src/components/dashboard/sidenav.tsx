@@ -1,8 +1,8 @@
-import Link from "next/link";
-import NavLinks from "./nav-links";
-import Logo from "@/components/dashboard/logo";
-import { HiOutlinePower } from "react-icons/hi2";
-import { signOut } from "@/auth";
+import { signOut } from '@/auth';
+import Logo from '@/components/dashboard/logo';
+import Link from 'next/link';
+import { HiOutlinePower } from 'react-icons/hi2';
+import NavLinks from './nav-links';
 
 export default function SideNav() {
   return (
@@ -20,8 +20,8 @@ export default function SideNav() {
         <div className="hidden h-auto w-full grow rounded-md bg-gray-50 md:block"></div>
         <form
           action={async () => {
-            "use server";
-            await signOut({ redirectTo: "/" });
+            'use server';
+            await signOut({ redirectTo: '/' });
           }}
         >
           <button className="flex h-[48px] w-full grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-slate-200 hover:text-slate-700 md:flex-none md:justify-start md:p-2 md:px-3">

@@ -1,10 +1,10 @@
-import { Metadata } from 'next';
-import { Suspense } from 'react';
-import { TableSkeleton } from '../../skeletons';
+import InvitationsTable from '@/components/dashboard/invitations/table';
 import Pagination from '@/components/dashboard/pagination';
 import Search from '@/components/dashboard/search';
 import { fetchInvitationsPages } from '@/lib/data/fetchInvitationsPages';
-import InvitationsTable from '@/components/dashboard/invitations/table';
+import { Metadata } from 'next';
+import { Suspense } from 'react';
+import { TableSkeleton } from '../../skeletons';
 
 export const metadata: Metadata = {
   title: 'Invitations',

@@ -1,24 +1,24 @@
 import {
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { ATTENDANCE_SELECT_VALUES } from '@/lib/data/attendanceSelectValues';
+import { TRANSPORT_SELECT_VALUES } from '@/lib/data/transportSelectValues';
+import { AttendanceStatus, attendanceStatusList } from '@/lib/enum-definitions';
 import { Step } from '@stepperize/react';
 import { useFormContext } from 'react-hook-form';
 import { z } from 'zod';
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormMessage,
-} from '@/components/ui/form';
-import { Label } from '@/components/ui/label';
-import { Input } from '@/components/ui/input';
-import { AttendanceStatus, attendanceStatusList } from '@/lib/enum-definitions';
-import { TRANSPORT_SELECT_VALUES } from '@/lib/data/transportSelectValues';
-import { ATTENDANCE_SELECT_VALUES } from '@/lib/data/attendanceSelectValues';
 
 export const PersonStepperItem = ({
   needTransport,

@@ -1,6 +1,6 @@
-import Logo from "@/components/dashboard/logo";
-import LoginForm from "../../../components/login-form";
-import { Suspense } from "react";
+import Logo from '@/components/dashboard/logo';
+import { Suspense } from 'react';
+import LoginForm from '../../../components/login-form';
 
 export default function LoginPage() {
   return (

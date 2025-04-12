@@ -1,5 +1,6 @@
 'use client';
 
+import { MapMarker } from '@/lib/definitions';
 import { RoutesApi } from '@/lib/utils/routesAPI';
 import {
   APILoadingStatus,
@@ -7,12 +8,11 @@ import {
   Map,
   useApiLoadingStatus,
 } from '@vis.gl/react-google-maps';
+import Image from 'next/image';
 import React from 'react';
-import Route from './route';
 import { AiOutlineLoading } from 'react-icons/ai';
 import InfoWindowMarker from './infoWindowMarker';
-import { MapMarker } from '@/lib/definitions';
-import Image from 'next/image';
+import Route from './route';
 
 const apiClient = new RoutesApi(process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!);
 

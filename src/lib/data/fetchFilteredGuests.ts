@@ -1,5 +1,5 @@
-import { sql } from "../utils/db";
-import { GuestsTableType } from "../definitions";
+import { GuestsTableType } from '../definitions';
+import { sql } from '../utils/db';
 
 const ITEMS_PER_PAGE = 15;
 export async function fetchFilteredGuests(
@@ -35,7 +35,7 @@ export async function fetchFilteredGuests(
 
     return data;
   } catch (err) {
-    console.error("Database Error:", err);
-    throw new Error("Failed to fetch guests table.");
+    console.error('Database Error:', err);
+    throw new Error('Failed to fetch guests table.');
   }
 }

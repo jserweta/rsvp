@@ -1,8 +1,8 @@
-"use server";
+'use server';
 
-import { revalidatePath } from "next/cache";
-import { sql } from "../utils/db";
-import { ActionStatus } from "../definitions";
+import { revalidatePath } from 'next/cache';
+import { ActionStatus } from '../definitions';
+import { sql } from '../utils/db';
 
 export async function deleteQrCode(id: string): Promise<ActionStatus> {
   try {
@@ -15,24 +15,24 @@ export async function deleteQrCode(id: string): Promise<ActionStatus> {
     if (isUsed.length > 0) {
       // jeśli istnieje powiązane zaproszenie
       return {
-        type: "error",
-        message: "QR code is assigned to an invitation and cannot be deleted.",
+        type: 'error',
+        message: 'QR code is assigned to an invitation and cannot be deleted.',
       };
     }
 
     await sql`DELETE FROM qr_codes WHERE id = ${id}`;
-    revalidatePath("/dashboard/qr-codes");
+    revalidatePath('/dashboard/qr-codes');
 
     return {
-      type: "success",
-      message: "QR code deleted successfully.",
+      type: 'success',
+      message: 'QR code deleted successfully.',
     };
   } catch (error) {
     console.error(error);
 
     return {
-      type: "error",
-      message: "Database Error: QR Code delete failed.",
+      type: 'error',
+      message: 'Database Error: QR Code delete failed.',
     };
   }
 }
