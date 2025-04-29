@@ -5,7 +5,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { Step } from '@stepperize/react';
+import type { Step } from '@stepperize/react';
 import { useFormContext } from 'react-hook-form';
 import { z } from 'zod';
 import { Label } from '../ui/label';
