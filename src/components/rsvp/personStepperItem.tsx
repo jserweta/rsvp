@@ -33,7 +33,8 @@ export const PersonStepperItem = ({
 }) => {
   type AttendanceFormCurrentStepSchema = z.infer<typeof step.schema>;
 
-  const { control, watch } = useFormContext<AttendanceFormCurrentStepSchema>();
+  const { control, watch, resetField } =
+    useFormContext<AttendanceFormCurrentStepSchema>();
 
   return (
     <div className="grid gap-6">
@@ -48,7 +49,16 @@ export const PersonStepperItem = ({
               </Label>
               <FormControl>
                 <Select
-                  onValueChange={field.onChange}
+                  onValueChange={(value) => {
+                    field.onChange(value);
+                    if (value === AttendanceStatus.DECLINED) {
+                      resetField(`${step.id}_menuKind`);
+                      resetField(`${step.id}_transport`);
+                      resetField(`${step.id}_accommodation`);
+                      resetField(`${step.id}_name`, { defaultValue: '' });
+                      resetField(`${step.id}_surname`, { defaultValue: '' });
+                    }
+                  }}
                   defaultValue={field.value}
                 >
                   <SelectTrigger className="w-full max-w-[250px]">
