@@ -18,6 +18,7 @@ export const AdditionalInfoStepperItem = ({
   step: Step;
   hasConfirmedAttendance: boolean;
 }) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   type AttendanceFormCurrentStepSchema = z.infer<typeof step.schema>;
 
   const { control } = useFormContext<AttendanceFormCurrentStepSchema>();
