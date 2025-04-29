@@ -64,7 +64,7 @@ export default async function InvitationsTable({
                         <div className="flex flex-nowrap flex-row gap-3 items-center">
                           <HiOutlineQrCode className="w-5 h-5" />
                           <p className="mb-0 text-xs">
-                            {invitation.accessToken.toUpperCase()}
+                            {invitation.accessToken.toLowerCase()}
                           </p>
                         </div>
                       )}
@@ -144,7 +144,7 @@ export default async function InvitationsTable({
                       <div className="flex flex-nowrap flex-row gap-3 items-center">
                         <HiOutlineQrCode className="w-5 h-5" />
                         <p className="mb-0 text-s">
-                          {invitation.accessToken.toUpperCase()}
+                          {invitation.accessToken.toLowerCase()}
                         </p>
                       </div>
                     )}

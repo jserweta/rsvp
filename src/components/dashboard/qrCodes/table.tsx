@@ -32,7 +32,7 @@ export default async function QRCodesTable({
                   <div className="flex gap-2 gap-x-4 flex-col sm:flex-row">
                     <div className="flex items-center gap-3">
                       <HiOutlineQrCode />
-                      <p>{qrCode.accessToken.toUpperCase()}</p>
+                      <p>{qrCode.accessToken.toLowerCase()}</p>
                     </div>
 
                     {qrCode.usedAt && (
@@ -84,7 +84,7 @@ export default async function QRCodesTable({
                     <div className="flex flex-nowrap flex-row gap-3 items-center">
                       <HiOutlineQrCode className="w-5 h-5" />
                       <p className="mb-0 text-s">
-                        {qrCode.accessToken.toUpperCase()}
+                        {qrCode.accessToken.toLowerCase()}
                       </p>
                     </div>
                   </td>
