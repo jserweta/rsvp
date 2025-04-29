@@ -122,7 +122,7 @@ export const Stepper = ({
                     aria-selected={stepper.current.id === step.id}
                     className={`flex size-10 items-center justify-center rounded-full transition-none  ${index <= currentIndex ? 'bg-primary text-primary-foreground shadow' : 'bg-secondary text-secondary-foreground shadow-sm'}`}
                   >
-                    {step.id === 'contact' ? (
+                    {step.id === 'additional_info' ? (
                       <HiOutlineEnvelope />
                     ) : (
                       <GoPerson />
