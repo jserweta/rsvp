@@ -33,7 +33,7 @@ export const PersonStepperItem = ({
 }) => {
   type AttendanceFormCurrentStepSchema = z.infer<typeof step.schema>;
 
-  const { control, watch, resetField } =
+  const { control, watch, resetField, setValue } =
     useFormContext<AttendanceFormCurrentStepSchema>();
 
   return (
@@ -97,6 +97,11 @@ export const PersonStepperItem = ({
                 <Select
                   onValueChange={field.onChange}
                   defaultValue={field.value ?? ''}
+                  value={
+                    watch(step.id + '_attendance') === AttendanceStatus.DECLINED
+                      ? ''
+                      : field.value
+                  }
                   disabled={
                     watch(step.id + '_attendance') !==
                     AttendanceStatus.CONFIRMED
@@ -135,6 +140,12 @@ export const PersonStepperItem = ({
                   <Select
                     onValueChange={field.onChange}
                     defaultValue={field.value ?? ''}
+                    value={
+                      watch(step.id + '_attendance') ===
+                      AttendanceStatus.DECLINED
+                        ? ''
+                        : field.value
+                    }
                     disabled={
                       watch(step.id + '_attendance') !==
                       AttendanceStatus.CONFIRMED
@@ -173,6 +184,12 @@ export const PersonStepperItem = ({
                   <Select
                     onValueChange={field.onChange}
                     defaultValue={field.value}
+                    value={
+                      watch(step.id + '_attendance') ===
+                      AttendanceStatus.DECLINED
+                        ? ''
+                        : field.value
+                    }
                     disabled={
                       watch(step.id + '_attendance') !==
                       AttendanceStatus.CONFIRMED
