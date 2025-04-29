@@ -31,7 +31,7 @@ export const ContactStepperItem = ({ step }: { step: Step }) => {
                 placeholder="Wprowadź adres e-mail"
                 {...field}
                 value={field.value ?? ''}
-                className="w-fit min-w-[250px]"
+                className="w-full max-w-[250px]"
               />
             </FormControl>
             <FormMessage />
