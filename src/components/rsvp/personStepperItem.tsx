@@ -33,7 +33,7 @@ export const PersonStepperItem = ({
 }) => {
   type AttendanceFormCurrentStepSchema = z.infer<typeof step.schema>;
 
-  const { control, watch, resetField, setValue } =
+  const { control, watch, resetField } =
     useFormContext<AttendanceFormCurrentStepSchema>();
 
   return (
