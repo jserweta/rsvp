@@ -1,6 +1,6 @@
 import { EditButton, ShowGuests } from '@/components/dashboard/action-buttons';
 import { fetchFilteredInvitations } from '@/lib/data/fetchFilteredInvitations';
-import { HiOutlineQrCode } from 'react-icons/hi2';
+import { HiOutlineExclamationTriangle, HiOutlineQrCode } from 'react-icons/hi2';
 import { IoBedOutline, IoCarOutline } from 'react-icons/io5';
 import Status from '../response-status';
 
@@ -30,7 +30,12 @@ export default async function InvitationsTable({
                 className="mb-2 w-full rounded-md bg-white p-4"
               >
                 <div className="flex gap-2 items-center justify-between border-b pb-4">
-                  <p>{invitation.name}</p>
+                  <p className="inline-flex items-center flex-nowrap">
+                    {invitation.name}
+                    {invitation.additionalInfo && (
+                      <HiOutlineExclamationTriangle className="ml-2 w-5 h-5 text-orange-500 inline-block" />
+                    )}
+                  </p>
 
                   <Status status={invitation.status} />
                 </div>
@@ -107,7 +112,12 @@ export default async function InvitationsTable({
                   className="w-full border-b py-3 text-sm last-of-type:border-none [&:first-child>td:first-child]:rounded-tl-lg [&:first-child>td:last-child]:rounded-tr-lg [&:last-child>td:first-child]:rounded-bl-lg [&:last-child>td:last-child]:rounded-br-lg"
                 >
                   <td className="whitespace-nowrap py-3 pl-6 pr-3">
-                    {invitation.name}
+                    <p className="inline-flex items-center flex-nowrap">
+                      {invitation.name}
+                      {invitation.additionalInfo && (
+                        <HiOutlineExclamationTriangle className="ml-2 w-5 h-5 text-orange-500 inline-block" />
+                      )}
+                    </p>
                   </td>
 
                   <td className="whitespace-nowrap px-3 py-3">

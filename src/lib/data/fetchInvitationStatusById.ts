@@ -12,8 +12,6 @@ export async function fetchInvitationStatusById(id: string) {
       WHERE invitations.invitation_id = ${id};
     `;
 
-    console.log(data[0]);
-
     return data[0]?.status || '';
   } catch (error) {
     console.error('Database Error:', error);

@@ -9,6 +9,7 @@ export const InvitationFormSchema = z.object({
   accommodationLocation: z.string().optional(),
   needTransport: z.boolean(),
   contactEmail: z.union([z.string().email(), z.literal('')]),
+  additionalInfo: z.string().optional(),
   accessToken: z.union([z.string().length(8), z.null()]).optional(),
 });
 

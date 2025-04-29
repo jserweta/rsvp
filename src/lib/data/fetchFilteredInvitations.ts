@@ -20,6 +20,7 @@ export async function fetchFilteredInvitations(
         invitations.need_accommodation,
         invitations.accommodation_location,
         invitations.status,
+        invitations.additional_info,
         qr_codes.access_token AS access_token
       FROM invitations
       LEFT JOIN qr_codes ON invitations.qr_code_id = qr_codes.id

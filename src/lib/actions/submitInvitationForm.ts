@@ -13,7 +13,9 @@ export const submitInvitationForm = async (
   invitationId: string
 ) => {
   const contactEmail = formValues.contact_email ?? '';
+  const additionalInfo = formValues.additional_info ?? '';
   delete formValues.contact_email;
+  delete formValues.additional_info;
 
   const groupedData = Object.entries(formValues).reduce(
     (acc, [key, value]) => {
@@ -68,6 +70,7 @@ export const submitInvitationForm = async (
           SET 
           status = ${InvitationStatus.SUBMITTED}
           ${contactEmail ? sql`, contact_email = ${contactEmail}` : sql``}
+          ${additionalInfo ? sql`, additional_info = ${additionalInfo}` : sql``}
           WHERE invitation_id = ${invitationId}
         `
       );

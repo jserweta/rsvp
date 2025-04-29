@@ -85,4 +85,5 @@ export const ContactStepSchema = z.object({
     .string()
     .email({ message: 'Podaj poprawny adres email' })
     .optional(),
+  additional_info: z.string().optional(),
 });

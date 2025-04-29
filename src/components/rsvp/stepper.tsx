@@ -4,18 +4,14 @@ import { Button } from '@/components/ui/button';
 import { Form } from '@/components/ui/form';
 import { Separator } from '@/components/ui/separator';
 import { submitInvitationForm } from '@/lib/actions/submitInvitationForm';
-import { fetchInvitationById } from '@/lib/data/fetchInvitationById';
 import { fetchInvitationStatusById } from '@/lib/data/fetchInvitationStatusById';
-import { GuestRaw, Invitation } from '@/lib/definitions';
-import {
-  AttendanceStatus,
-  InvitationStatus,
-  menuKindsList,
-} from '@/lib/enum-definitions';
+import { GuestRaw } from '@/lib/definitions';
+import { InvitationStatus, menuKindsList } from '@/lib/enum-definitions';
 import {
   ContactStepSchema,
   getGuestStepSchema,
 } from '@/lib/schema/getGuestStepSchema';
+import { hasConfirmedAttendance } from '@/lib/utils/hasConfirmedAttendance';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { defineStepper, Step } from '@stepperize/react';
 import { useRouter } from 'next/navigation';
@@ -26,7 +22,7 @@ import { GoPerson } from 'react-icons/go';
 import { HiOutlineEnvelope } from 'react-icons/hi2';
 import { toast } from 'sonner';
 import { z } from 'zod';
-import { ContactStepperItem } from './contactStepperItem';
+import { AdditionalInfoStepperItem } from './additionalInfoStepperItem';
 import { PersonStepperItem } from './personStepperItem';
 
 export const Stepper = ({
@@ -56,8 +52,8 @@ export const Stepper = ({
   }));
 
   formSteps.push({
-    id: 'contact',
-    title: 'Kontakt',
+    id: 'additional_info',
+    title: 'Dodatkowe informacje',
     schema: ContactStepSchema,
   });
 
@@ -87,16 +83,11 @@ export const Stepper = ({
             return;
           }
 
-          await submitInvitationForm(form.getValues(), invitationId);
           const formValues = form.getValues();
-          const hasConfirmedAttendance = Object.keys(formValues).some(
-            (key) =>
-              key.includes('_attendance') &&
-              formValues[key] === AttendanceStatus.CONFIRMED
-          );
+          await submitInvitationForm(formValues, invitationId);
 
           router.push(
-            `/rsvp/success${hasConfirmedAttendance ? '?status=confirmed' : ''}`
+            `/rsvp/success${hasConfirmedAttendance(formValues) ? '?status=confirmed' : ''}`
           );
         });
       } else {
@@ -158,10 +149,13 @@ export const Stepper = ({
 
                   {stepper.current.id === step.id && (
                     <div className="my-4 flex-1">
-                      {step.id === 'contact' ? (
-                        <ContactStepperItem
+                      {step.id === 'additional_info' ? (
+                        <AdditionalInfoStepperItem
                           key={stepper.current.id}
                           step={stepper.current}
+                          hasConfirmedAttendance={hasConfirmedAttendance(
+                            form.getValues()
+                          )}
                         />
                       ) : (
                         <PersonStepperItem

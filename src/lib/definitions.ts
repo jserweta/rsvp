@@ -16,6 +16,7 @@ export type Invitation = {
   needTransport: boolean;
   qrCodeId?: string;
   contactEmail: string;
+  additionalInfo: string;
 };
 
 export type Guest = {

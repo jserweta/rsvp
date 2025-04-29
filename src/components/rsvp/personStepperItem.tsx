@@ -51,7 +51,7 @@ export const PersonStepperItem = ({
                   onValueChange={field.onChange}
                   defaultValue={field.value}
                 >
-                  <SelectTrigger className="w-fit min-w-[250px]">
+                  <SelectTrigger className="w-full max-w-[250px]">
                     <SelectValue placeholder="Wybierz" />
                   </SelectTrigger>
                   <SelectContent>
@@ -92,7 +92,7 @@ export const PersonStepperItem = ({
                     AttendanceStatus.CONFIRMED
                   }
                 >
-                  <SelectTrigger className="w-fit min-w-[250px]">
+                  <SelectTrigger className="w-full max-w-[250px]">
                     <SelectValue placeholder="Wybierz rodzaj menu" />
                   </SelectTrigger>
                   <SelectContent>
@@ -130,7 +130,7 @@ export const PersonStepperItem = ({
                       AttendanceStatus.CONFIRMED
                     }
                   >
-                    <SelectTrigger className="w-fit min-w-[250px]">
+                    <SelectTrigger className="w-full max-w-[250px]">
                       <SelectValue placeholder="Wybierz" />
                     </SelectTrigger>
                     <SelectContent>
@@ -168,7 +168,7 @@ export const PersonStepperItem = ({
                       AttendanceStatus.CONFIRMED
                     }
                   >
-                    <SelectTrigger className="w-fit min-w-[250px]">
+                    <SelectTrigger className="w-full max-w-[250px]">
                       <SelectValue placeholder="Wybierz" />
                     </SelectTrigger>
                     <SelectContent>

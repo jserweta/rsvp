@@ -249,7 +249,6 @@ export default function EditInvitationForm({
         </div>
 
         {/* Contact email */}
-
         <div className="mb-4">
           <label
             htmlFor="contactEmail"
@@ -272,6 +271,35 @@ export default function EditInvitationForm({
           <div id="contactEmail-error" aria-live="polite" aria-atomic="true">
             {state.errors?.contactEmail &&
               state.errors.contactEmail.map((error: string) => (
+                <p className="mt-2 text-sm text-red-500" key={error}>
+                  {error}
+                </p>
+              ))}
+          </div>
+        </div>
+
+        {/* Additional info */}
+        <div className="mb-4">
+          <label
+            htmlFor="additionalInfo"
+            className="mb-2 block text-sm font-medium"
+          >
+            Additional info
+          </label>
+          <div className="relative mt-2 rounded-md">
+            <textarea
+              id="additionalInfo"
+              name="additionalInfo"
+              defaultValue={invitation.additionalInfo}
+              placeholder="Enter Additional Info"
+              className="block w-full cursor-pointer rounded-md border border-gray-200 px-4 py-2 text-sm outline-2 placeholder:text-gray-500"
+              aria-describedby="additionalInfo-error"
+            />
+          </div>
+
+          <div id="additionalInfo-error" aria-live="polite" aria-atomic="true">
+            {state.errors?.additionalInfo &&
+              state.errors.additionalInfo.map((error: string) => (
                 <p className="mt-2 text-sm text-red-500" key={error}>
                   {error}
                 </p>
