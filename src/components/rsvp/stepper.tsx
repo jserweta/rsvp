@@ -107,31 +107,22 @@ export const Stepper = ({
             {stepper.all.map((step, index, array) => (
               <React.Fragment key={step.id}>
                 <li className="flex flex-shrink-0 items-center gap-4">
-                  <Button
-                    type="button"
+                  <div
                     role="tab"
-                    variant={index <= currentIndex ? 'default' : 'secondary'}
                     aria-current={
                       stepper.current.id === step.id ? 'step' : undefined
                     }
                     aria-posinset={index + 1}
                     aria-setsize={steps.length}
                     aria-selected={stepper.current.id === step.id}
-                    className="flex size-10 items-center justify-center rounded-full transition-none hover:transition-colors"
-                    onClick={async () => {
-                      if (index > currentIndex) {
-                        const valid = await form.trigger();
-                        if (!valid) return;
-                      }
-                      stepper.goTo(step.id);
-                    }}
+                    className={`flex size-10 items-center justify-center rounded-full transition-none  ${index <= currentIndex ? 'bg-primary text-primary-foreground shadow' : 'bg-secondary text-secondary-foreground shadow-sm'}`}
                   >
                     {step.id === 'contact' ? (
                       <HiOutlineEnvelope />
                     ) : (
                       <GoPerson />
                     )}
-                  </Button>
+                  </div>
                   <span className="text-sm font-[600]">{step.title}</span>
                 </li>
                 <div className="flex min-h-[8px] gap-[calc(1rem+20px)]">
