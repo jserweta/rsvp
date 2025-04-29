@@ -1,3 +1,5 @@
+'use server';
+
 import { Invitation } from '../definitions';
 import { sql } from '../utils/db';
 

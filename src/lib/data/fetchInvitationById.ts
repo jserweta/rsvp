@@ -1,3 +1,5 @@
+'use server';
+
 import { InvitationsTableType } from '../definitions';
 import { sql } from '../utils/db';
 

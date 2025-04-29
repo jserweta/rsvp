@@ -1,3 +1,5 @@
+'use server';
+
 import { QrCodesTableType } from '../definitions';
 import { sql } from '../utils/db';
 

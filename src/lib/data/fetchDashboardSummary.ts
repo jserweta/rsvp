@@ -1,3 +1,5 @@
+'use server';
+
 import { AttendanceStatus, InvitationStatus } from '../enum-definitions';
 import { sql } from '../utils/db';
 

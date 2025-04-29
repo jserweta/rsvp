@@ -1,3 +1,5 @@
+'use server';
+
 import { GuestsTableType } from '../definitions';
 import { sql } from '../utils/db';
 

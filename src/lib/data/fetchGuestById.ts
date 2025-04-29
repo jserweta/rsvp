@@ -1,3 +1,5 @@
+'use server';
+
 import { Guest } from '../definitions';
 import { sql } from '../utils/db';
 

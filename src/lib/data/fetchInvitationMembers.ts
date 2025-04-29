@@ -1,3 +1,5 @@
+'use server';
+
 import { GuestRaw } from '../definitions';
 import { sql } from '../utils/db';
 
