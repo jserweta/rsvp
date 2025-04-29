@@ -4,8 +4,14 @@ import { Button } from '@/components/ui/button';
 import { Form } from '@/components/ui/form';
 import { Separator } from '@/components/ui/separator';
 import { submitInvitationForm } from '@/lib/actions/submitInvitationForm';
-import { GuestRaw } from '@/lib/definitions';
-import { AttendanceStatus, menuKindsList } from '@/lib/enum-definitions';
+import { fetchInvitationById } from '@/lib/data/fetchInvitationById';
+import { fetchInvitationStatusById } from '@/lib/data/fetchInvitationStatusById';
+import { GuestRaw, Invitation } from '@/lib/definitions';
+import {
+  AttendanceStatus,
+  InvitationStatus,
+  menuKindsList,
+} from '@/lib/enum-definitions';
 import {
   ContactStepSchema,
   getGuestStepSchema,
@@ -73,6 +79,14 @@ export const Stepper = ({
     try {
       if (stepper.isLast) {
         startTransition(async () => {
+          const invitationStatus =
+            await fetchInvitationStatusById(invitationId);
+
+          if (invitationStatus === InvitationStatus.SUBMITTED) {
+            router.push('/rsvp/success?status=submitted');
+            return;
+          }
+
           await submitInvitationForm(form.getValues(), invitationId);
           const formValues = form.getValues();
           const hasConfirmedAttendance = Object.keys(formValues).some(
