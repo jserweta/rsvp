@@ -55,7 +55,7 @@ export const AdditionalInfoStepperItem = ({
         name={'additional_info'}
         render={({ field }) => (
           <FormItem>
-            <Label>Specjalne potrzeby lub życzenia</Label>
+            <Label>Ważne informacje, które chcesz nam przekazać</Label>
             <FormControl>
               <Textarea
                 placeholder="Twoja wiadomość"

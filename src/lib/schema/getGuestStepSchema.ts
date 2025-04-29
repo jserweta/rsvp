@@ -81,9 +81,9 @@ export const getGuestStepSchema = (
 };
 
 export const ContactStepSchema = z.object({
-  contact_email: z
-    .string()
-    .email({ message: 'Podaj poprawny adres email' })
-    .optional(),
+  contact_email: z.union([
+    z.literal(''),
+    z.string().email({ message: 'Podaj poprawny adres email' }),
+  ]),
   additional_info: z.string().optional(),
 });
