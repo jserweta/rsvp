@@ -1,9 +1,10 @@
-'use server';
-
+import { unstable_noStore as noStore } from 'next/cache';
 import { AttendanceStatus, InvitationStatus } from '../enum-definitions';
 import { sql } from '../utils/db';
 
 export async function fetchDashboardSummary() {
+  noStore();
+
   try {
     const guestsCount = sql`
       SELECT COUNT(*) 
