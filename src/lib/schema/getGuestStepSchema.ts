@@ -15,7 +15,9 @@ export const getGuestStepSchema = (
         required_error: 'Będziesz obecny?',
         invalid_type_error: 'Będziesz obecny?',
       }),
-      [`${guestId}_menuKind`]: z.nativeEnum(MenuKinds).optional(),
+      [`${guestId}_menuKind`]: z
+        .union([z.nativeEnum(MenuKinds), z.string()])
+        .optional(),
       [`${guestId}_transport`]: z.string().optional(),
       [`${guestId}_accommodation`]: z.string().optional(),
       ...(isCompanion && {

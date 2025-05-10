@@ -52,11 +52,21 @@ export const PersonStepperItem = ({
                   onValueChange={(value) => {
                     field.onChange(value);
                     if (value === AttendanceStatus.DECLINED) {
-                      resetField(`${step.id}_menuKind`);
-                      resetField(`${step.id}_transport`);
-                      resetField(`${step.id}_accommodation`);
-                      resetField(`${step.id}_name`, { defaultValue: '' });
-                      resetField(`${step.id}_surname`, { defaultValue: '' });
+                      resetField(`${step.id}_menuKind`, {
+                        defaultValue: '',
+                      });
+                      resetField(`${step.id}_transport`, {
+                        defaultValue: '',
+                      });
+                      resetField(`${step.id}_accommodation`, {
+                        defaultValue: '',
+                      });
+                      resetField(`${step.id}_name`, {
+                        defaultValue: '',
+                      });
+                      resetField(`${step.id}_surname`, {
+                        defaultValue: '',
+                      });
                     }
                   }}
                   defaultValue={field.value}
