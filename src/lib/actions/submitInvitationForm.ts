@@ -1,6 +1,7 @@
 'use server';
 
 import { Guest } from '@/lib/definitions';
+import { TRANSPORT_SELECT_VALUES } from '../data/transportSelectValues';
 import {
   AttendanceStatus,
   InvitationStatus,
@@ -27,16 +28,20 @@ export const submitInvitationForm = async (
           acc[guestId].attendance = value as AttendanceStatus;
           break;
         case 'menuKind':
-          acc[guestId].menuKind = value as MenuKinds;
+          const selectedMenuKind = value === '' ? MenuKinds.STANDARDOWE : value;
+          acc[guestId].menuKind = selectedMenuKind as MenuKinds;
           break;
         case 'accommodation':
           acc[guestId].accommodation = value === 'yes' ? true : false;
           break;
         case 'transport':
-          acc[guestId].transport = value;
+          const selectedTransportVariant =
+            value === '' ? TRANSPORT_SELECT_VALUES[0] : value;
+
+          acc[guestId].transport = selectedTransportVariant;
           break;
         case 'name':
-          acc[guestId].name = value;
+          acc[guestId].name = value === '' ? 'os. towarzysząca' : value;
           break;
         case 'surname':
           acc[guestId].surname = value;
