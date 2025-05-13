@@ -72,9 +72,9 @@ export const Stepper = ({
   });
 
   const onSubmit = async () => {
-    try {
-      if (stepper.isLast) {
-        startTransition(async () => {
+    if (stepper.isLast) {
+      startTransition(async () => {
+        try {
           const invitationStatus =
             await fetchInvitationStatusById(invitationId);
 
@@ -89,15 +89,15 @@ export const Stepper = ({
           router.push(
             `/rsvp/success${hasConfirmedAttendance(formValues) ? '?status=confirmed' : ''}`
           );
-        });
-      } else {
-        stepper.next();
-      }
-    } catch {
-      toast.error('Wystapił błąd :/', {
-        description:
-          'Prosimy spróbować później lub skontaktować się z nami telefonicznie',
+        } catch {
+          toast.error('Wystapił błąd :/', {
+            description:
+              'Prosimy spróbować później lub skontaktować się z nami telefonicznie',
+          });
+        }
       });
+    } else {
+      stepper.next();
     }
   };
 
