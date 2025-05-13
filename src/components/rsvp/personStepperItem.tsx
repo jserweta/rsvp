@@ -67,6 +67,7 @@ export const PersonStepperItem = ({
                       resetField(`${step.id}_surname`, {
                         defaultValue: '',
                       });
+                      resetField(`contact_email`, { defaultValue: '' });
                     }
                   }}
                   defaultValue={field.value}
