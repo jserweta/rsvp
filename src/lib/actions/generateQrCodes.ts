@@ -27,14 +27,18 @@ export default async function generateQrCodes(): Promise<ActionStatus> {
       )
     `;
 
-    if (invitations.length <= availableQrCodes.length) {
+    const neededQrCodes = invitations.length - availableQrCodes.length;
+
+    if (neededQrCodes <= 0) {
       return Promise.resolve({
         type: 'success',
         message: 'There are enough available QR codes',
       });
     }
 
-    await sql`INSERT INTO qr_codes DEFAULT VALUES`;
+    for (let i = 0; i < neededQrCodes; i++) {
+      await sql`INSERT INTO qr_codes DEFAULT VALUES`;
+    }
 
     revalidatePath('/dashboard/qr-codes');
 
