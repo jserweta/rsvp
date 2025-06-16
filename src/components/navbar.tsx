@@ -11,7 +11,7 @@ export default function Navbar() {
 
   let headerTitle = '';
   if (isRsvp) {
-    headerTitle = 'Anna & Jakub';
+    headerTitle = 'Katarzyna & Tomasz';
   }
 
   return (

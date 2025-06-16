@@ -8,14 +8,14 @@ export default function Home() {
     {
       title: 'Ślub',
       details: [
-        'Kościół św. Wawrzyńca w Nowym Sączu',
-        'Biegonicka 8',
-        '33-300 Nowy Sącz',
+        'Kościół św. Józefa w Kalwarii Zebrzydowskiej',
+        'Rynek 26',
+        '34-130 Kalwaria Zebrzydowska',
       ],
     },
     {
       title: 'Wesele',
-      details: ['Willa Poprad', 'Rytro 306', '33-343 Rytro'],
+      details: ['Villa Love', 'Lwowska 78', '34-144 Izdebnik'],
     },
     {
       title: 'Rsvp',

@@ -33,12 +33,12 @@ function MapContent() {
 
   const markers: MapMarker[] = [
     {
-      name: 'Kościół św. Wawrzyńca w Nowym Sączu',
-      address: { street: 'Biegonicka 8', city: '33-300 Nowy Sącz' },
-      link: 'https://maps.google.com/maps?ll=49.580301,20.668944&z=18&t=m&hl=en&gl=US&mapclient=apiv3&cid=8241979195982614352',
+      name: 'Kościół św. Józefa w Kalwarii Zebrzydowskiej',
+      address: { street: 'Rynek 26', city: '34-130 Kalwaria Zebrzydowska' },
+      link: 'https://maps.app.goo.gl/UiAhesCcYSyY81RS9',
       position: {
-        lat: 49.58017061259105,
-        lng: 20.66924750997955,
+        lat: 49.8666483437924,
+        lng: 19.676112679605957,
       },
       icon: (
         <Image
@@ -50,12 +50,12 @@ function MapContent() {
       ),
     },
     {
-      name: 'Willa Poprad',
-      address: { street: 'Rytro 306', city: '33-343 Rytro' },
-      link: 'https://maps.google.com/maps?ll=49.514622,20.672423&z=13&t=m&hl=en&gl=US&mapclient=apiv3&cid=4988801318780363707',
+      name: 'Villa Love',
+      address: { street: 'Lwowska 78', city: '34-144 Izdebnik' },
+      link: 'https://maps.app.goo.gl/2a5wVky55ADmTMP49',
       position: {
-        lat: 49.49085319070032,
-        lng: 20.682282739210553,
+        lat: 49.85886156349809,
+        lng: 19.766285431005784,
       },
       icon: (
         <Image
